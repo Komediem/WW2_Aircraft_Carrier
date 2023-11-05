@@ -10,6 +10,9 @@ public class Reserve : MonoBehaviour
 
     public List<Unit> units = new();
 
+    [SerializeField] private GameObject unitCard;
+    [SerializeField] private GameObject content;
+
     public void Awake()
     {
         if (Instance == null)
@@ -19,12 +22,35 @@ public class Reserve : MonoBehaviour
 
     public void AddUnitToReserve(Unit unit)
     {
-        units.Add(unit);
+        Unit uniqueUnit = Instantiate(unit);
+        units.Add(uniqueUnit);
     }
 
     public void RemoveUnitFromReserve(Unit unit)
     {
         if(units.Contains(unit))
         units.Remove(unit);
+    }
+
+    public void Start()
+    {
+        CheckAllUnits();
+    }
+
+    public void CheckAllUnits()
+    {
+        GameObject card;
+
+        foreach (Transform child in content.transform)
+        {
+            GameObject.Destroy(child.gameObject);
+        }
+
+        foreach (Unit unit in units)
+        {
+            card = Instantiate(unitCard, content.transform);
+
+            card.GetComponent<UnitDatas>().unit = unit;
+        }
     }
 }
