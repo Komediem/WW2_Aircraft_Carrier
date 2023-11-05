@@ -1,20 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Workshop : MonoBehaviour
 {
-    private Reserve reserve;
+    public List<Unit> units = new();
 
-    public List<ScriptableObject> units = new();
+    [SerializeField] private GameObject craftUnitButton;
+    [SerializeField] private GameObject content;
 
-    private void Awake()
+    public void Start()
     {
-        reserve = Reserve.Instance;
-    }
+        foreach (Unit unit in units)
+        {
+            GameObject button = Instantiate(craftUnitButton, content.transform);
 
-    public void Test()
-    {
-        reserve.AddUnitToReserve(units[0]);
+            button.GetComponent<UnitDatas>().unit = unit;
+            button.GetComponent<Button>().onClick.AddListener(delegate { Reserve.Instance.AddUnitToReserve(unit); });
+        }
     }
 }

@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 575bc16c394ad51499a96413e76c2f7e, type: 3}
-  m_Name: P-26 Model 281
+  m_Name: Curtiss BF-2C-1 Goshawk
   m_EditorClassIdentifier: 
-  unitName: P-26 Model 281 PeaShooter
+  unitName: Curtiss BF-2C-1 Goshawk
   life: 0
   attack: 0
   speed: 0
-  unitIcon: {fileID: 21300000, guid: ad538dd446545b749a0772f3f1d7a657, type: 3}
+  unitIcon: {fileID: 21300000, guid: a6f4df11b388d8f42bd4cc66478d7126, type: 3}
   UnitType: 0
   Rarity: 0

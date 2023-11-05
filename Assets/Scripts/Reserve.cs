@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Reserve : MonoBehaviour
 {
     public static Reserve Instance;
 
-    public List<ScriptableObject> units = new();
+    public List<Unit> units = new();
 
     public void Awake()
     {
@@ -15,12 +17,12 @@ public class Reserve : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    public void AddUnitToReserve(ScriptableObject unit)
+    public void AddUnitToReserve(Unit unit)
     {
         units.Add(unit);
     }
 
-    public void RemoveUnitFromReserve(ScriptableObject unit)
+    public void RemoveUnitFromReserve(Unit unit)
     {
         if(units.Contains(unit))
         units.Remove(unit);

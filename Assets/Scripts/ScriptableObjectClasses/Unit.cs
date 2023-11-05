@@ -12,7 +12,7 @@ public class Unit : ScriptableObject
     public int attack;  
     public int speed;
 
-    public Image unitIcon;
+    public Sprite unitIcon;
 
 
     [Header("Enumerations")]
