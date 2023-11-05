@@ -8,9 +8,11 @@ public class Unit : ScriptableObject
 {
     public string unitName;
 
+    [Header("Statistics")]
     public int life;
     public int attack;  
     public int speed;
+    public int moneyCost;
 
     public Sprite unitIcon;
 
