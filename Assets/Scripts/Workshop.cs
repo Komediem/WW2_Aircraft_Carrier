@@ -17,7 +17,7 @@ public class Workshop : MonoBehaviour
             GameObject button = Instantiate(craftUnitButton, content.transform);
 
             button.GetComponent<UnitDatas>().unit = unit;
-            button.GetComponent<Button>().onClick.AddListener(delegate { Reserve.Instance.AddUnitToReserve(unit); });
+            button.GetComponent<Button>().onClick.AddListener(delegate { Reserve.Instance.BuyUnit(unit); });
         }
     }
 }

@@ -11,6 +11,10 @@ public class UnitDatas : MonoBehaviour
 
     [Header("Text Feedback")]
     [SerializeField] private TextMeshProUGUI unitName;
+    [SerializeField] private TextMeshProUGUI unitLife;
+    [SerializeField] private TextMeshProUGUI unitAttack;
+    [SerializeField] private TextMeshProUGUI unitSpeed;
+    [SerializeField] private TextMeshProUGUI unitCost;
     [SerializeField] private Image unitImage;
 
     public void Start()
@@ -20,7 +24,22 @@ public class UnitDatas : MonoBehaviour
 
     public void ShowUnitData()
     {
+        if(unitName != null)
         unitName.text = unit.unitName;
+
+        if(unitLife != null) 
+        unitLife.text = unit.life.ToString();
+
+        if(unitAttack != null) 
+        unitAttack.text = unit.attack.ToString();
+
+        if(unitSpeed != null)
+        unitSpeed.text = unit.speed.ToString();
+
+        if(unitImage != null) 
         unitImage.sprite = unit.unitIcon;
+
+        if(unitCost != null)
+        unitCost.text = unit.moneyCost.ToString();
     }
 }

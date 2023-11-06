@@ -26,6 +26,17 @@ public class Reserve : MonoBehaviour
         units.Add(uniqueUnit);
     }
 
+    public void BuyUnit(Unit unit)
+    {
+        if(RessourceManager.Instance != null && RessourceManager.Instance.money >= unit.moneyCost)
+        {
+            Unit uniqueUnit = Instantiate(unit);
+            units.Add(uniqueUnit);
+
+            RessourceManager.Instance.money -= unit.moneyCost;
+        }
+    }
+
     public void RemoveUnitFromReserve(Unit unit)
     {
         if(units.Contains(unit))
