@@ -1664,3 +1664,4 @@ MonoBehaviour:
   upgrade: {fileID: 6932764684283973808}
   unitImage: {fileID: 3042010043308700248}
   unitType: {fileID: 0}
+  cardBackground: {fileID: 5328488494728530860}
