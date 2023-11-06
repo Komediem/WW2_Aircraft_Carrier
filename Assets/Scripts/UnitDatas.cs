@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,6 +14,7 @@ public class UnitDatas : MonoBehaviour
     [SerializeField] private TextMeshProUGUI unitAttack;
     [SerializeField] private TextMeshProUGUI unitSpeed;
     [SerializeField] private TextMeshProUGUI unitCost;
+    [SerializeField] private TextMeshProUGUI unitLevel;
 
     [Header("Unit Type Image")]
     [SerializeField] private Sprite fighterIcon;
@@ -22,14 +22,23 @@ public class UnitDatas : MonoBehaviour
     [SerializeField] private Sprite bomberIcon;
     [SerializeField] private Sprite antiAerialIcon;
 
+    [SerializeField] private Button upgrade;
+
     [Header("Image Feedback")]
     [SerializeField] private Image unitImage;
     [SerializeField] private Image unitType;
+    [SerializeField] private Image cardBackground;
 
     public void Start()
     {
         ShowUnitData();
         DisplayUnitType();
+
+        if(upgrade != null)
+        {
+            upgrade.onClick.AddListener(delegate { Reserve.Instance.UpgradeUnit(unit); });
+            upgrade.onClick.AddListener(delegate { ShowUnitData(); });
+        }
     }
 
     public void ShowUnitData()
@@ -51,6 +60,9 @@ public class UnitDatas : MonoBehaviour
 
         if(unitCost != null)
         unitCost.text = unit.moneyCost.ToString();
+
+        if(unitLevel != null)
+        unitLevel.text = unit.level.ToString();
     }
 
     public void DisplayUnitType()
@@ -81,6 +93,22 @@ public class UnitDatas : MonoBehaviour
 
     public void DisplayBackgroundColor()
     {
+        if(cardBackground != null)
+        {
+            if (unit.Rarity == Unit.rarity.Common)
+            {
+                //Color if common
+            }
 
+            else if (unit.Rarity == Unit.rarity.Rare)
+            {
+                //Color if rare
+            }
+
+            else if (unit.Rarity == Unit.rarity.Legendary)
+            {
+                //Color if legendary
+            }
+        }
     }
 }

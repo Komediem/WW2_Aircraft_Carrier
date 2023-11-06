@@ -64,4 +64,9 @@ public class Reserve : MonoBehaviour
             card.GetComponent<UnitDatas>().unit = unit;
         }
     }
+
+    public void UpgradeUnit(Unit unit)
+    {
+        unit.level++;
+    }
 }

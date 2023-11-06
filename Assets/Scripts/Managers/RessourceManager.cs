@@ -28,4 +28,9 @@ public class RessourceManager : MonoBehaviour
     {
         moneyText.text = money.ToString();
     }
+
+    public void EarnMoney(int moneyEarn)
+    {
+        money += moneyEarn;
+    }
 }

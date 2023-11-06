@@ -14,6 +14,8 @@ public class Unit : ScriptableObject
     public int speed;
     public int moneyCost;
 
+    public int level;
+
     public Sprite unitIcon;
 
 
