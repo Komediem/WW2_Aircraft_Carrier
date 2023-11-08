@@ -33,6 +33,7 @@ public class Unit : ScriptableObject
     {
         Common,
         Rare,
+        Epique,
         Legendary
     }
 }

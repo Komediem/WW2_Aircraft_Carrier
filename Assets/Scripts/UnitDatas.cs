@@ -33,8 +33,9 @@ public class UnitDatas : MonoBehaviour
     {
         ShowUnitData();
         DisplayUnitType();
+        DisplayBackgroundColor();
 
-        if(upgrade != null)
+        if (upgrade != null)
         {
             upgrade.onClick.AddListener(delegate { Reserve.Instance.UpgradeUnit(unit); });
             upgrade.onClick.AddListener(delegate { ShowUnitData(); });
@@ -98,16 +99,28 @@ public class UnitDatas : MonoBehaviour
             if (unit.Rarity == Unit.rarity.Common)
             {
                 //Color if common
+
+                cardBackground.color = Color.grey;
             }
 
             else if (unit.Rarity == Unit.rarity.Rare)
             {
                 //Color if rare
+
+                cardBackground.color = Color.blue;
+            }
+
+            else if(unit.Rarity == Unit.rarity.Epique)
+            {
+                //Color if epique
+                cardBackground.color = Color.red;
             }
 
             else if (unit.Rarity == Unit.rarity.Legendary)
             {
                 //Color if legendary
+
+                cardBackground.color = Color.yellow;
             }
         }
     }

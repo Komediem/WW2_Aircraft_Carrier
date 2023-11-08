@@ -1331,7 +1331,7 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 0.6226415, g: 0.6226415, b: 0.6226415, a: 1}
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -1380,7 +1380,7 @@ MonoBehaviour:
   upgrade: {fileID: 0}
   unitImage: {fileID: 3042010043308700248}
   unitType: {fileID: 0}
-  cardBackground: {fileID: 0}
+  cardBackground: {fileID: 5328488494728530860}
 --- !u!1 &8192844267664839587
 GameObject:
   m_ObjectHideFlags: 0

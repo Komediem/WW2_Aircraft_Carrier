@@ -20,4 +20,4 @@ MonoBehaviour:
   level: 1
   unitIcon: {fileID: 21300000, guid: 94298be863e53e044a6706337de57255, type: 3}
   UnitType: 0
-  Rarity: 0
+  Rarity: 2
