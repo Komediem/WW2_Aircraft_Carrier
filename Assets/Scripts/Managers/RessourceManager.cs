@@ -21,11 +21,6 @@ public class RessourceManager : MonoBehaviour
 
     private void Update()
     {
-        ResetUI();
-    }
-
-    private void ResetUI()
-    {
         moneyText.text = money.ToString();
     }
 

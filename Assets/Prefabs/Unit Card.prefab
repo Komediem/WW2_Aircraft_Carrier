@@ -1760,6 +1760,7 @@ MonoBehaviour:
   unitSpeed: {fileID: 366792149136088758}
   unitCost: {fileID: 0}
   unitLevel: {fileID: 6081682120823684794}
+  unitUpgrade: {fileID: 6120262526267589580}
   fighterIcon: {fileID: 0}
   assaultPlaneIcon: {fileID: 0}
   bomberIcon: {fileID: 0}

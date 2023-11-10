@@ -17,6 +17,7 @@ MonoBehaviour:
   attack: 0
   speed: 0
   moneyCost: 0
+  levelMax: 50
   level: 1
   unitIcon: {fileID: 21300000, guid: 6089415110c082447a871d0efc6ce49f, type: 3}
   UnitType: 0

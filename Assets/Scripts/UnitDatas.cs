@@ -15,6 +15,7 @@ public class UnitDatas : MonoBehaviour
     [SerializeField] private TextMeshProUGUI unitSpeed;
     [SerializeField] private TextMeshProUGUI unitCost;
     [SerializeField] private TextMeshProUGUI unitLevel;
+    [SerializeField] private TextMeshProUGUI unitUpgrade;
 
     [Header("Unit Type Image")]
     [SerializeField] private Sprite fighterIcon;
@@ -37,8 +38,8 @@ public class UnitDatas : MonoBehaviour
 
         if (upgrade != null)
         {
-            upgrade.onClick.AddListener(delegate { Reserve.Instance.UpgradeUnit(unit); });
             upgrade.onClick.AddListener(delegate { ShowUnitData(); });
+            upgrade.onClick.AddListener(delegate { CheckLevel(); });
         }
     }
 
@@ -48,13 +49,13 @@ public class UnitDatas : MonoBehaviour
         unitName.text = unit.unitName;
 
         if(unitLife != null) 
-        unitLife.text = unit.life.ToString();
+        unitLife.text = unit.life.ToString("0");
 
         if(unitAttack != null) 
-        unitAttack.text = unit.attack.ToString();
+        unitAttack.text = unit.attack.ToString("0");
 
         if(unitSpeed != null)
-        unitSpeed.text = unit.speed.ToString();
+        unitSpeed.text = unit.speed.ToString("0");
 
         if(unitImage != null) 
         unitImage.sprite = unit.unitIcon;
@@ -64,6 +65,9 @@ public class UnitDatas : MonoBehaviour
 
         if(unitLevel != null)
         unitLevel.text = unit.level.ToString();
+
+        if(unitUpgrade != null)
+        unitUpgrade.text = unit.upgradeCostLevel.ToString("0");
     }
 
     public void DisplayUnitType()
@@ -123,5 +127,23 @@ public class UnitDatas : MonoBehaviour
                 cardBackground.color = Color.yellow;
             }
         }
+    }
+
+    public void CheckLevel()
+    {
+        if(unit.level < unit.levelMax)
+        {
+            Reserve.Instance.UpgradeUnit(unit);
+        }
+
+        else if(unit.level >= unit.levelMax)
+        {
+            //Propose merge for veteran
+        }
+    }
+
+    public void ProposeVeteran()
+    {
+
     }
 }

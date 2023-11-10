@@ -17,6 +17,7 @@ MonoBehaviour:
   attack: 8
   speed: 2
   moneyCost: 2000
+  levelMax: 50
   level: 1
   unitIcon: {fileID: 21300000, guid: a6f4df11b388d8f42bd4cc66478d7126, type: 3}
   UnitType: 0

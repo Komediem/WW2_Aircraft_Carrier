@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class Reserve : MonoBehaviour
 {
@@ -67,6 +65,17 @@ public class Reserve : MonoBehaviour
 
     public void UpgradeUnit(Unit unit)
     {
-        unit.level++;
+        unit.upgradeCostLevel += (unit.level * unit.upgradeRatio) * unit.baseUpgradeCostLevel1;
+
+        if(RessourceManager.Instance.money >= unit.upgradeCostLevel)
+        {
+            unit.level++;
+
+            unit.life += unit.level * unit.baseLife * 0.2f;
+            unit.attack += unit.level * unit.baseAttack * 0.2f;
+            unit.speed += unit.level * unit.baseSpeed * 0.2f;
+
+            RessourceManager.Instance.money -= Mathf.RoundToInt(unit.upgradeCostLevel);
+        }
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,11 +10,23 @@ public class Unit : ScriptableObject
     public string unitName;
 
     [Header("Statistics")]
-    public int life;
-    public int attack;  
-    public int speed;
+    public int baseLife;
+    [HideInInspector] public float life;
+
+    public int baseAttack;
+    [HideInInspector] public float attack;  
+
+    public int baseSpeed;
+    [HideInInspector] public float speed;
+
+    public int baseUpgradeCostLevel1;
+    [HideInInspector] public float upgradeCostLevel;
+
     public int moneyCost;
 
+    public float upgradeRatio;
+
+    public int levelMax;
     public int level;
 
     public Sprite unitIcon;
