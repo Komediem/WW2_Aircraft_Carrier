@@ -35,12 +35,6 @@ public class Reserve : MonoBehaviour
         }
     }
 
-    /*public void RemoveUnitFromReserve(Unit unit)
-    {
-        if(units.Contains(unit))
-        units.Remove(unit);
-    }*/
-
     public void Start()
     {
         CheckAllUnits();

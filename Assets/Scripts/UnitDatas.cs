@@ -6,6 +6,7 @@ public class UnitDatas : MonoBehaviour
 {
     public Unit unit;
 
+    #region Text Feedback
     [Header("Text Feedback")]
     [SerializeField] private TextMeshProUGUI unitName;
     [SerializeField] private TextMeshProUGUI unitLife;
@@ -14,19 +15,24 @@ public class UnitDatas : MonoBehaviour
     [SerializeField] private TextMeshProUGUI unitCost;
     [SerializeField] private TextMeshProUGUI unitLevel;
     [SerializeField] private TextMeshProUGUI unitUpgrade;
+    #endregion
 
+    #region Unit Image
     [Header("Unit Type Image")]
     [SerializeField] private Sprite fighterIcon;
     [SerializeField] private Sprite assaultPlaneIcon;
     [SerializeField] private Sprite bomberIcon;
     [SerializeField] private Sprite antiAerialIcon;
+    #endregion
 
     [SerializeField] private Button upgrade;
 
+    #region Image Feedback
     [Header("Image Feedback")]
     [SerializeField] private Image unitImage;
     [SerializeField] private Image unitType;
     [SerializeField] private Image cardBackground;
+    #endregion
 
     public void Start()
     {
