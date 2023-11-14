@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -49,13 +47,13 @@ public class UnitDatas : MonoBehaviour
         unitName.text = unit.unitName;
 
         if(unitLife != null) 
-        unitLife.text = unit.life.ToString("0");
+        unitLife.text = unit.currentLife.ToString();
 
         if(unitAttack != null) 
-        unitAttack.text = unit.attack.ToString("0");
+        unitAttack.text = unit.currentAttack.ToString();
 
         if(unitSpeed != null)
-        unitSpeed.text = unit.speed.ToString("0");
+        unitSpeed.text = unit.currentSpeed.ToString();
 
         if(unitImage != null) 
         unitImage.sprite = unit.unitIcon;
@@ -67,7 +65,7 @@ public class UnitDatas : MonoBehaviour
         unitLevel.text = unit.level.ToString();
 
         if(unitUpgrade != null)
-        unitUpgrade.text = unit.upgradeCostLevel.ToString("0");
+        unitUpgrade.text = unit.currentUpgradeCostLevel.ToString();
     }
 
     public void DisplayUnitType()

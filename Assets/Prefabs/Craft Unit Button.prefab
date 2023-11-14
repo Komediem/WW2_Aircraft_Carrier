@@ -1442,13 +1442,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57b0e3782ea874b41ab71f4fe0edcf6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unit: {fileID: 11400000, guid: 3f0f3271f72d3c2449886f8f58dd4036, type: 2}
+  unit: {fileID: 0}
   unitName: {fileID: 417959305000518945}
   unitLife: {fileID: 3647068279899163339}
   unitAttack: {fileID: 498610402280879144}
   unitSpeed: {fileID: 462342844989319212}
   unitCost: {fileID: 6968030446996396582}
   unitLevel: {fileID: 0}
+  unitUpgrade: {fileID: 0}
   fighterIcon: {fileID: 0}
   assaultPlaneIcon: {fileID: 0}
   bomberIcon: {fileID: 0}

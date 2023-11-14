@@ -13,16 +13,19 @@ MonoBehaviour:
   m_Name: P-26 Model 281
   m_EditorClassIdentifier: 
   unitName: P-26 Model 281 PeaShooter
-  baseLife: 20
-  life: 20
-  baseAttack: 10
-  attack: 10
+  baseLife: 50
+  upgradeLife: 5
+  currentLife: 0
+  baseAttack: 15
+  upgradeAttack: 2
+  currentAttack: 0
   baseSpeed: 5
-  speed: 5
-  baseUpgradeCostLevel1: 200
+  upgradeSpeed: 1
+  currentSpeed: 0
+  baseUpgradeCostLevel: 300
   upgradeCostLevel: 200
+  currentUpgradeCostLevel: 0
   moneyCost: 1000
-  upgradeRatio: 0.2
   levelMax: 50
   level: 1
   unitIcon: {fileID: 21300000, guid: ad538dd446545b749a0772f3f1d7a657, type: 3}

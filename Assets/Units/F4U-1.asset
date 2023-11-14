@@ -13,10 +13,16 @@ MonoBehaviour:
   m_Name: F4U-1
   m_EditorClassIdentifier: 
   unitName: F4U-1
+  baseLife: 100
   life: 0
+  baseAttack: 50
   attack: 0
+  baseSpeed: 20
   speed: 0
+  baseUpgradeCostLevel1: 0
+  upgradeCostLevel: 0
   moneyCost: 0
+  upgradeRatio: 0
   levelMax: 50
   level: 1
   unitIcon: {fileID: 21300000, guid: 6089415110c082447a871d0efc6ce49f, type: 3}

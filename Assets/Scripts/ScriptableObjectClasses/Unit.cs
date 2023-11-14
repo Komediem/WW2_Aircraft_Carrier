@@ -11,20 +11,22 @@ public class Unit : ScriptableObject
 
     [Header("Statistics")]
     public int baseLife;
-    [HideInInspector] public float life;
+    public int upgradeLife;
+    [HideInInspector] public int currentLife;
 
     public int baseAttack;
-    [HideInInspector] public float attack;  
+    public int upgradeAttack;
+    [HideInInspector] public int currentAttack;  
 
     public int baseSpeed;
-    [HideInInspector] public float speed;
+    public int upgradeSpeed;
+    [HideInInspector] public int currentSpeed;
 
-    public int baseUpgradeCostLevel1;
-    [HideInInspector] public float upgradeCostLevel;
+    public int baseUpgradeCostLevel;
+    public int upgradeCostLevel;
+    [HideInInspector] public int currentUpgradeCostLevel;
 
     public int moneyCost;
-
-    public float upgradeRatio;
 
     public int levelMax;
     public int level;

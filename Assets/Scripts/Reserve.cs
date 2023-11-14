@@ -65,17 +65,28 @@ public class Reserve : MonoBehaviour
 
     public void UpgradeUnit(Unit unit)
     {
-        unit.upgradeCostLevel += (unit.level * unit.upgradeRatio) * unit.baseUpgradeCostLevel1;
-
-        if(RessourceManager.Instance.money >= unit.upgradeCostLevel)
+        if(unit.level == 1 && RessourceManager.Instance.money >= unit.upgradeCostLevel)
         {
             unit.level++;
 
-            unit.life += unit.level * unit.baseLife * 0.2f;
-            unit.attack += unit.level * unit.baseAttack * 0.2f;
-            unit.speed += unit.level * unit.baseSpeed * 0.2f;
+            unit.currentLife = unit.baseLife + unit.upgradeLife;
+            unit.currentAttack = unit.baseAttack + unit.upgradeAttack;
+            unit.currentSpeed = unit.baseSpeed + unit.upgradeSpeed;
+            unit.currentUpgradeCostLevel = unit.baseUpgradeCostLevel + unit.upgradeCostLevel;
 
-            RessourceManager.Instance.money -= Mathf.RoundToInt(unit.upgradeCostLevel);
+            RessourceManager.Instance.money -= unit.currentUpgradeCostLevel;
+        }
+
+        else if(RessourceManager.Instance.money >= unit.upgradeCostLevel)
+        {
+            unit.level++;
+
+            unit.currentLife += unit.upgradeLife;
+            unit.currentAttack += unit.upgradeAttack;
+            unit.currentSpeed += unit.upgradeSpeed;
+            unit.currentUpgradeCostLevel += unit.upgradeCostLevel;
+
+            RessourceManager.Instance.money -= unit.currentUpgradeCostLevel;
         }
     }
 }
