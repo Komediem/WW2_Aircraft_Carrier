@@ -36,8 +36,8 @@ public class UnitDatas : MonoBehaviour
 
         if (upgrade != null)
         {
-            upgrade.onClick.AddListener(delegate { ShowUnitData(); });
             upgrade.onClick.AddListener(delegate { CheckLevel(); });
+            upgrade.onClick.AddListener(delegate { ShowUnitData(); });
         }
     }
 

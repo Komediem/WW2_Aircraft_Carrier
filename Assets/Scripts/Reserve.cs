@@ -67,26 +67,26 @@ public class Reserve : MonoBehaviour
     {
         if(unit.level == 1 && RessourceManager.Instance.money >= unit.upgradeCostLevel)
         {
+            RessourceManager.Instance.money -= unit.currentUpgradeCostLevel;
+
             unit.level++;
 
             unit.currentLife = unit.baseLife + unit.upgradeLife;
             unit.currentAttack = unit.baseAttack + unit.upgradeAttack;
             unit.currentSpeed = unit.baseSpeed + unit.upgradeSpeed;
             unit.currentUpgradeCostLevel = unit.baseUpgradeCostLevel + unit.upgradeCostLevel;
-
-            RessourceManager.Instance.money -= unit.currentUpgradeCostLevel;
         }
 
         else if(RessourceManager.Instance.money >= unit.upgradeCostLevel)
         {
+            RessourceManager.Instance.money -= unit.currentUpgradeCostLevel;
+
             unit.level++;
 
             unit.currentLife += unit.upgradeLife;
             unit.currentAttack += unit.upgradeAttack;
             unit.currentSpeed += unit.upgradeSpeed;
             unit.currentUpgradeCostLevel += unit.upgradeCostLevel;
-
-            RessourceManager.Instance.money -= unit.currentUpgradeCostLevel;
         }
     }
 }
