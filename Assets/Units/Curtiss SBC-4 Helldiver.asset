@@ -13,9 +13,18 @@ MonoBehaviour:
   m_Name: Curtiss SBC-4 Helldiver
   m_EditorClassIdentifier: 
   unitName: Curtiss SBC-4 Helldiver
-  life: 0
-  attack: 0
-  speed: 0
+  baseLife: 150
+  upgradeLife: 0
+  currentLife: 0
+  baseAttack: 30
+  upgradeAttack: 0
+  currentAttack: 0
+  baseSpeed: 5
+  upgradeSpeed: 0
+  currentSpeed: 0
+  baseUpgradeCostLevel: 800
+  upgradeCostLevel: 600
+  currentUpgradeCostLevel: 0
   moneyCost: 7000
   levelMax: 50
   level: 1
