@@ -6,25 +6,33 @@ public class Unit : ScriptableObject
 {
     public string unitName;
 
+    #region Life
     [Header("Life")]
     public int baseLife;
     public int upgradeLife;
     [HideInInspector] public int currentLife;
+    #endregion
 
+    #region Attack
     [Header("Attack")]
     public int baseAttack;
     public int upgradeAttack;
     [HideInInspector] public int currentAttack;
+    #endregion
 
+    #region Speed
     [Header("Speed")]
     public int baseSpeed;
     public int upgradeSpeed;
     [HideInInspector] public int currentSpeed;
+    #endregion
 
+    #region Upgrade Cost
     [Header("Upgrade Cost")]
     public int baseUpgradeCostLevel;
     public int upgradeCostLevel;
     [HideInInspector] public int currentUpgradeCostLevel;
+    #endregion
 
     public int moneyCost;
 

@@ -15,19 +15,20 @@ MonoBehaviour:
   unitName: Curtiss BF-2C-1 Goshawk
   baseLife: 80
   upgradeLife: 0
-  currentLife: 0
+  currentLife: 80
   baseAttack: 10
   upgradeAttack: 0
-  currentAttack: 0
+  currentAttack: 10
   baseSpeed: 3
   upgradeSpeed: 1
-  currentSpeed: 0
+  currentSpeed: 3
   baseUpgradeCostLevel: 400
   upgradeCostLevel: 300
-  currentUpgradeCostLevel: 0
+  currentUpgradeCostLevel: 400
   moneyCost: 2500
   levelMax: 50
   level: 1
   unitIcon: {fileID: 21300000, guid: a6f4df11b388d8f42bd4cc66478d7126, type: 3}
-  UnitType: 0
+  isUnlocked: 0
+  UnitType: 1
   Rarity: 3
