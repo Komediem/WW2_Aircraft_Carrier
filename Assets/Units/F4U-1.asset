@@ -24,10 +24,11 @@ MonoBehaviour:
   currentSpeed: 20
   baseUpgradeCostLevel: 1500
   upgradeCostLevel: 1000
-  currentUpgradeCostLevel: 0
+  currentUpgradeCostLevel: 1500
   moneyCost: 15000
   levelMax: 50
   level: 1
   unitIcon: {fileID: 21300000, guid: 6089415110c082447a871d0efc6ce49f, type: 3}
+  isUnlocked: 0
   UnitType: 0
   Rarity: 1

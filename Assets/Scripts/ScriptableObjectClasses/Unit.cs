@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -37,6 +34,7 @@ public class Unit : ScriptableObject
 
     public Sprite unitIcon;
 
+    public bool isUnlocked;
 
     [Header("Enumerations")]
     public unitType UnitType;

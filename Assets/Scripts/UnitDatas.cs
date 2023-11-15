@@ -34,11 +34,17 @@ public class UnitDatas : MonoBehaviour
     [SerializeField] private Image cardBackground;
     #endregion
 
+    #region Locked
+    public GameObject lockedScreen;
+
+    #endregion
+
     public void Start()
     {
         ShowUnitData();
         DisplayUnitType();
         DisplayBackgroundColor();
+        CheckLocking();
 
         if (upgrade != null)
         {
@@ -143,6 +149,19 @@ public class UnitDatas : MonoBehaviour
         else if(unit.level >= unit.levelMax)
         {
             //Propose merge for veteran
+        }
+    }
+
+    public void CheckLocking()
+    {
+        if(unit.isUnlocked && lockedScreen != null)
+        {
+            lockedScreen.SetActive(false);
+        }
+
+        if(!unit.isUnlocked && lockedScreen != null)
+        {
+            lockedScreen.SetActive(true);
         }
     }
 

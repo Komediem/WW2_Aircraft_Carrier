@@ -26,7 +26,7 @@ public class Reserve : MonoBehaviour
 
     public void BuyUnit(Unit unit)
     {
-        if(RessourceManager.Instance != null && RessourceManager.Instance.money >= unit.moneyCost)
+        if(RessourceManager.Instance != null && RessourceManager.Instance.money >= unit.moneyCost && unit.isUnlocked)
         {
             Unit uniqueUnit = Instantiate(unit);
             units.Add(uniqueUnit);

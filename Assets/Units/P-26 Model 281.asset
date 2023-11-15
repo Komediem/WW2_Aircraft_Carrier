@@ -21,7 +21,7 @@ MonoBehaviour:
   currentAttack: 15
   baseSpeed: 12
   upgradeSpeed: 1
-  currentSpeed: 5
+  currentSpeed: 12
   baseUpgradeCostLevel: 300
   upgradeCostLevel: 200
   currentUpgradeCostLevel: 300
@@ -29,5 +29,6 @@ MonoBehaviour:
   levelMax: 50
   level: 1
   unitIcon: {fileID: 21300000, guid: ad538dd446545b749a0772f3f1d7a657, type: 3}
+  isUnlocked: 1
   UnitType: 0
   Rarity: 0
