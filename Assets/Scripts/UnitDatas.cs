@@ -15,6 +15,7 @@ public class UnitDatas : MonoBehaviour
     [SerializeField] private TextMeshProUGUI unitCost;
     [SerializeField] private TextMeshProUGUI unitLevel;
     [SerializeField] private TextMeshProUGUI unitUpgrade;
+    [SerializeField] private TextMeshProUGUI unitPlans;
     #endregion
 
     #region Unit Image
@@ -78,6 +79,9 @@ public class UnitDatas : MonoBehaviour
 
         if(unitUpgrade != null)
         unitUpgrade.text = unit.currentUpgradeCostLevel.ToString();
+
+        if (unitPlans != null)
+        unitPlans.text = unit.plansCurrent.ToString() + " / " + unit.plansMax.ToString();
     }
 
     public void DisplayUnitType()

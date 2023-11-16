@@ -36,6 +36,10 @@ public class Unit : ScriptableObject
 
     public int moneyCost;
 
+    [Header("Plans")]
+    public int plansMax;
+    public int plansCurrent;
+
     [Header("Level")]
     public int levelMax;
     public int level;
