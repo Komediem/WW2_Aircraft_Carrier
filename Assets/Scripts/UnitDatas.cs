@@ -152,7 +152,8 @@ public class UnitDatas : MonoBehaviour
 
         else if(unit.level >= unit.levelMax)
         {
-            //Propose merge for veteran
+            if (unitUpgrade != null)
+                unitUpgrade.text = "Merge";
         }
     }
 
