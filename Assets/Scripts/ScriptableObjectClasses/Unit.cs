@@ -1,9 +1,11 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 [CreateAssetMenu(fileName = "New Unit", menuName = "Unit")]
 public class Unit : ScriptableObject
 {
+    [HideInInspector] public UnitDatas unitFeedbacks;
     public string unitName;
 
     #region Life

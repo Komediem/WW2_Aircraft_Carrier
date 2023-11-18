@@ -31,12 +31,8 @@ public class Workshop : MonoBehaviour
     {
         unit.plansCurrent ++;
 
-        if(unit.plansCurrent >= unit.plansMax)
-        {
-            unit.isUnlocked = true;
-        }
-
-        unitDatas.ShowUnitData();
+        unit.unitFeedbacks.CheckLocking();
+        unit.unitFeedbacks.ShowUnitData();
     }
 
     public void SetStandardDatas(Unit unit)
@@ -45,7 +41,8 @@ public class Workshop : MonoBehaviour
         unit.currentAttack = unit.baseAttack;
         unit.currentSpeed = unit.baseSpeed;
         unit.currentUpgradeCostLevel = unit.baseUpgradeCostLevel;
-        unit.plansCurrent = 
+        unit.plansCurrent = 0;
+        unit.isUnlocked = false;
         unit.level = 1;
     }
 }

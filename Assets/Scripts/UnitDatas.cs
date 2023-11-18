@@ -47,6 +47,8 @@ public class UnitDatas : MonoBehaviour
         DisplayBackgroundColor();
         CheckLocking();
 
+        unit.unitFeedbacks = this;
+
         if (upgrade != null)
         {
             upgrade.onClick.AddListener(delegate { CheckLevel(); });
@@ -159,7 +161,12 @@ public class UnitDatas : MonoBehaviour
 
     public void CheckLocking()
     {
-        if(unit.isUnlocked && lockedScreen != null)
+        if (unit.plansCurrent >= unit.plansMax)
+        {
+            unit.isUnlocked = true;
+        }
+
+        if (unit.isUnlocked && lockedScreen != null)
         {
             lockedScreen.SetActive(false);
         }
