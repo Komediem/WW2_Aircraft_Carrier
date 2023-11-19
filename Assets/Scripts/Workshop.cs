@@ -23,7 +23,18 @@ public class Workshop : MonoBehaviour
 
             SetStandardDatas(unit);
 
-            button.GetComponent<Button>().onClick.AddListener(delegate { Reserve.Instance.BuyUnit(unit); });
+            button.GetComponent<Button>().onClick.AddListener(delegate { BuyUnit(unit); });
+        }
+    }
+
+    public void BuyUnit(Unit unit)
+    {
+        if (RessourceManager.Instance != null && RessourceManager.Instance.money >= unit.moneyCost && unit.isUnlocked)
+        {
+            Unit uniqueUnit = Instantiate(unit);
+            Reserve.Instance.units.Add(uniqueUnit);
+
+            RessourceManager.Instance.money -= unit.moneyCost;
         }
     }
 
@@ -31,6 +42,7 @@ public class Workshop : MonoBehaviour
     {
         unit.plansCurrent ++;
 
+        if(unit.unitFeedbacks != null)
         unit.unitFeedbacks.CheckLocking();
         unit.unitFeedbacks.ShowUnitData();
     }

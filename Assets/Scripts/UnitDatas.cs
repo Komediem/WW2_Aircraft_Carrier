@@ -149,7 +149,7 @@ public class UnitDatas : MonoBehaviour
     {
         if(unit.level < unit.levelMax)
         {
-            Reserve.Instance.UpgradeUnit(unit);
+            Garage.Instance.UpgradeUnit(unit);
         }
 
         else if(unit.level >= unit.levelMax)

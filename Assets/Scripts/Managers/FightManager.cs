@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class FightManager : MonoBehaviour
 {
+    [SerializeField] private GameObject unitFightCard;
+    [SerializeField] private GameObject content;
 
     public FightPhase fightPhase;
     public enum FightPhase
@@ -46,6 +48,18 @@ public class FightManager : MonoBehaviour
 
     public void SelectionPhase()
     {
+        GameObject card;
 
+        foreach (Transform child in content.transform)
+        {
+            GameObject.Destroy(child.gameObject);
+        }
+
+        foreach (Unit unit in Reserve.Instance.units)
+        {
+            card = Instantiate(unitFightCard, content.transform);
+
+            card.GetComponent<UnitDatas>().unit = unit;
+        }
     }
 }
