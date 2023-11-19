@@ -12,14 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 575bc16c394ad51499a96413e76c2f7e, type: 3}
   m_Name: Curtiss BF-2C-1 Goshawk
   m_EditorClassIdentifier: 
+  unitFeedbacks: {fileID: 0}
   unitName: Curtiss BF-2C-1 Goshawk
   baseLife: 80
-  upgradeLife: 0
+  upgradeLife: 4
   currentLife: 80
   baseAttack: 10
-  upgradeAttack: 0
+  upgradeAttack: 1
   currentAttack: 10
-  baseSpeed: 3
+  baseSpeed: 4
   upgradeSpeed: 1
   currentSpeed: 3
   baseUpgradeCostLevel: 400
@@ -27,10 +28,10 @@ MonoBehaviour:
   currentUpgradeCostLevel: 400
   moneyCost: 2500
   plansMax: 20
-  plansCurrent: 0
+  plansCurrent: 20
   levelMax: 50
   level: 1
   unitIcon: {fileID: 21300000, guid: a6f4df11b388d8f42bd4cc66478d7126, type: 3}
-  isUnlocked: 0
+  isUnlocked: 1
   UnitType: 1
-  Rarity: 3
+  Rarity: 0
