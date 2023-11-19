@@ -5,7 +5,7 @@ public class SaveAndLoad : MonoBehaviour
 {
     private SaveData saveData;
 
-    private void Start()
+    private void Awake()
     {
         LoadFile();
     }
