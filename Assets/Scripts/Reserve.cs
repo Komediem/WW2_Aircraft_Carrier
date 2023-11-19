@@ -6,10 +6,10 @@ public class Reserve : MonoBehaviour
 {
     public static Reserve Instance;
 
-    public List<Unit> units = new();
+    public List<Unit> units;
 
     [SerializeField] private GameObject unitCard;
-    [SerializeField] private GameObject content;
+    public GameObject content;
 
     public void Awake()
     {

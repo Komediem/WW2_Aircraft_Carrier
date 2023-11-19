@@ -21,6 +21,7 @@ public class RessourceManager : MonoBehaviour
 
     private void Update()
     {
+        if(moneyText != null)   
         moneyText.text = money.ToString();
     }
 
