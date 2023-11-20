@@ -63,6 +63,7 @@ public class MoneyGain : MonoBehaviour
             RessourceManager.Instance.money -= CostTimer;
             CostTimer += CostTimer;
             CostReduceTimer.text = CostTimer.ToString();
+            RessourceManager.Instance.LoseMoney(CostTimer);
         }
     }
 
@@ -75,6 +76,7 @@ public class MoneyGain : MonoBehaviour
             RessourceManager.Instance.money -= CostGain;
             CostGain += CostGain;
             CostUpgradeGain.text = CostGain.ToString();
+            RessourceManager.Instance.LoseMoney(CostGain);
         }
     }
 }
