@@ -8,6 +8,8 @@ public class Unit : ScriptableObject
     [HideInInspector] public UnitDatas unitFeedbacks;
     public string unitName;
 
+    public GameObject unitModel;
+
     #region Life
     [Header("Life")]
     public int baseLife;

@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 575bc16c394ad51499a96413e76c2f7e, type: 3}
   m_Name: F4U-1
   m_EditorClassIdentifier: 
+  unitFeedbacks: {fileID: 0}
   unitName: F4U-1
+  unitModel: {fileID: 567886418411879874, guid: 4b1b5bb5863b02c48aeffb317f94e5a5, type: 3}
   baseLife: 100
   upgradeLife: 0
   currentLife: 100

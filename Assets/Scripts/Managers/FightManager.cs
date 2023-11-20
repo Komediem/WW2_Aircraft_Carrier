@@ -48,6 +48,11 @@ public class FightManager : MonoBehaviour
 
     public void SelectionPhase()
     {
+
+    }
+
+    public void ShowUnitChoice()
+    {
         GameObject card;
 
         foreach (Transform child in content.transform)
