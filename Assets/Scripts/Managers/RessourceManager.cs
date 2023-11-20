@@ -8,7 +8,7 @@ public class RessourceManager : MonoBehaviour
     public static RessourceManager Instance;
 
     [Header("Datas")]
-    public int money;
+    public float money;
 
     [Header("UI References")]
     [SerializeField] private TextMeshProUGUI moneyText;
@@ -25,7 +25,7 @@ public class RessourceManager : MonoBehaviour
         moneyText.text = money.ToString();
     }
 
-    public void EarnMoney(int moneyEarn)
+    public void EarnMoney(float moneyEarn)
     {
         money += moneyEarn;
     }
