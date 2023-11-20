@@ -9,13 +9,10 @@ public class MoneyGain : MonoBehaviour
     
     [SerializeField] private TextMeshProUGUI MoneyAvailable;
 
-    [Header("Money Owned")]
-    [SerializeField] private TextMeshProUGUI MoneyOwned;
-    [SerializeField] private float MoneyCountOwned;
-
     [Header("Money Count + Add")]
-    [SerializeField] private float MoneyDisplayCount;
-    [SerializeField] private float MoneyPlus;
+    [SerializeField] private float MoneyAvailableCount;
+    [SerializeField] private float MoneyAvailableByCycle;
+    [SerializeField] private float MoneyAvailableMax;
 
     [Header ("Timer")]
     [SerializeField] private float TimeRemaining;
@@ -23,10 +20,10 @@ public class MoneyGain : MonoBehaviour
 
     [Header ("Upgrades")]
     [SerializeField] private float UpgradeMoneyPlus;
-
-    //Upgrade's costs ++ New price for next upgrade.
-
-//Now it needs upgrades available to reduce the timer / get more money by claim !
+    [SerializeField] private TextMeshProUGUI CostReduceTimer;
+    [SerializeField] private TextMeshProUGUI CostUpgradeGain;
+    [SerializeField] private float CostTimer;
+    [SerializeField] private float CostGain;
 
     void Update()
     {
@@ -44,41 +41,40 @@ public class MoneyGain : MonoBehaviour
     //MoneyAvailable(TMP)
     public void MoneyAvailablePlus()
     {
-        MoneyDisplayCount += MoneyPlus;
-        MoneyAvailable.text = MoneyDisplayCount.ToString();
+        MoneyAvailableCount += MoneyAvailableByCycle;
+        MoneyAvailable.text = MoneyAvailableCount.ToString();
     }
 
     //MoneyAvailable(BUTTON)
     //MoneyOwned(TMP)
     public void ClaimMoney()
     {
-        MoneyCountOwned += MoneyDisplayCount;
-        MoneyDisplayCount = 0;
-        MoneyAvailable.text = MoneyDisplayCount.ToString();
-        MoneyOwned.text = MoneyCountOwned.ToString();
+        RessourceManager.Instance.EarnMoney(MoneyAvailableCount);
+        MoneyAvailableCount = 0;
+        //MoneyAvailable.text = MoneyAvailableCount.ToString();
     }
 
     //UpgradeReduceTimer(BUTTON)
-    public void UpgradeReduceTimer(float Cost)
+    public void UpgradeReduceTimer()
     {
-        if (MoneyCountOwned >= Cost && BaseTimeRemaining > 2)
+        if (RessourceManager.Instance.money >= CostTimer && BaseTimeRemaining > 2)
         {
             BaseTimeRemaining -= 1;
-            MoneyCountOwned -= Cost;
-            Cost += Cost;
-            MoneyOwned.text = MoneyCountOwned.ToString();
+            RessourceManager.Instance.money -= CostTimer;
+            CostTimer += CostTimer;
+            CostReduceTimer.text = CostTimer.ToString();
         }
     }
 
     //UpgradeMoneyGain(BUTTON)
-    public void UpgradeMoreMoney(float Cost)
+    public void UpgradeMoreMoney()
     {
-        if (MoneyCountOwned >= Cost)
+        if (RessourceManager.Instance.money >= CostGain)
         {
-            MoneyPlus += UpgradeMoneyPlus;
-            MoneyCountOwned -= Cost;
-            Cost += Cost;
-            MoneyOwned.text = MoneyCountOwned.ToString();
+            MoneyAvailableByCycle += UpgradeMoneyPlus;
+            RessourceManager.Instance.money -= CostGain;
+            CostGain += CostGain;
+            CostUpgradeGain.text = CostGain.ToString();
         }
     }
 }

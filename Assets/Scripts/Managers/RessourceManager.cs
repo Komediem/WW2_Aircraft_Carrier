@@ -19,6 +19,12 @@ public class RessourceManager : MonoBehaviour
             Instance = this;
     }
 
+    private void Start()
+    {
+        if (moneyText != null)
+            moneyText.text = money.ToString();
+    }
+
     public void EarnMoney(float moneyEarn)
     {
         money += moneyEarn;

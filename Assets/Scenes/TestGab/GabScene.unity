@@ -254,6 +254,10 @@ MonoBehaviour:
   TimeRemaining: 5
   BaseTimeRemaining: 5
   UpgradeMoneyPlus: 2
+  CostReduceTimer: {fileID: 1585511932}
+  CostUpgradeGain: {fileID: 841176464}
+  CostTimer: 1
+  CostGain: 1
 --- !u!4 &513679543
 Transform:
   m_ObjectHideFlags: 0
@@ -447,7 +451,7 @@ MonoBehaviour:
       - m_Target: {fileID: 513679542}
         m_TargetAssemblyTypeName: MoneyGain, Assembly-CSharp
         m_MethodName: UpgradeMoreMoney
-        m_Mode: 4
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -506,7 +510,7 @@ GameObject:
   - component: {fileID: 841176465}
   - component: {fileID: 841176464}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: CostUpgradeGain(TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -551,7 +555,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: 1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1216,7 +1220,7 @@ GameObject:
   - component: {fileID: 1585511933}
   - component: {fileID: 1585511932}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: CostReduceTimer(TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1261,7 +1265,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: 1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1424,7 +1428,7 @@ MonoBehaviour:
       - m_Target: {fileID: 513679542}
         m_TargetAssemblyTypeName: MoneyGain, Assembly-CSharp
         m_MethodName: UpgradeReduceTimer
-        m_Mode: 4
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
