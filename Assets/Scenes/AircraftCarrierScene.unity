@@ -860,6 +860,7 @@ GameObject:
   - component: {fileID: 308272292}
   - component: {fileID: 308272291}
   - component: {fileID: 308272290}
+  - component: {fileID: 308272293}
   m_Layer: 0
   m_Name: Circle
   m_TagString: Untagged
@@ -963,6 +964,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -62.82, z: 0}
+--- !u!135 &308272293
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 308272289}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.50000006
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &335914554
 GameObject:
   m_ObjectHideFlags: 0
@@ -3684,6 +3706,7 @@ GameObject:
   - component: {fileID: 1568026716}
   - component: {fileID: 1568026715}
   - component: {fileID: 1568026714}
+  - component: {fileID: 1568026717}
   m_Layer: 0
   m_Name: Circle (1)
   m_TagString: Untagged
@@ -3787,6 +3810,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -62.82, z: 0}
+--- !u!135 &1568026717
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1568026713}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.50000006
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1597914133
 GameObject:
   m_ObjectHideFlags: 0
@@ -3976,12 +4020,12 @@ MonoBehaviour:
   MoneyAvailableByCycle: 1
   MoneyAvailableMax: 2
   TimeRemaining: 2
-  BaseTimeRemaining: 2
-  UpgradeMoneyPlus: 0
+  BaseTimeRemaining: 5
+  UpgradeMoneyPlus: 1
   CostReduceTimer: {fileID: 0}
   CostUpgradeGain: {fileID: 0}
-  CostTimer: 0
-  CostGain: 0
+  CostTimer: 1
+  CostGain: 1
 --- !u!114 &1828546410
 MonoBehaviour:
   m_ObjectHideFlags: 0

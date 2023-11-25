@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using System.Diagnostics;
 
 public class MoneyGain : MonoBehaviour
 {
@@ -42,7 +41,7 @@ public class MoneyGain : MonoBehaviour
     public void MoneyAvailablePlus()
     {
         MoneyAvailableCount += MoneyAvailableByCycle;
-        MoneyAvailable.text = MoneyAvailableCount.ToString();
+        //MoneyAvailable.text = MoneyAvailableCount.ToString();
     }
 
     //MoneyAvailable(BUTTON)
@@ -62,7 +61,7 @@ public class MoneyGain : MonoBehaviour
             BaseTimeRemaining -= 1;
             RessourceManager.Instance.money -= CostTimer;
             CostTimer += CostTimer;
-            CostReduceTimer.text = CostTimer.ToString();
+            //CostReduceTimer.text = CostTimer.ToString();
             RessourceManager.Instance.LoseMoney(CostTimer);
         }
     }
@@ -73,10 +72,9 @@ public class MoneyGain : MonoBehaviour
         if (RessourceManager.Instance.money >= CostGain)
         {
             MoneyAvailableByCycle += UpgradeMoneyPlus;
-            RessourceManager.Instance.money -= CostGain;
-            CostGain += CostGain;
-            CostUpgradeGain.text = CostGain.ToString();
             RessourceManager.Instance.LoseMoney(CostGain);
+            CostGain += CostGain;
+            //CostUpgradeGain.text = CostGain.ToString();
         }
     }
 }
