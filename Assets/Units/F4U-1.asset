@@ -28,8 +28,8 @@ MonoBehaviour:
   upgradeCostLevel: 1000
   currentUpgradeCostLevel: 1500
   moneyCost: 15000
-  plansMax: 50
-  plansCurrent: 0
+  plansMax: 0
+  plansCurrent: 9
   levelMax: 50
   level: 1
   unitIcon: {fileID: 21300000, guid: 6089415110c082447a871d0efc6ce49f, type: 3}

@@ -1,10 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.Events;
-using UnityEditor.SearchService;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
 public class FightManager : MonoBehaviour
@@ -16,6 +11,11 @@ public class FightManager : MonoBehaviour
     [SerializeField] private List<GameObject> alliedPositions;
     [SerializeField] private GameObject alliedPositionsParent;
     [SerializeField] private GameObject selectedPos;
+
+    public Vector3 mousePosition;
+    Plane plane = new Plane(Vector3.up, 0);
+
+    private GameObject planeSpawned;
 
     public FightPhase fightPhase;
     public enum FightPhase
@@ -32,6 +32,15 @@ public class FightManager : MonoBehaviour
         fightPhase = FightPhase.UnitSelection;
 
         CheckPhase();
+    }
+    void Update()
+    {
+        float distance;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (plane.Raycast(ray, out distance))
+        {
+            mousePosition = ray.GetPoint(distance);
+        }
     }
 
     public void CheckPhase()
@@ -61,7 +70,7 @@ public class FightManager : MonoBehaviour
 
     public void SelectionPhase()
     {
-
+        print("test");
     }
 
     public void ShowUnitChoice()
@@ -82,6 +91,12 @@ public class FightManager : MonoBehaviour
                     card = Instantiate(unitFightCard, content.transform);
 
                     card.GetComponent<UnitDatas>().unit = unit;
+
+                    EventTrigger trigger = card.GetComponent<EventTrigger>();
+                    EventTrigger.Entry entry = new EventTrigger.Entry();
+                    entry.eventID = EventTriggerType.Drag;
+                    entry.callback.AddListener((data) => { DragPlane(unit); });
+                    trigger.triggers.Add(entry);
                 }
             }
         }
@@ -89,10 +104,19 @@ public class FightManager : MonoBehaviour
 
     public void SelectPos(GameObject obj)
     {
-        GameObject previousPos;
+        if(selectedPos == null)
+        {
+            selectedPos = obj;
+            obj.GetComponent<MeshRenderer>().material.color = Color.red;
+        }
 
-        selectedPos = obj;
-        obj.GetComponent<MeshRenderer>().material.color = Color.red;
+        else if(selectedPos != null)
+        {
+            selectedPos.GetComponent<MeshRenderer>().material.color = Color.white;
+
+            selectedPos = obj;
+            obj.GetComponent<MeshRenderer>().material.color = Color.red;
+        }
     }
 
     public void SetupPosition()
@@ -110,5 +134,10 @@ public class FightManager : MonoBehaviour
             entry.callback.AddListener((data) => { SelectPos(child); });
             trigger.triggers.Add(entry);
         }
+    }
+
+    public void DragPlane(Unit unit)
+    {
+        Instantiate(unit.unitModel, mousePosition, Quaternion.identity);
     }
 }
