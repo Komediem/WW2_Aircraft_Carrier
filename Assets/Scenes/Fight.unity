@@ -783,7 +783,7 @@ MonoBehaviour:
   alliedPositions: []
   alliedPositionsParent: {fileID: 502311191}
   selectedPos: {fileID: 0}
-  worldPosition: {x: 0, y: 0, z: 0}
+  mousePosition: {x: 0, y: 0, z: 0}
   fightPhase: 0
 --- !u!1 &1261626434
 GameObject:

@@ -70,7 +70,7 @@ public class FightManager : MonoBehaviour
 
     public void SelectionPhase()
     {
-        print("test");
+        
     }
 
     public void ShowUnitChoice()
@@ -92,11 +92,29 @@ public class FightManager : MonoBehaviour
 
                     card.GetComponent<UnitDatas>().unit = unit;
 
+                    //Event Trigger when card is clicked
+
                     EventTrigger trigger = card.GetComponent<EventTrigger>();
                     EventTrigger.Entry entry = new EventTrigger.Entry();
-                    entry.eventID = EventTriggerType.Drag;
-                    entry.callback.AddListener((data) => { DragPlane(unit); });
+                    entry.eventID = EventTriggerType.BeginDrag;
+                    entry.callback.AddListener((data) => { SpawnPlane(unit); });
                     trigger.triggers.Add(entry);
+
+                    //Event Trigger during the drag
+
+                    EventTrigger trigger2 = card.GetComponent<EventTrigger>();
+                    EventTrigger.Entry entry2 = new EventTrigger.Entry();
+                    entry2.eventID = EventTriggerType.Drag;
+                    entry2.callback.AddListener((data) => { DragPlane(); });
+                    trigger2.triggers.Add(entry2);
+
+                    //Event Trigger after releasing the button of drag
+
+                    EventTrigger trigger3 = card.GetComponent<EventTrigger>();
+                    EventTrigger.Entry entry3 = new EventTrigger.Entry();
+                    entry3.eventID = EventTriggerType.EndDrag;
+                    entry3.callback.AddListener((data) => { DragFinished(unit); });
+                    trigger3.triggers.Add(entry3);
                 }
             }
         }
@@ -136,8 +154,39 @@ public class FightManager : MonoBehaviour
         }
     }
 
-    public void DragPlane(Unit unit)
+    public void SpawnPlane(Unit unit)
     {
-        Instantiate(unit.unitModel, mousePosition, Quaternion.identity);
+        planeSpawned = Instantiate(unit.unitModel, mousePosition, Quaternion.identity);
+    }
+
+    public void DragPlane()
+    {
+        if(planeSpawned != null)
+        planeSpawned.transform.position = mousePosition;
+    }
+
+    public void DragFinished(Unit unit)
+    {
+        foreach(GameObject pos in alliedPositions)
+        {
+            Vector3 vectorPosition = pos.transform.position;
+
+            if(mousePosition == vectorPosition)
+            {
+                print("Set on position");
+
+                planeSpawned.transform.position = vectorPosition;
+                planeSpawned.transform.parent = pos.transform;
+
+                pos.GetComponent<AlliedPosition>().unit = unit;
+            }
+
+            else
+            {
+                print("No position");
+
+                planeSpawned.SetActive(false);
+            }
+        }
     }
 }
