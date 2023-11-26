@@ -169,16 +169,18 @@ public class FightManager : MonoBehaviour
     {
         foreach(GameObject pos in alliedPositions)
         {
+            AlliedPosition alliedPosition = pos.GetComponent<AlliedPosition>();
             Vector3 vectorPosition = pos.transform.position;
 
-            if(mousePosition == vectorPosition)
+            if (alliedPosition.bounds.Contains(mousePosition) && !alliedPosition.isOccuped)
             {
                 print("Set on position");
 
                 planeSpawned.transform.position = vectorPosition;
                 planeSpawned.transform.parent = pos.transform;
 
-                pos.GetComponent<AlliedPosition>().unit = unit;
+                alliedPosition.unit = unit;
+                alliedPosition.isOccuped = true;
             }
 
             else
