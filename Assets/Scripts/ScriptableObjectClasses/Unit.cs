@@ -51,6 +51,7 @@ public class Unit : ScriptableObject
     public Sprite unitIcon;
 
     public bool isUnlocked;
+    public bool isInFight;
 
     [Header("Enumerations")]
     public unitType UnitType;

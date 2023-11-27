@@ -218,7 +218,7 @@ public class FightManager : MonoBehaviour
         {
             print("No position");
 
-            planeSpawned.SetActive(false);
+            Destroy(planeSpawned);
         }
     }
 }
