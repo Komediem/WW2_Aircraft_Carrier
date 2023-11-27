@@ -26,4 +26,9 @@ public class AlliedPosition : MonoBehaviour
         Gizmos.color = Color.blue;
         Gizmos.DrawWireCube(bounds.center, bounds.extents * 2);
     }
+
+    public void PositionBlocked()
+    {
+        GetComponent<Renderer>().material.color = Color.red;
+    }
 }

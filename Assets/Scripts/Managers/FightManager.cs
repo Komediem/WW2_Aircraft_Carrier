@@ -42,26 +42,38 @@ public class FightManager : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
-        if(Physics.Raycast(ray, out hit))
-        {
-            if(hit.collider.GetComponent<AlliedPosition>() != null)
-            {
-                print("nword");
 
-                posHit = true;
-                posHitScript = hit.collider.GetComponent<AlliedPosition>();
-            }
-        }
-
-        else
-        {
-            posHit = false;
-            posHitScript = null;
-        }
-
+        //Raycast to follow and get the mousePosition
         if (plane.Raycast(ray, out distance))
         {
             mousePosition = ray.GetPoint(distance);
+        }
+
+        //Check if raycast hit a position
+        if (Physics.Raycast(ray, out hit))
+        {
+            if(hit.collider.GetComponent<AlliedPosition>() != null)
+            {
+                print("position touched");
+
+                posHit = true;
+                posHitScript = hit.collider.GetComponent<AlliedPosition>();
+
+                if(!posHitScript.isOccuped)
+                posHitScript.gameObject.GetComponent<Renderer>().material.color = Color.green;
+            }
+        }
+
+
+        else
+        {
+            print("no position touched");
+
+            if(posHitScript != null && !posHitScript.isOccuped)
+            posHitScript.gameObject.GetComponent<Renderer>().material.color = Color.white;
+
+            posHit = false;
+            posHitScript = null;
         }
     }
 
@@ -189,27 +201,25 @@ public class FightManager : MonoBehaviour
 
     public void DragFinished(Unit unit)
     {
-        /*
-            AlliedPosition alliedPosition = pos.GetComponent<AlliedPosition>();
-            Vector3 vectorPosition = pos.transform.position;
-        */
 
-            if (posHit)
-            {
-                print("Set on position");
+        if (posHit)
+        {
+            print("Set on position");
 
-                planeSpawned.transform.position = posHitScript.position;
-                planeSpawned.transform.parent = posHitScript.transform;
+            planeSpawned.transform.position = posHitScript.position;
+            planeSpawned.transform.parent = posHitScript.transform;
 
-                posHitScript.unit = unit;
-                posHitScript.isOccuped = true;
-            }
+            posHitScript.unit = unit;
+            posHitScript.isOccuped = true;
 
-            else
-            {
-                print("No position");
+            posHitScript.PositionBlocked();
+        }
 
-                planeSpawned.SetActive(false);
-            }
+        else
+        {
+            print("No position");
+
+            planeSpawned.SetActive(false);
+        }
     }
 }
