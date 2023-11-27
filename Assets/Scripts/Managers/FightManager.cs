@@ -201,7 +201,6 @@ public class FightManager : MonoBehaviour
 
     public void DragFinished(Unit unit)
     {
-
         if (posHit)
         {
             print("Set on position");

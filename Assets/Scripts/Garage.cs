@@ -47,7 +47,7 @@ public class Garage : MonoBehaviour
     {
         if (unit.level == 1 && RessourceManager.Instance.money >= unit.upgradeCostLevel)
         {
-            RessourceManager.Instance.money -= unit.currentUpgradeCostLevel;
+            RessourceManager.Instance.LoseMoney(unit.currentUpgradeCostLevel);
 
             unit.level++;
 
@@ -59,7 +59,7 @@ public class Garage : MonoBehaviour
 
         else if (RessourceManager.Instance.money >= unit.upgradeCostLevel)
         {
-            RessourceManager.Instance.money -= unit.currentUpgradeCostLevel;
+            RessourceManager.Instance.LoseMoney(unit.currentUpgradeCostLevel);
 
             unit.level++;
 
