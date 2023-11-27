@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 575bc16c394ad51499a96413e76c2f7e, type: 3}
+  m_Name: P-26 Model 281
+  m_EditorClassIdentifier: 
+  unitFeedbacks: {fileID: 0}
+  unitName: P-26 Model 281 PeaShooter
+  baseLife: 50
+  upgradeLife: 3
+  currentLife: 50
+  baseAttack: 15
+  upgradeAttack: 2
+  currentAttack: 15
+  baseSpeed: 12
+  upgradeSpeed: 1
+  currentSpeed: 12
+  baseUpgradeCostLevel: 300
+  upgradeCostLevel: 200
+  currentUpgradeCostLevel: 300
+  moneyCost: 1000
+  plansMax: 0
+  plansCurrent: 0
+  levelMax: 50
+  level: 1
+  unitIcon: {fileID: 21300000, guid: ad538dd446545b749a0772f3f1d7a657, type: 3}
+  isUnlocked: 1
+  UnitType: 0
+  Rarity: 0

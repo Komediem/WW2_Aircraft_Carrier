@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 575bc16c394ad51499a96413e76c2f7e, type: 3}
+  m_Name: Curtiss SBC-4 Helldiver
+  m_EditorClassIdentifier: 
+  unitName: Curtiss SBC-4 Helldiver
+  baseLife: 150
+  upgradeLife: 0
+  currentLife: 150
+  baseAttack: 30
+  upgradeAttack: 0
+  currentAttack: 30
+  baseSpeed: 5
+  upgradeSpeed: 0
+  currentSpeed: 5
+  baseUpgradeCostLevel: 800
+  upgradeCostLevel: 600
+  currentUpgradeCostLevel: 800
+  moneyCost: 7000
+  plansMax: 40
+  plansCurrent: 0
+  levelMax: 50
+  level: 1
+  unitIcon: {fileID: 21300000, guid: 94298be863e53e044a6706337de57255, type: 3}
+  isUnlocked: 0
+  UnitType: 2
+  Rarity: 2

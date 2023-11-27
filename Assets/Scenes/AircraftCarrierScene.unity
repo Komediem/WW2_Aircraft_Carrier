@@ -1867,6 +1867,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c54df97febbb1bc48947d2ae3252f777, type: 2}
   - {fileID: 11400000, guid: 3f0f3271f72d3c2449886f8f58dd4036, type: 2}
   - {fileID: 11400000, guid: 886c595a258b5ce4ea01094ed0375951, type: 2}
+  - {fileID: 11400000, guid: 8a412edfd672c124fb4b5db5ceb9fe16, type: 2}
   craftUnitButton: {fileID: 7850427569938019363, guid: 8e559389bd63c4c4ebb909c33f0eca80, type: 3}
   content: {fileID: 1849188075}
 --- !u!1 &895699050
