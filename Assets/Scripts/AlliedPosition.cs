@@ -7,8 +7,14 @@ public class AlliedPosition : MonoBehaviour
     public bool isOccuped;
 
     public Bounds bounds;
-
     public Unit unit;
+
+    public Vector3 position;
+
+    private void Start()
+    {
+        position = this.transform.position;
+    }
 
     public void OnDrawGizmosSelected()
     {

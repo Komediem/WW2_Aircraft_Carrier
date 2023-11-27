@@ -34,7 +34,7 @@ public class Workshop : MonoBehaviour
             Unit uniqueUnit = Instantiate(unit);
             Reserve.Instance.units.Add(uniqueUnit);
 
-            RessourceManager.Instance.money -= unit.moneyCost;
+            RessourceManager.Instance.LoseMoney(unit.moneyCost);
         }
     }
 

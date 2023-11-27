@@ -12,6 +12,9 @@ public class FightManager : MonoBehaviour
     [SerializeField] private GameObject alliedPositionsParent;
     [SerializeField] private GameObject selectedPos;
 
+    private bool posHit;
+    private AlliedPosition posHitScript;
+
     public Vector3 mousePosition;
     Plane plane = new Plane(Vector3.up, 0);
 
@@ -37,6 +40,25 @@ public class FightManager : MonoBehaviour
     {
         float distance;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if(Physics.Raycast(ray, out hit))
+        {
+            if(hit.collider.GetComponent<AlliedPosition>() != null)
+            {
+                print("nword");
+
+                posHit = true;
+                posHitScript = hit.collider.GetComponent<AlliedPosition>();
+            }
+        }
+
+        else
+        {
+            posHit = false;
+            posHitScript = null;
+        }
+
         if (plane.Raycast(ray, out distance))
         {
             mousePosition = ray.GetPoint(distance);
@@ -167,20 +189,20 @@ public class FightManager : MonoBehaviour
 
     public void DragFinished(Unit unit)
     {
-        foreach(GameObject pos in alliedPositions)
-        {
+        /*
             AlliedPosition alliedPosition = pos.GetComponent<AlliedPosition>();
             Vector3 vectorPosition = pos.transform.position;
+        */
 
-            if (alliedPosition.bounds.Contains(mousePosition) && !alliedPosition.isOccuped)
+            if (posHit)
             {
                 print("Set on position");
 
-                planeSpawned.transform.position = vectorPosition;
-                planeSpawned.transform.parent = pos.transform;
+                planeSpawned.transform.position = posHitScript.position;
+                planeSpawned.transform.parent = posHitScript.transform;
 
-                alliedPosition.unit = unit;
-                alliedPosition.isOccuped = true;
+                posHitScript.unit = unit;
+                posHitScript.isOccuped = true;
             }
 
             else
@@ -189,6 +211,5 @@ public class FightManager : MonoBehaviour
 
                 planeSpawned.SetActive(false);
             }
-        }
     }
 }
