@@ -37,6 +37,7 @@ public class UnitDatas : MonoBehaviour
 
     #region Locked
     public GameObject lockedScreen;
+    public GameObject hiddenInFightScreen;
 
     #endregion
 
@@ -180,5 +181,13 @@ public class UnitDatas : MonoBehaviour
     public void ProposeVeteran()
     {
 
+    }
+
+    public void BlockUnitInFight()
+    {
+        if(unit.isInFight && hiddenInFightScreen != null)
+        {
+            hiddenInFightScreen.SetActive(true) ;
+        }
     }
 }
