@@ -5,6 +5,7 @@ using UnityEngine;
 public class AlliedPosition : MonoBehaviour
 {
     public bool isOccuped;
+    public UnitDatas associatedDatas;
 
     public Bounds bounds;
     public Unit unit;

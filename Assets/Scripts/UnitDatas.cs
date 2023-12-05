@@ -185,12 +185,12 @@ public class UnitDatas : MonoBehaviour
 
     public void CheckUnitInFight()
     {
-        if(unit.isInFight && hiddenInFightScreen != null)
+        if(unit != null && unit.isInFight && hiddenInFightScreen != null)
         {
             hiddenInFightScreen.SetActive(true) ;
         }
 
-        else if(!unit.isInFight && hiddenInFightScreen != null)
+        else if(unit != null && !unit.isInFight && hiddenInFightScreen != null)
         {
             hiddenInFightScreen.SetActive(false);
         }

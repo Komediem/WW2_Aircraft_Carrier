@@ -9,7 +9,7 @@ public class FightManager : MonoBehaviour
     [SerializeField] private GameObject content;
 
 
-    [SerializeField] private GameObject[] alliedPositions;
+    [SerializeField] private List <GameObject> alliedPositions;
     [SerializeField] private GameObject alliedPositionsParent;
     [SerializeField] private GameObject selectedPos;
 
@@ -55,8 +55,6 @@ public class FightManager : MonoBehaviour
         {
             if(hit.collider.GetComponent<AlliedPosition>() != null)
             {
-                print("position touched");
-
                 posHit = true;
                 posHitScript = hit.collider.GetComponent<AlliedPosition>();
 
@@ -68,8 +66,6 @@ public class FightManager : MonoBehaviour
 
         else
         {
-            print("no position touched");
-
             if(posHitScript != null && !posHitScript.isOccuped)
             posHitScript.gameObject.GetComponent<Renderer>().material.color = Color.white;
 
@@ -155,50 +151,21 @@ public class FightManager : MonoBehaviour
         }
     }
 
-    /*public void SelectPos(GameObject obj)
-    {
-        if(selectedPos == null)
-        {
-            selectedPos = obj;
-            obj.GetComponent<MeshRenderer>().material.color = Color.red;
-        }
-
-        else if(selectedPos != null)
-        {
-            selectedPos.GetComponent<MeshRenderer>().material.color = Color.white;
-
-            selectedPos = obj;
-            obj.GetComponent<MeshRenderer>().material.color = Color.red;
-        }
-    }*/
-
     public void SetupPosition()
     {
         for (int i = 0; i < alliedPositionsParent.transform.childCount; i++)
         {
-            //alliedPositions.
-                
-            //(alliedPositionsParent.transform.GetChild(i).gameObject);
+            alliedPositions.Add(alliedPositionsParent.transform.GetChild(i).gameObject);
         }
 
         foreach(GameObject child in alliedPositions)
         {
-            AlliedPosition tempPos = child.GetComponent<AlliedPosition>();
-            Unit unit = tempPos.unit;
-
-            /*
-            EventTrigger trigger = child.GetComponent<EventTrigger>();
-            EventTrigger.Entry entry = new EventTrigger.Entry();
-            entry.eventID = EventTriggerType.PointerClick;
-            entry.callback.AddListener((data) => { SelectPos(child); });
-            trigger.triggers.Add(entry);*/
-
             //Event Trigger to remove present plane
 
             EventTrigger trigger = child.GetComponent<EventTrigger>();
             EventTrigger.Entry entry = new EventTrigger.Entry();
             entry.eventID = EventTriggerType.PointerClick;
-            entry.callback.AddListener((data) => { RemoveUnit(unit); });
+            entry.callback.AddListener((data) => { RemoveUnit(); });
             trigger.triggers.Add(entry);
         }
 
@@ -220,8 +187,6 @@ public class FightManager : MonoBehaviour
     {
         if (posHit)
         {
-            print("Set on position");
-
             planeSpawned.transform.position = posHitScript.position;
             planeSpawned.transform.parent = posHitScript.transform;
 
@@ -232,31 +197,29 @@ public class FightManager : MonoBehaviour
             posHitScript.PositionBlocked();
             unit.unitFeedbacks.CheckUnitInFight();
 
+            posHitScript.associatedDatas = unit.unitFeedbacks;
+
             planeSpawned = null;
         }
 
         else
         {
-            print("No position");
-
             Destroy(planeSpawned);
         }
     }
 
-    public void RemoveUnit(Unit unit)
+    public void RemoveUnit()
     {
-        if(posHitScript.isOccuped)
+        if (posHitScript.isOccuped)
         {
-            print("nword");
-
-            posHitScript.unit = null;
-            posHitScript.isOccuped = false;
-
             posHitScript.PositionFree();
             posHitScript.DestroyPlane();
 
-            unit.isInFight = false;
-            unit.unitFeedbacks.CheckUnitInFight();
+            posHitScript.associatedDatas.unit.isInFight = false;
+            posHitScript.isOccuped = false;
+            posHitScript.associatedDatas.CheckUnitInFight();
+
+            posHitScript.unit = null;
         }
     }
 }
