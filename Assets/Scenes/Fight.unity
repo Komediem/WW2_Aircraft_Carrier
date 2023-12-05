@@ -779,6 +779,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitFightCard: {fileID: 3549449675421759170, guid: 4e0cf77d1b621904bb2ab34cdc6b0896, type: 3}
+  unit3DDatas: {fileID: 2044185862383468713, guid: cb2f47657d85eb34384c8536e5f8bcbf, type: 3}
   content: {fileID: 667762616}
   alliedPositions: []
   alliedPositionsParent: {fileID: 502311191}

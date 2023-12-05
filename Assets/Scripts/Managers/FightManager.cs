@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 public class FightManager : MonoBehaviour
 {
     [SerializeField] private GameObject unitFightCard;
+    [SerializeField] private GameObject unit3DDatas;
     [SerializeField] private GameObject content;
 
 
@@ -174,7 +175,12 @@ public class FightManager : MonoBehaviour
     public void SpawnPlane(Unit unit)
     {
         if(!unit.isInFight)
-        planeSpawned = Instantiate(unit.unitModel, mousePosition, Quaternion.identity);
+        {
+            planeSpawned = Instantiate(unit.unitModel, mousePosition, Quaternion.identity);
+            /*
+            GameObject currentDatas = Instantiate(unit3DDatas, planeSpawned.transform.position + new Vector3(0, 2, 0), Quaternion.Euler(-2, 30, 30), planeSpawned.transform);
+            currentDatas.GetComponent<UnitDatas>().unit = unit;*/
+        }
     }
 
     public void DragPlane()
