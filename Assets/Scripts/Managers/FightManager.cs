@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -8,7 +9,7 @@ public class FightManager : MonoBehaviour
     [SerializeField] private GameObject content;
 
 
-    [SerializeField] private List<GameObject> alliedPositions;
+    [SerializeField] private GameObject[] alliedPositions;
     [SerializeField] private GameObject alliedPositionsParent;
     [SerializeField] private GameObject selectedPos;
 
@@ -154,7 +155,7 @@ public class FightManager : MonoBehaviour
         }
     }
 
-    public void SelectPos(GameObject obj)
+    /*public void SelectPos(GameObject obj)
     {
         if(selectedPos == null)
         {
@@ -169,23 +170,38 @@ public class FightManager : MonoBehaviour
             selectedPos = obj;
             obj.GetComponent<MeshRenderer>().material.color = Color.red;
         }
-    }
+    }*/
 
     public void SetupPosition()
     {
         for (int i = 0; i < alliedPositionsParent.transform.childCount; i++)
         {
-            alliedPositions.Add(alliedPositionsParent.transform.GetChild(i).gameObject);
+            //alliedPositions.
+                
+            //(alliedPositionsParent.transform.GetChild(i).gameObject);
         }
 
         foreach(GameObject child in alliedPositions)
         {
+            AlliedPosition tempPos = child.GetComponent<AlliedPosition>();
+            Unit unit = tempPos.unit;
+
+            /*
             EventTrigger trigger = child.GetComponent<EventTrigger>();
             EventTrigger.Entry entry = new EventTrigger.Entry();
             entry.eventID = EventTriggerType.PointerClick;
             entry.callback.AddListener((data) => { SelectPos(child); });
+            trigger.triggers.Add(entry);*/
+
+            //Event Trigger to remove present plane
+
+            EventTrigger trigger = child.GetComponent<EventTrigger>();
+            EventTrigger.Entry entry = new EventTrigger.Entry();
+            entry.eventID = EventTriggerType.PointerClick;
+            entry.callback.AddListener((data) => { RemoveUnit(unit); });
             trigger.triggers.Add(entry);
         }
+
     }
 
     public void SpawnPlane(Unit unit)
@@ -214,7 +230,7 @@ public class FightManager : MonoBehaviour
 
             unit.isInFight = true;
             posHitScript.PositionBlocked();
-            unit.unitFeedbacks.BlockUnitInFight();
+            unit.unitFeedbacks.CheckUnitInFight();
 
             planeSpawned = null;
         }
@@ -224,6 +240,23 @@ public class FightManager : MonoBehaviour
             print("No position");
 
             Destroy(planeSpawned);
+        }
+    }
+
+    public void RemoveUnit(Unit unit)
+    {
+        if(posHitScript.isOccuped)
+        {
+            print("nword");
+
+            posHitScript.unit = null;
+            posHitScript.isOccuped = false;
+
+            posHitScript.PositionFree();
+            posHitScript.DestroyPlane();
+
+            unit.isInFight = false;
+            unit.unitFeedbacks.CheckUnitInFight();
         }
     }
 }

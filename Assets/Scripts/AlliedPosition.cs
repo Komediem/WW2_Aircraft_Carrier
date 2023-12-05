@@ -31,4 +31,17 @@ public class AlliedPosition : MonoBehaviour
     {
         GetComponent<Renderer>().material.color = Color.red;
     }
+
+    public void PositionFree()
+    {
+        GetComponent<Renderer>().material.color = Color.white;
+    }
+
+    public void DestroyPlane()
+    {
+        foreach(Transform children in transform)
+        {
+            Destroy(children.gameObject);
+        }
+    }
 }
