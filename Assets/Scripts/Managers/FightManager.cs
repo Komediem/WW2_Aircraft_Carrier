@@ -190,6 +190,7 @@ public class FightManager : MonoBehaviour
 
     public void SpawnPlane(Unit unit)
     {
+        if(!unit.isInFight)
         planeSpawned = Instantiate(unit.unitModel, mousePosition, Quaternion.identity);
     }
 
@@ -211,7 +212,11 @@ public class FightManager : MonoBehaviour
             posHitScript.unit = unit;
             posHitScript.isOccuped = true;
 
+            unit.isInFight = true;
             posHitScript.PositionBlocked();
+            unit.unitFeedbacks.BlockUnitInFight();
+
+            planeSpawned = null;
         }
 
         else
