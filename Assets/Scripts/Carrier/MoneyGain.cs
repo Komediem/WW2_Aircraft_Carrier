@@ -6,7 +6,7 @@ using TMPro;
 public class MoneyGain : MonoBehaviour
 {
     
-    [SerializeField] private TextMeshProUGUI MoneyAvailable;
+    [SerializeField] private TextMeshPro MoneyAvailable;
 
     [Header("Money Count + Add")]
     [SerializeField] private float MoneyAvailableCount;
@@ -20,7 +20,7 @@ public class MoneyGain : MonoBehaviour
     [Header ("Upgrades")]
     [SerializeField] private float UpgradeMoneyPlus;
     [SerializeField] private TextMeshProUGUI CostReduceTimer;
-    [SerializeField] private TextMeshProUGUI CostUpgradeGain;
+    [SerializeField] private TextMeshPro CostUpgradeGain;
     [SerializeField] private float CostTimer;
     [SerializeField] private float CostGain;
 
@@ -41,7 +41,7 @@ public class MoneyGain : MonoBehaviour
     public void MoneyAvailablePlus()
     {
         MoneyAvailableCount += MoneyAvailableByCycle;
-        //MoneyAvailable.text = MoneyAvailableCount.ToString();
+        MoneyAvailable.text = MoneyAvailableCount.ToString();
     }
 
     //MoneyAvailable(BUTTON)
@@ -50,11 +50,11 @@ public class MoneyGain : MonoBehaviour
     {
         RessourceManager.Instance.EarnMoney(MoneyAvailableCount);
         MoneyAvailableCount = 0;
-        //MoneyAvailable.text = MoneyAvailableCount.ToString();
+        MoneyAvailable.text = MoneyAvailableCount.ToString();
     }
 
     //UpgradeReduceTimer(BUTTON)
-    public void UpgradeReduceTimer()
+    /*public void UpgradeReduceTimer()
     {
         if (RessourceManager.Instance.money >= CostTimer && BaseTimeRemaining > 2)
         {
@@ -64,7 +64,7 @@ public class MoneyGain : MonoBehaviour
             //CostReduceTimer.text = CostTimer.ToString();
             RessourceManager.Instance.LoseMoney(CostTimer);
         }
-    }
+    }*/
 
     //UpgradeMoneyGain(BUTTON)
     public void UpgradeMoreMoney()
@@ -74,7 +74,7 @@ public class MoneyGain : MonoBehaviour
             MoneyAvailableByCycle += UpgradeMoneyPlus;
             RessourceManager.Instance.LoseMoney(CostGain);
             CostGain += CostGain;
-            //CostUpgradeGain.text = CostGain.ToString();
+            CostUpgradeGain.text = CostGain.ToString();
         }
     }
 }
