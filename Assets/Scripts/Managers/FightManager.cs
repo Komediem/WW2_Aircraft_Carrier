@@ -15,6 +15,7 @@ public class FightManager : MonoBehaviour
     [SerializeField] private GameObject currentFormationObject;
     [SerializeField] private GameObject formationCard;
     [SerializeField] private Transform formationPosition;
+    [SerializeField] private Transform enemyFormationPosition;
     [SerializeField] private bool formationIsChoosed;
 
     [Header("Cards and Contents")]
@@ -107,6 +108,7 @@ public class FightManager : MonoBehaviour
         {
             case FightPhase.FormationSelection:
 
+                EnemyFormation();
                 FormationSelection();
 
                 break;
@@ -128,6 +130,22 @@ public class FightManager : MonoBehaviour
 
 
                 break;
+        }
+    }
+
+    public void EnemyFormation()
+    {
+        Instantiate(mission.enemyFormation.formationPrefab, enemyFormationPosition.position, Quaternion.identity);
+
+        foreach(Transform enemyPositions in mission.enemyFormation.formationPrefab.transform)
+        {
+            foreach(EnemyMissionPositions enemyPosition in mission.enemyMissionPositions)
+            {
+                enemyPositions.GetComponent<EnemyPosition>().unit = enemyPosition.enemy.enemyUnit;
+                enemyPositions.GetComponent<EnemyPosition>().unit.level = enemyPosition.enemy.enemyUnitLevel;
+
+                Instantiate(enemyPosition.enemy.enemyUnit.unitModel, enemyPositions.position, Quaternion.identity);
+            }
         }
     }
 

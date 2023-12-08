@@ -9,7 +9,7 @@ public class MissionCreator : ScriptableObject
 {
     public MissionFormation missionFormationSelection;
     public Formations imposedFormation;
-    public Formations enemyImposedFormation;
+    public Formations enemyFormation;
 
     public enum MissionFormation
     {

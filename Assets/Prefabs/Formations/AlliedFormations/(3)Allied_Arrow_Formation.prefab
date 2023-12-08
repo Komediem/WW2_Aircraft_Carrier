@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1856524420275782960}
   m_Layer: 0
-  m_Name: (3) Arrow Formation
+  m_Name: (3)Allied_Arrow_Formation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -548,7 +548,7 @@ Transform:
   m_GameObject: {fileID: 806368344}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3, y: 0, z: 4}
+  m_LocalPosition: {x: -3, y: 0, z: 9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -653,6 +653,7 @@ MonoBehaviour:
   currentFormationObject: {fileID: 0}
   formationCard: {fileID: 3549449675421759170, guid: a51b16fae6d7ffb44b87981e3b69cd7f, type: 3}
   formationPosition: {fileID: 1419441839}
+  enemyFormationPosition: {fileID: 806368345}
   formationIsChoosed: 0
   unitFightCard: {fileID: 3549449675421759170, guid: 4e0cf77d1b621904bb2ab34cdc6b0896, type: 3}
   unit3DDatas: {fileID: 2044185862383468713, guid: cb2f47657d85eb34384c8536e5f8bcbf, type: 3}
