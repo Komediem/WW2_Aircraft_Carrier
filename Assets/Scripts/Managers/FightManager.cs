@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -10,15 +11,21 @@ public class FightManager : MonoBehaviour
     public MissionCreator mission;
 
     [Header("Formation")]
-    [SerializeField] private Formations currentformation;
+    [SerializeField] private Formations currentFormation;
+    [SerializeField] private GameObject currentFormationObject;
     [SerializeField] private GameObject formationCard;
     [SerializeField] private Transform formationPosition;
+    [SerializeField] private bool formationIsChoosed;
 
-
-
+    [Header("Cards and Contents")]
     [SerializeField] private GameObject unitFightCard;
     [SerializeField] private GameObject unit3DDatas;
     [SerializeField] private GameObject content;
+
+    [Header("Texts")]
+    [SerializeField] private TextMeshProUGUI buttonPhase;
+    [SerializeField] private string passToUnitText;
+    [SerializeField] private string passToFightText;
 
     [Header("Position")]
     [SerializeField] private List <GameObject> alliedPositions;
@@ -36,6 +43,7 @@ public class FightManager : MonoBehaviour
     public FightPhase fightPhase;
     public enum FightPhase
     {
+        FormationSelection,
         UnitSelection,
         FirstPlayer,
         SecondPlayer,
@@ -43,19 +51,18 @@ public class FightManager : MonoBehaviour
 
     void Start()
     {
-        //fightPhase = FightPhase.UnitSelection;
-
         if(mission.missionFormationSelection == MissionCreator.MissionFormation.free)
         {
-            FormationSelection();
+            fightPhase = FightPhase.FormationSelection;
         }
 
         else if (mission.missionFormationSelection == MissionCreator.MissionFormation.imposed)
         {
-            currentformation = mission.imposedFormation;
+            currentFormation = mission.imposedFormation;
+            fightPhase = FightPhase.UnitSelection;
         }
 
-        //CheckPhase();
+        CheckPhase();
     }
     void Update()
     {
@@ -98,6 +105,12 @@ public class FightManager : MonoBehaviour
     {
         switch(fightPhase)
         {
+            case FightPhase.FormationSelection:
+
+                FormationSelection();
+
+                break;
+
             case FightPhase.UnitSelection:
 
                 ShowUnitChoice();
@@ -151,16 +164,41 @@ public class FightManager : MonoBehaviour
 
     public void FormationSelectionButton(Formations formation)
     {
-        if (currentformation != null)
+        if (formationIsChoosed)
         {
-            Destroy(currentformation.formationPrefab);
+            Destroy(currentFormationObject);
+            formationIsChoosed = false;
         }
 
-        else
+        else if(!formationIsChoosed)
         {
-            currentformation.formationPrefab = Instantiate(formation.formationPrefab, formationPosition.position, Quaternion.identity);
+            currentFormation = formation;
+            currentFormationObject = Instantiate(currentFormation.formationPrefab, formationPosition.position, Quaternion.identity);
+            alliedPositionsParent = currentFormation.formationPrefab;
             SetupPosition();
+            formationIsChoosed = true;
         }
+    }
+
+    public void PassToNextSelection()
+    {
+        foreach (Transform child in content.transform)
+        {
+            GameObject.Destroy(child.gameObject);
+        }
+
+        if (fightPhase == FightPhase.FormationSelection && formationIsChoosed)
+        {
+            fightPhase = FightPhase.UnitSelection;
+            buttonPhase.text = "FIGHT";
+        }
+
+        else if(fightPhase == FightPhase.UnitSelection && !formationIsChoosed)
+        {
+            fightPhase = FightPhase.FirstPlayer;
+        }
+
+        CheckPhase();
     }
 
     public void ShowUnitChoice()
@@ -284,6 +322,20 @@ public class FightManager : MonoBehaviour
             posHitScript.associatedDatas.CheckUnitInFight();
 
             posHitScript.unit = null;
+        }
+    }
+
+    public void DefineFirstPlayer()
+    {
+        if (Reserve.Instance != null)
+        {
+            if (Reserve.Instance.formations.Count > 0)
+            {
+                foreach (Formations formation in Reserve.Instance.formations)
+                {
+
+                }
+            }
         }
     }
 }

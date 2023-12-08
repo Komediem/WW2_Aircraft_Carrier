@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Position Effect", menuName = "Position Effect")]
-public class PositionEffect : MonoBehaviour
+public class PositionEffect : ScriptableObject
 {
     
 }

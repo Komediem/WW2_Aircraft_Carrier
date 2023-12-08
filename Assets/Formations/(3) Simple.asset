@@ -15,3 +15,4 @@ MonoBehaviour:
   formationPrefab: {fileID: 6345831702928017876, guid: 5958338324f8a584d97bec143a00b383, type: 3}
   formationName: Classic Formation
   formationImage: {fileID: 0}
+  formationDescription: 

@@ -523,6 +523,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 784158059}
   m_CullTransparentMesh: 1
+--- !u!1 &806368344
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 806368345}
+  m_Layer: 0
+  m_Name: EnemyFormationPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &806368345
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 806368344}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3, y: 0, z: 4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1090717705
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -618,12 +649,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mission: {fileID: 11400000, guid: e6682ea46fb28b44cb25400893b9832c, type: 2}
-  currentformation: {fileID: 0}
+  currentFormation: {fileID: 0}
+  currentFormationObject: {fileID: 0}
   formationCard: {fileID: 3549449675421759170, guid: a51b16fae6d7ffb44b87981e3b69cd7f, type: 3}
   formationPosition: {fileID: 1419441839}
+  formationIsChoosed: 0
   unitFightCard: {fileID: 3549449675421759170, guid: 4e0cf77d1b621904bb2ab34cdc6b0896, type: 3}
   unit3DDatas: {fileID: 2044185862383468713, guid: cb2f47657d85eb34384c8536e5f8bcbf, type: 3}
   content: {fileID: 667762616}
+  buttonPhase: {fileID: 2021049101}
+  passToUnitText: 
+  passToFightText: 
   alliedPositions: []
   alliedPositionsParent: {fileID: 0}
   selectedPos: {fileID: 0}
@@ -844,7 +880,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1369145794}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1090717709}
+        m_TargetAssemblyTypeName: FightManager, Assembly-CSharp
+        m_MethodName: PassToNextSelection
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1369145794
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1407,7 +1455,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: FIGHT
+  m_text: UNITS
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1494,3 +1542,4 @@ SceneRoots:
   - {fileID: 151919610}
   - {fileID: 602414560}
   - {fileID: 1419441839}
+  - {fileID: 806368345}
