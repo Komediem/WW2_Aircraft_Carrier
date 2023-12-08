@@ -7,7 +7,8 @@ using static AlliedMissionPositions;
 [CreateAssetMenu(fileName = "New Mission", menuName = "Mission")]
 public class MissionCreator : ScriptableObject
 {
-    public MissionFormation missionFormation;
+    public MissionFormation missionFormationSelection;
+    public Formations imposedFormation;
 
     public enum MissionFormation
     {

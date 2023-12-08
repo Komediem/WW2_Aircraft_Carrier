@@ -3,14 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class FightManager : MonoBehaviour
 {
+    public MissionCreator mission;
+
+    [Header("Formation")]
+    [SerializeField] private Formations currentformation;
+    [SerializeField] private GameObject formationCard;
+    [SerializeField] private Transform formationPosition;
+
+
+
     [SerializeField] private GameObject unitFightCard;
     [SerializeField] private GameObject unit3DDatas;
     [SerializeField] private GameObject content;
 
-
+    [Header("Position")]
     [SerializeField] private List <GameObject> alliedPositions;
     [SerializeField] private GameObject alliedPositionsParent;
     [SerializeField] private GameObject selectedPos;
@@ -33,11 +43,19 @@ public class FightManager : MonoBehaviour
 
     void Start()
     {
-        SetupPosition();
+        //fightPhase = FightPhase.UnitSelection;
 
-        fightPhase = FightPhase.UnitSelection;
+        if(mission.missionFormationSelection == MissionCreator.MissionFormation.free)
+        {
+            FormationSelection();
+        }
 
-        CheckPhase();
+        else if (mission.missionFormationSelection == MissionCreator.MissionFormation.imposed)
+        {
+            currentformation = mission.imposedFormation;
+        }
+
+        //CheckPhase();
     }
     void Update()
     {
@@ -76,13 +94,12 @@ public class FightManager : MonoBehaviour
         }
     }
 
-    public void CheckPhase()
+    private void CheckPhase()
     {
         switch(fightPhase)
         {
             case FightPhase.UnitSelection:
 
-                SelectionPhase();
                 ShowUnitChoice();
 
                 break;
@@ -101,9 +118,49 @@ public class FightManager : MonoBehaviour
         }
     }
 
-    public void SelectionPhase()
+    public void FormationSelection()
     {
-        
+        GameObject card;
+
+        foreach (Transform child in content.transform)
+        {
+            GameObject.Destroy(child.gameObject);
+        }
+
+        if (Reserve.Instance != null)
+        {
+            if (Reserve.Instance.formations.Count > 0)
+            {
+                foreach (Formations formation in Reserve.Instance.formations)
+                {
+                    card = Instantiate(formationCard, content.transform);
+
+                    card.GetComponent<FormationDatas>().formation = formation;
+
+                    //Event Trigger when card is clicked
+
+                    EventTrigger trigger = card.GetComponent<EventTrigger>();
+                    EventTrigger.Entry entry = new EventTrigger.Entry();
+                    entry.eventID = EventTriggerType.PointerClick;
+                    entry.callback.AddListener((data) => { FormationSelectionButton(formation); });
+                    trigger.triggers.Add(entry);
+                }
+            }
+        }
+    }
+
+    public void FormationSelectionButton(Formations formation)
+    {
+        if (currentformation != null)
+        {
+            Destroy(currentformation.formationPrefab);
+        }
+
+        else
+        {
+            currentformation.formationPrefab = Instantiate(formation.formationPrefab, formationPosition.position, Quaternion.identity);
+            SetupPosition();
+        }
     }
 
     public void ShowUnitChoice()

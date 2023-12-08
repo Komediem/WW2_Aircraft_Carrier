@@ -7,6 +7,7 @@ public class Reserve : MonoBehaviour
     public static Reserve Instance;
 
     public List<Unit> units;
+    public List<Formations> formations;
 
     public void Awake()
     {

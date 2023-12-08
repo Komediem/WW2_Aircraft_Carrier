@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94ae25e10accef1459e8328e25c4b65e, type: 3}
   m_Name: Mission1
   m_EditorClassIdentifier: 
+  missionFormationSelection: 1
+  imposedFormation: {fileID: 0}
   alliedMissionPositions:
-  - missionFormation: 0
-    alliedPositionParameters: {fileID: 0}
+  - alliedPositionParameters: {fileID: 0}
     alliedPositionEffect: {fileID: 0}
   enemyMissionPositions:
   - enemyPositionParameters: {fileID: 0}
