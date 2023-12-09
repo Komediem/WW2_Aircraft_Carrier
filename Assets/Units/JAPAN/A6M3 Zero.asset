@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: A6M3 Zero
   m_EditorClassIdentifier: 
   unitFeedbacks: {fileID: 0}
-  unitName: 
-  unitModel: {fileID: 0}
+  unitName: A6M3 Zero
+  unitModel: {fileID: 957222490142084533, guid: 57412d10825574a4f9457ec0d2bf5d46, type: 3}
   baseLife: 0
   upgradeLife: 0
   currentLife: 0

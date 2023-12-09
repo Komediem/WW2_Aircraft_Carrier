@@ -22,17 +22,17 @@ MonoBehaviour:
   - enemyPositionParameters: {fileID: 0}
     enemyPositionEffect: {fileID: 0}
     enemy:
-      enemyUnit: {fileID: 11400000, guid: 886c595a258b5ce4ea01094ed0375951, type: 2}
+      enemyUnit: {fileID: 11400000, guid: c8c609a41c51bf0429c0037376b69a51, type: 2}
       enemyUnitLevel: 2
   - enemyPositionParameters: {fileID: 0}
     enemyPositionEffect: {fileID: 0}
     enemy:
-      enemyUnit: {fileID: 11400000, guid: 8a412edfd672c124fb4b5db5ceb9fe16, type: 2}
+      enemyUnit: {fileID: 11400000, guid: c8c609a41c51bf0429c0037376b69a51, type: 2}
       enemyUnitLevel: 3
   - enemyPositionParameters: {fileID: 0}
     enemyPositionEffect: {fileID: 0}
     enemy:
-      enemyUnit: {fileID: 11400000, guid: 886c595a258b5ce4ea01094ed0375951, type: 2}
+      enemyUnit: {fileID: 11400000, guid: c8c609a41c51bf0429c0037376b69a51, type: 2}
       enemyUnitLevel: 2
   missionRessources:
     money: 0

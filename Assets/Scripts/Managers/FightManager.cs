@@ -33,13 +33,15 @@ public class FightManager : MonoBehaviour
     [SerializeField] private GameObject alliedPositionsParent;
     [SerializeField] private GameObject selectedPos;
 
+    [Header("Local Variables")]
+    private GameObject planeSpawned;
+    [SerializeField] private int enemySpawnCurrent;
+
     private bool posHit;
     private AlliedPosition posHitScript;
 
     public Vector3 mousePosition;
     Plane plane = new Plane(Vector3.up, 0);
-
-    private GameObject planeSpawned;
 
     public FightPhase fightPhase;
     public enum FightPhase
@@ -108,6 +110,7 @@ public class FightManager : MonoBehaviour
         {
             case FightPhase.FormationSelection:
 
+                enemySpawnCurrent = 0;
                 EnemyFormation();
                 FormationSelection();
 
@@ -135,16 +138,17 @@ public class FightManager : MonoBehaviour
 
     public void EnemyFormation()
     {
-        Instantiate(mission.enemyFormation.formationPrefab, enemyFormationPosition.position, Quaternion.identity);
+        GameObject test = Instantiate(mission.enemyFormation.formationPrefab, enemyFormationPosition.position, Quaternion.identity);
 
-        foreach(Transform enemyPositions in mission.enemyFormation.formationPrefab.transform)
+        foreach (Transform enemyPosition in test.transform)
         {
-            foreach(EnemyMissionPositions enemyPosition in mission.enemyMissionPositions)
+            if(enemySpawnCurrent <= 2)
             {
-                enemyPositions.GetComponent<EnemyPosition>().unit = enemyPosition.enemy.enemyUnit;
-                enemyPositions.GetComponent<EnemyPosition>().unit.level = enemyPosition.enemy.enemyUnitLevel;
+                enemyPosition.GetComponent<EnemyPosition>().unit = mission.enemyMissionPositions[enemySpawnCurrent].enemy.enemyUnit;
+                enemyPosition.GetComponent<EnemyPosition>().unit.level = mission.enemyMissionPositions[enemySpawnCurrent].enemy.enemyUnitLevel;
+                Instantiate(mission.enemyMissionPositions[enemySpawnCurrent].enemy.enemyUnit.unitModel, enemyPosition.position, Quaternion.Euler(0, 90, 0), test.transform);
 
-                Instantiate(enemyPosition.enemy.enemyUnit.unitModel, enemyPositions.position, Quaternion.identity);
+                enemySpawnCurrent++;
             }
         }
     }
