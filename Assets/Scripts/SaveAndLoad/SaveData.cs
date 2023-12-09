@@ -7,23 +7,24 @@ using UnityEngine.SceneManagement;
 public class SaveData
 {
     [Header("Script Links")]
+    public Reserve reserve;
 
     [Header("Lists")]
     public List<Unit> unitsPossessed;
 
     public void Load()
     {
-        if (Reserve.Instance != null)
+        if (reserve != null)
         {
-            Reserve.Instance.units = unitsPossessed;
+            reserve.units = unitsPossessed;
         }
     }
 
     public void Save()
     {
-        if(Reserve.Instance != null)
+        if(reserve != null)
         {
-            unitsPossessed = Reserve.Instance.units;
+            unitsPossessed = reserve.units;
         }
     }
 }

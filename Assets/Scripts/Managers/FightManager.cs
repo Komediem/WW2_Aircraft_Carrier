@@ -22,9 +22,12 @@ public class FightManager : MonoBehaviour
     [SerializeField] private GameObject unitFightCard;
     [SerializeField] private GameObject unit3DDatas;
     [SerializeField] private GameObject content;
+    [SerializeField] private List<GameObject> desactivateSelection = new();
 
     [Header("Texts")]
     [SerializeField] private TextMeshProUGUI buttonPhase;
+    [SerializeField] private TextMeshProUGUI globalAlliedSpeedText;
+    [SerializeField] private TextMeshProUGUI globalEnemySpeedText;
     [SerializeField] private string passToUnitText;
     [SerializeField] private string passToFightText;
 
@@ -35,7 +38,11 @@ public class FightManager : MonoBehaviour
 
     [Header("Local Variables")]
     private GameObject planeSpawned;
-    [SerializeField] private int enemySpawnCurrent;
+    private int enemySpawnCurrent;
+    [SerializeField] private List<Unit> currentAlliedTeam = new();
+    [SerializeField] private List<Unit> currentEnemyTeam = new();
+    [SerializeField] private int globalAlliedSpeed;
+    [SerializeField] private int globalEnemySpeed;
 
     private bool posHit;
     private AlliedPosition posHitScript;
@@ -48,8 +55,8 @@ public class FightManager : MonoBehaviour
     {
         FormationSelection,
         UnitSelection,
-        FirstPlayer,
-        SecondPlayer,
+        PlayerTurn,
+        EnemyTurn,
     }
 
     void Start()
@@ -57,12 +64,14 @@ public class FightManager : MonoBehaviour
         if(mission.missionFormationSelection == MissionCreator.MissionFormation.free)
         {
             fightPhase = FightPhase.FormationSelection;
+            EnemyFormation();
         }
 
         else if (mission.missionFormationSelection == MissionCreator.MissionFormation.imposed)
         {
             currentFormation = mission.imposedFormation;
             fightPhase = FightPhase.UnitSelection;
+            EnemyFormation();
         }
 
         CheckPhase();
@@ -111,8 +120,8 @@ public class FightManager : MonoBehaviour
             case FightPhase.FormationSelection:
 
                 enemySpawnCurrent = 0;
-                EnemyFormation();
                 FormationSelection();
+                ResetSpeed();
 
                 break;
 
@@ -122,13 +131,13 @@ public class FightManager : MonoBehaviour
 
                 break;
 
-            case FightPhase.FirstPlayer:
+            case FightPhase.PlayerTurn:
 
 
 
                 break;
 
-            case FightPhase.SecondPlayer:
+            case FightPhase.EnemyTurn:
 
 
 
@@ -138,18 +147,34 @@ public class FightManager : MonoBehaviour
 
     public void EnemyFormation()
     {
-        GameObject test = Instantiate(mission.enemyFormation.formationPrefab, enemyFormationPosition.position, Quaternion.identity);
-
-        foreach (Transform enemyPosition in test.transform)
+        if(!formationIsChoosed)
         {
-            if(enemySpawnCurrent <= 2)
-            {
-                enemyPosition.GetComponent<EnemyPosition>().unit = mission.enemyMissionPositions[enemySpawnCurrent].enemy.enemyUnit;
-                enemyPosition.GetComponent<EnemyPosition>().unit.level = mission.enemyMissionPositions[enemySpawnCurrent].enemy.enemyUnitLevel;
-                Instantiate(mission.enemyMissionPositions[enemySpawnCurrent].enemy.enemyUnit.unitModel, enemyPosition.position, Quaternion.Euler(0, 90, 0), test.transform);
+            GameObject test = Instantiate(mission.enemyFormation.formationPrefab, enemyFormationPosition.position, Quaternion.identity);
 
-                enemySpawnCurrent++;
+            foreach (Transform enemyPosition in test.transform)
+            {
+                if(enemySpawnCurrent <= mission.enemyMissionPositions.Count - 1)
+                {
+                    enemyPosition.GetComponent<EnemyPosition>().unit = mission.enemyMissionPositions[enemySpawnCurrent].enemy.enemyUnit;
+                    enemyPosition.GetComponent<EnemyPosition>().unit.level = mission.enemyMissionPositions[enemySpawnCurrent].enemy.enemyUnitLevel;
+                    SetEnemiesDatas(enemyPosition.GetComponent<EnemyPosition>().unit);
+                    Instantiate(mission.enemyMissionPositions[enemySpawnCurrent].enemy.enemyUnit.unitModel, enemyPosition.position, Quaternion.Euler(0, 90, 0), test.transform);
+
+                    globalEnemySpeed += enemyPosition.GetComponent<EnemyPosition>().unit.currentSpeed;
+                    currentEnemyTeam.Add(enemyPosition.GetComponent<EnemyPosition>().unit);
+                    enemySpawnCurrent++;
+                }
             }
+        }
+    }
+
+    public void SetEnemiesDatas(Unit unit)
+    {
+        unit.currentSpeed = unit.baseSpeed;
+
+        for(int i = 1; i < unit.level; i++)
+        {
+            unit.currentSpeed += unit.upgradeSpeed;
         }
     }
 
@@ -196,7 +221,13 @@ public class FightManager : MonoBehaviour
         {
             currentFormation = formation;
             currentFormationObject = Instantiate(currentFormation.formationPrefab, formationPosition.position, Quaternion.identity);
-            alliedPositionsParent = currentFormation.formationPrefab;
+            alliedPositionsParent = currentFormationObject;
+
+            if(alliedPositions.Count != 0)
+            {
+                alliedPositions.Clear();
+            }
+
             SetupPosition();
             formationIsChoosed = true;
         }
@@ -215,9 +246,19 @@ public class FightManager : MonoBehaviour
             buttonPhase.text = "FIGHT";
         }
 
-        else if(fightPhase == FightPhase.UnitSelection && !formationIsChoosed)
+        else if(fightPhase == FightPhase.UnitSelection && formationIsChoosed)
         {
-            fightPhase = FightPhase.FirstPlayer;
+            foreach(GameObject unitPosition in alliedPositions)
+            {
+                currentAlliedTeam.Add(unitPosition.GetComponent<AlliedPosition>().unit);
+            }
+
+            foreach(GameObject desactivateElement in desactivateSelection)
+            {
+                desactivateElement.SetActive(false);
+            }
+
+            DefineFirstPlayer();
         }
 
         CheckPhase();
@@ -321,6 +362,9 @@ public class FightManager : MonoBehaviour
             posHitScript.PositionBlocked();
             unit.unitFeedbacks.CheckUnitInFight();
 
+            globalAlliedSpeed += unit.currentSpeed;
+            ResetSpeed();
+
             posHitScript.associatedDatas = unit.unitFeedbacks;
 
             planeSpawned = null;
@@ -343,21 +387,28 @@ public class FightManager : MonoBehaviour
             posHitScript.isOccuped = false;
             posHitScript.associatedDatas.CheckUnitInFight();
 
+            globalAlliedSpeed -= posHitScript.unit.currentSpeed;
+            ResetSpeed();
+
             posHitScript.unit = null;
         }
     }
 
     public void DefineFirstPlayer()
     {
-        if (Reserve.Instance != null)
+        if(globalAlliedSpeed >= globalEnemySpeed)
         {
-            if (Reserve.Instance.formations.Count > 0)
-            {
-                foreach (Formations formation in Reserve.Instance.formations)
-                {
-
-                }
-            }
+            fightPhase = FightPhase.PlayerTurn;
         }
+        else
+        {
+            fightPhase = FightPhase.EnemyTurn;
+        }
+    }
+
+    public void ResetSpeed()
+    {
+        globalAlliedSpeedText.text = globalAlliedSpeed.ToString();
+        globalEnemySpeedText.text = globalEnemySpeed.ToString();
     }
 }

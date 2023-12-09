@@ -21,8 +21,8 @@ MonoBehaviour:
   baseAttack: 0
   upgradeAttack: 0
   currentAttack: 0
-  baseSpeed: 0
-  upgradeSpeed: 0
+  baseSpeed: 25
+  upgradeSpeed: 5
   currentSpeed: 0
   baseUpgradeCostLevel: 0
   upgradeCostLevel: 0
@@ -31,7 +31,7 @@ MonoBehaviour:
   plansMax: 0
   plansCurrent: 0
   levelMax: 0
-  level: 0
+  level: 2
   unitIcon: {fileID: 0}
   isUnlocked: 0
   isInFight: 0

@@ -18,7 +18,7 @@ public class MissionCreator : ScriptableObject
 
     public List<AlliedMissionPositions> alliedMissionPositions = new();
     public List<EnemyMissionPositions> enemyMissionPositions = new();
-    public MissionRessources missionRessources;
+    public MissionRewards missionRessources;
 }
 
 [Serializable]
@@ -44,7 +44,7 @@ public struct MissionEnemies
 }
 
 [Serializable]
-public struct MissionRessources
+public struct MissionRewards
 {
     [Header("Ressources")]
     public int money;
