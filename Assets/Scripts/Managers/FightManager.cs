@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -145,6 +146,19 @@ public class FightManager : MonoBehaviour
         }
     }
 
+    public void ChooseTarget(Unit unit)
+    {
+        if(selectedPos != null && fightPhase == FightPhase.PlayerTurn && !selectedPos.GetComponent<AlliedPosition>().unit.havePlayed)
+        {
+            unit.currentLife -= selectedPos.GetComponent<AlliedPosition>().unit.currentAttack;
+            selectedPos.GetComponent<AlliedPosition>().unit.havePlayed = true;
+            selectedPos.GetComponent<Renderer>().material.color = Color.white;
+
+            print(unit.currentLife);
+            CheckUnitStats(unit);
+        }
+    }
+
     public void EnemyFormation()
     {
         if(!formationIsChoosed)
@@ -157,12 +171,23 @@ public class FightManager : MonoBehaviour
                 {
                     enemyPosition.GetComponent<EnemyPosition>().unit = mission.enemyMissionPositions[enemySpawnCurrent].enemy.enemyUnit;
                     enemyPosition.GetComponent<EnemyPosition>().unit.level = mission.enemyMissionPositions[enemySpawnCurrent].enemy.enemyUnitLevel;
+
                     SetEnemiesDatas(enemyPosition.GetComponent<EnemyPosition>().unit);
-                    Instantiate(mission.enemyMissionPositions[enemySpawnCurrent].enemy.enemyUnit.unitModel, enemyPosition.position, Quaternion.Euler(0, 90, 0), test.transform);
+                    GameObject currentEnemyPlane = Instantiate(mission.enemyMissionPositions[enemySpawnCurrent].enemy.enemyUnit.unitModel, enemyPosition.position, Quaternion.Euler(0, 90, 0), test.transform);
+
+                    GameObject currentDatas = Instantiate(unit3DDatas, currentEnemyPlane.transform.position + new Vector3(0, 2, 0), Quaternion.Euler(0, 0, 30), currentEnemyPlane.transform);
+                    currentDatas.transform.localScale = Vector3.one;
+                    currentDatas.GetComponent<UnitDatas>().unit = enemyPosition.GetComponent<EnemyPosition>().unit;
 
                     globalEnemySpeed += enemyPosition.GetComponent<EnemyPosition>().unit.currentSpeed;
                     currentEnemyTeam.Add(enemyPosition.GetComponent<EnemyPosition>().unit);
                     enemySpawnCurrent++;
+
+                    EventTrigger trigger = enemyPosition.GetComponent<EventTrigger>();
+                    EventTrigger.Entry entry = new EventTrigger.Entry();
+                    entry.eventID = EventTriggerType.PointerClick;
+                    entry.callback.AddListener((data) => { ChooseTarget(enemyPosition.GetComponent<EnemyPosition>().unit); });
+                    trigger.triggers.Add(entry);
                 }
             }
         }
@@ -171,10 +196,49 @@ public class FightManager : MonoBehaviour
     public void SetEnemiesDatas(Unit unit)
     {
         unit.currentSpeed = unit.baseSpeed;
+        unit.currentAttack = unit.baseAttack;
+        unit.currentLife = unit.baseLife;
 
         for(int i = 1; i < unit.level; i++)
         {
             unit.currentSpeed += unit.upgradeSpeed;
+        }
+
+        for (int i = 1; i < unit.level; i++)
+        {
+            unit.currentAttack += unit.upgradeAttack;
+        }
+
+        for (int i = 1; i < unit.level; i++)
+        {
+            unit.currentLife += unit.upgradeLife;
+        }
+    }
+
+    private void CheckUnitStats(Unit unit)
+    {
+        if(unit.currentLife <= 0)
+        {
+            print("is Destroyed");
+        }
+    }
+
+    public void SelectPos(GameObject obj)
+    {
+        if(fightPhase == FightPhase.PlayerTurn)
+        {
+            if (selectedPos == null)
+            {
+                selectedPos = obj;
+                obj.GetComponent<MeshRenderer>().material.color = Color.green;
+            }
+            else if (selectedPos != null && !selectedPos.GetComponent<AlliedPosition>().unit.havePlayed)
+            {
+                selectedPos.GetComponent<MeshRenderer>().material.color = Color.white;
+
+                selectedPos = obj;
+                obj.GetComponent<MeshRenderer>().material.color = Color.green;
+            }
         }
     }
 
@@ -251,6 +315,8 @@ public class FightManager : MonoBehaviour
             foreach(GameObject unitPosition in alliedPositions)
             {
                 currentAlliedTeam.Add(unitPosition.GetComponent<AlliedPosition>().unit);
+
+                unitPosition.GetComponent<MeshRenderer>().material.color = Color.white;
             }
 
             foreach(GameObject desactivateElement in desactivateSelection)
@@ -327,6 +393,12 @@ public class FightManager : MonoBehaviour
             entry.eventID = EventTriggerType.PointerClick;
             entry.callback.AddListener((data) => { RemoveUnit(); });
             trigger.triggers.Add(entry);
+
+            EventTrigger trigger2 = child.GetComponent<EventTrigger>();
+            EventTrigger.Entry entry2 = new EventTrigger.Entry();
+            entry2.eventID = EventTriggerType.PointerClick;
+            entry2.callback.AddListener((data) => { SelectPos(child); });
+            trigger2.triggers.Add(entry2);
         }
 
     }
@@ -337,8 +409,8 @@ public class FightManager : MonoBehaviour
         {
             planeSpawned = Instantiate(unit.unitModel, mousePosition, Quaternion.identity);
             
-            /*GameObject currentDatas = Instantiate(unit3DDatas, planeSpawned.transform.position + new Vector3(0, 2, 0), Quaternion.Euler(-2, 30, 30), planeSpawned.transform);
-            currentDatas.GetComponent<UnitDatas>().unit = unit;*/
+            GameObject currentDatas = Instantiate(unit3DDatas, planeSpawned.transform.position + new Vector3(0, 2, 0), Quaternion.Euler(0, 0, 30), planeSpawned.transform);
+            currentDatas.GetComponent<UnitDatas>().unit = unit;
         }
     }
 
@@ -378,7 +450,7 @@ public class FightManager : MonoBehaviour
 
     public void RemoveUnit()
     {
-        if (posHitScript.isOccuped)
+        if (posHitScript.isOccuped && fightPhase == FightPhase.UnitSelection)
         {
             posHitScript.PositionFree();
             posHitScript.DestroyPlane();

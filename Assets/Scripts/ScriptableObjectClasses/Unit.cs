@@ -52,6 +52,7 @@ public class Unit : ScriptableObject
 
     public bool isUnlocked;
     public bool isInFight;
+    public bool havePlayed;
 
     [Header("Enumerations")]
     public unitType UnitType;

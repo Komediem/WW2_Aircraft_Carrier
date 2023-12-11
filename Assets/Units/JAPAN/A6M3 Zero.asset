@@ -15,11 +15,11 @@ MonoBehaviour:
   unitFeedbacks: {fileID: 0}
   unitName: A6M3 Zero
   unitModel: {fileID: 957222490142084533, guid: 57412d10825574a4f9457ec0d2bf5d46, type: 3}
-  baseLife: 0
-  upgradeLife: 0
+  baseLife: 120
+  upgradeLife: 7
   currentLife: 0
-  baseAttack: 0
-  upgradeAttack: 0
+  baseAttack: 40
+  upgradeAttack: 5
   currentAttack: 0
   baseSpeed: 25
   upgradeSpeed: 5
@@ -35,5 +35,6 @@ MonoBehaviour:
   unitIcon: {fileID: 0}
   isUnlocked: 0
   isInFight: 0
+  havePlayed: 0
   UnitType: 0
   Rarity: 0

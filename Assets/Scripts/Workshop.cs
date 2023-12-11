@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class Workshop : MonoBehaviour
 {
-    public Reserve reserve;
-
     public List<Unit> units = new();
 
     private UnitDatas unitDatas;
@@ -34,7 +32,7 @@ public class Workshop : MonoBehaviour
         if (RessourceManager.Instance != null && RessourceManager.Instance.money >= unit.moneyCost && unit.isUnlocked)
         {
             Unit uniqueUnit = Instantiate(unit);
-            reserve.units.Add(uniqueUnit);
+            Reserve.Instance.units.Add(uniqueUnit);
 
             RessourceManager.Instance.LoseMoney(unit.moneyCost);
         }
