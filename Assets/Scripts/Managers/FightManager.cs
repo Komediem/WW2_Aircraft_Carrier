@@ -98,53 +98,23 @@ public class FightManager : MonoBehaviour
                 posHit = true;
                 posHitScript = hit.collider.GetComponent<AlliedPosition>();
 
+                /*
                 if(!posHitScript.isOccuped)
-                posHitScript.gameObject.GetComponent<Renderer>().material.color = Color.green;
+                posHitScript.gameObject.GetComponent<Renderer>().material.color = Color.green;*/
             }
         }
 
-
         else
         {
+            /*
             if(posHitScript != null && !posHitScript.isOccuped)
-            posHitScript.gameObject.GetComponent<Renderer>().material.color = Color.white;
+            posHitScript.gameObject.GetComponent<Renderer>().material.color = Color.white;*/
 
             posHit = false;
             posHitScript = null;
         }
     }
 
-    private void CheckPhase()
-    {
-        switch(fightPhase)
-        {
-            case FightPhase.FormationSelection:
-
-                enemySpawnCurrent = 0;
-                FormationSelection();
-                ResetSpeed();
-
-                break;
-
-            case FightPhase.UnitSelection:
-
-                ShowUnitChoice();
-
-                break;
-
-            case FightPhase.PlayerTurn:
-
-
-
-                break;
-
-            case FightPhase.EnemyTurn:
-
-
-
-                break;
-        }
-    }
 
     public void ChooseTarget(Unit unit)
     {
@@ -152,10 +122,12 @@ public class FightManager : MonoBehaviour
         {
             unit.currentLife -= selectedPos.GetComponent<AlliedPosition>().unit.currentAttack;
             selectedPos.GetComponent<AlliedPosition>().unit.havePlayed = true;
-            selectedPos.GetComponent<Renderer>().material.color = Color.white;
+            selectedPos.GetComponent<Renderer>().material.color = Color.red;
 
             print(unit.currentLife);
             CheckUnitStats(unit);
+
+            selectedPos = null;
         }
     }
 
@@ -230,14 +202,33 @@ public class FightManager : MonoBehaviour
             if (selectedPos == null)
             {
                 selectedPos = obj;
-                obj.GetComponent<MeshRenderer>().material.color = Color.green;
+
+                if(!selectedPos.GetComponent<AlliedPosition>().unit.havePlayed)
+                {
+                    obj.GetComponent<MeshRenderer>().material.color = Color.green;
+                }
+
+                else
+                {
+                    selectedPos = null;
+                }
             }
-            else if (selectedPos != null && !selectedPos.GetComponent<AlliedPosition>().unit.havePlayed)
+
+            else if (selectedPos != null)
             {
                 selectedPos.GetComponent<MeshRenderer>().material.color = Color.white;
 
                 selectedPos = obj;
-                obj.GetComponent<MeshRenderer>().material.color = Color.green;
+
+                if (!selectedPos.GetComponent<AlliedPosition>().unit.havePlayed)
+                {
+                    obj.GetComponent<MeshRenderer>().material.color = Color.green;
+                }
+
+                else
+                {
+                    selectedPos = null;
+                }
             }
         }
     }
@@ -297,112 +288,6 @@ public class FightManager : MonoBehaviour
         }
     }
 
-    public void PassToNextSelection()
-    {
-        foreach (Transform child in content.transform)
-        {
-            GameObject.Destroy(child.gameObject);
-        }
-
-        if (fightPhase == FightPhase.FormationSelection && formationIsChoosed)
-        {
-            fightPhase = FightPhase.UnitSelection;
-            buttonPhase.text = "FIGHT";
-        }
-
-        else if(fightPhase == FightPhase.UnitSelection && formationIsChoosed)
-        {
-            foreach(GameObject unitPosition in alliedPositions)
-            {
-                currentAlliedTeam.Add(unitPosition.GetComponent<AlliedPosition>().unit);
-
-                unitPosition.GetComponent<MeshRenderer>().material.color = Color.white;
-            }
-
-            foreach(GameObject desactivateElement in desactivateSelection)
-            {
-                desactivateElement.SetActive(false);
-            }
-
-            DefineFirstPlayer();
-        }
-
-        CheckPhase();
-    }
-
-    public void ShowUnitChoice()
-    {
-        GameObject card;
-
-        foreach (Transform child in content.transform)
-        {
-            GameObject.Destroy(child.gameObject);
-        }
-
-        if(Reserve.Instance != null)
-        {
-            if (Reserve.Instance.units.Count > 0)
-            {
-                foreach (Unit unit in Reserve.Instance.units)
-                {
-                    card = Instantiate(unitFightCard, content.transform);
-
-                    card.GetComponent<UnitDatas>().unit = unit;
-
-                    //Event Trigger when card is clicked
-
-                    EventTrigger trigger = card.GetComponent<EventTrigger>();
-                    EventTrigger.Entry entry = new EventTrigger.Entry();
-                    entry.eventID = EventTriggerType.BeginDrag;
-                    entry.callback.AddListener((data) => { SpawnPlane(unit); });
-                    trigger.triggers.Add(entry);
-
-                    //Event Trigger during the drag
-
-                    EventTrigger trigger2 = card.GetComponent<EventTrigger>();
-                    EventTrigger.Entry entry2 = new EventTrigger.Entry();
-                    entry2.eventID = EventTriggerType.Drag;
-                    entry2.callback.AddListener((data) => { DragPlane(); });
-                    trigger2.triggers.Add(entry2);
-
-                    //Event Trigger after releasing the button of drag
-
-                    EventTrigger trigger3 = card.GetComponent<EventTrigger>();
-                    EventTrigger.Entry entry3 = new EventTrigger.Entry();
-                    entry3.eventID = EventTriggerType.EndDrag;
-                    entry3.callback.AddListener((data) => { DragFinished(unit); });
-                    trigger3.triggers.Add(entry3);
-                }
-            }
-        }
-    }
-
-    public void SetupPosition()
-    {
-        for (int i = 0; i < alliedPositionsParent.transform.childCount; i++)
-        {
-            alliedPositions.Add(alliedPositionsParent.transform.GetChild(i).gameObject);
-        }
-
-        foreach(GameObject child in alliedPositions)
-        {
-            //Event Trigger to remove present plane
-
-            EventTrigger trigger = child.GetComponent<EventTrigger>();
-            EventTrigger.Entry entry = new EventTrigger.Entry();
-            entry.eventID = EventTriggerType.PointerClick;
-            entry.callback.AddListener((data) => { RemoveUnit(); });
-            trigger.triggers.Add(entry);
-
-            EventTrigger trigger2 = child.GetComponent<EventTrigger>();
-            EventTrigger.Entry entry2 = new EventTrigger.Entry();
-            entry2.eventID = EventTriggerType.PointerClick;
-            entry2.callback.AddListener((data) => { SelectPos(child); });
-            trigger2.triggers.Add(entry2);
-        }
-
-    }
-
     public void SpawnPlane(Unit unit)
     {
         if(!unit.isInFight)
@@ -450,7 +335,7 @@ public class FightManager : MonoBehaviour
 
     public void RemoveUnit()
     {
-        if (posHitScript.isOccuped && fightPhase == FightPhase.UnitSelection)
+        if (fightPhase == FightPhase.UnitSelection && posHitScript.isOccuped)
         {
             posHitScript.PositionFree();
             posHitScript.DestroyPlane();
@@ -466,9 +351,124 @@ public class FightManager : MonoBehaviour
         }
     }
 
+
+
+    #region Setup Utils
+
+    public void ShowUnitChoice()
+    {
+        GameObject card;
+
+        foreach (Transform child in content.transform)
+        {
+            GameObject.Destroy(child.gameObject);
+        }
+
+        if (Reserve.Instance != null)
+        {
+            if (Reserve.Instance.units.Count > 0)
+            {
+                foreach (Unit unit in Reserve.Instance.units)
+                {
+                    card = Instantiate(unitFightCard, content.transform);
+
+                    card.GetComponent<UnitDatas>().unit = unit;
+
+                    //Event Trigger when card is clicked
+
+                    EventTrigger trigger = card.GetComponent<EventTrigger>();
+                    EventTrigger.Entry entry = new EventTrigger.Entry();
+                    entry.eventID = EventTriggerType.BeginDrag;
+                    entry.callback.AddListener((data) => { SpawnPlane(unit); });
+                    trigger.triggers.Add(entry);
+
+                    //Event Trigger during the drag
+
+                    EventTrigger trigger2 = card.GetComponent<EventTrigger>();
+                    EventTrigger.Entry entry2 = new EventTrigger.Entry();
+                    entry2.eventID = EventTriggerType.Drag;
+                    entry2.callback.AddListener((data) => { DragPlane(); });
+                    trigger2.triggers.Add(entry2);
+
+                    //Event Trigger after releasing the button of drag
+
+                    EventTrigger trigger3 = card.GetComponent<EventTrigger>();
+                    EventTrigger.Entry entry3 = new EventTrigger.Entry();
+                    entry3.eventID = EventTriggerType.EndDrag;
+                    entry3.callback.AddListener((data) => { DragFinished(unit); });
+                    trigger3.triggers.Add(entry3);
+                }
+            }
+        }
+    }
+
+    public void SetupPosition()
+    {
+        for (int i = 0; i < alliedPositionsParent.transform.childCount; i++)
+        {
+            alliedPositions.Add(alliedPositionsParent.transform.GetChild(i).gameObject);
+        }
+
+        foreach (GameObject child in alliedPositions)
+        {
+            //Event Trigger to remove present plane
+
+            EventTrigger trigger = child.GetComponent<EventTrigger>();
+            EventTrigger.Entry entry = new EventTrigger.Entry();
+            entry.eventID = EventTriggerType.PointerClick;
+            entry.callback.AddListener((data) => { RemoveUnit(); });
+            trigger.triggers.Add(entry);
+
+            EventTrigger trigger2 = child.GetComponent<EventTrigger>();
+            EventTrigger.Entry entry2 = new EventTrigger.Entry();
+            entry2.eventID = EventTriggerType.PointerClick;
+            entry2.callback.AddListener((data) => { SelectPos(child); });
+            trigger2.triggers.Add(entry2);
+        }
+
+    }
+
+    #endregion
+
+
+
+    #region Turn Utils
+
+    private void CheckPhase()
+    {
+        switch (fightPhase)
+        {
+            case FightPhase.FormationSelection:
+
+                enemySpawnCurrent = 0;
+                FormationSelection();
+                ResetSpeed();
+
+                break;
+
+            case FightPhase.UnitSelection:
+
+                ShowUnitChoice();
+
+                break;
+
+            case FightPhase.PlayerTurn:
+
+
+
+                break;
+
+            case FightPhase.EnemyTurn:
+
+
+
+                break;
+        }
+    }
+
     public void DefineFirstPlayer()
     {
-        if(globalAlliedSpeed >= globalEnemySpeed)
+        if (globalAlliedSpeed >= globalEnemySpeed)
         {
             fightPhase = FightPhase.PlayerTurn;
         }
@@ -483,4 +483,65 @@ public class FightManager : MonoBehaviour
         globalAlliedSpeedText.text = globalAlliedSpeed.ToString();
         globalEnemySpeedText.text = globalEnemySpeed.ToString();
     }
+
+    private void CheckEndTurn()
+    {
+        if (fightPhase == FightPhase.PlayerTurn)
+        {
+            foreach (Unit units in currentAlliedTeam)
+            {
+                if (units.havePlayed)
+                {
+
+                }
+            }
+        }
+
+        if (fightPhase == FightPhase.EnemyTurn)
+        {
+            foreach (Unit units in currentEnemyTeam)
+            {
+                if (units.havePlayed)
+                {
+
+                }
+            }
+        }
+    }
+
+    public void PassToNextSelection()
+    {
+        foreach (Transform child in content.transform)
+        {
+            GameObject.Destroy(child.gameObject);
+        }
+
+        if (fightPhase == FightPhase.FormationSelection && formationIsChoosed)
+        {
+            fightPhase = FightPhase.UnitSelection;
+            buttonPhase.text = "FIGHT";
+        }
+
+        else if (fightPhase == FightPhase.UnitSelection && formationIsChoosed)
+        {
+            foreach (GameObject unitPosition in alliedPositions)
+            {
+                currentAlliedTeam.Add(unitPosition.GetComponent<AlliedPosition>().unit);
+
+                unitPosition.GetComponent<MeshRenderer>().material.color = Color.white;
+            }
+
+            foreach (GameObject desactivateElement in desactivateSelection)
+            {
+                desactivateElement.SetActive(false);
+            }
+
+            DefineFirstPlayer();
+        }
+
+        CheckPhase();
+    }
+
+
+    #endregion
 }
