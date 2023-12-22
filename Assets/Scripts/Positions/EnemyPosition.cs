@@ -8,6 +8,8 @@ public class EnemyPosition : MonoBehaviour
     public Unit unit;
     public Vector3 position;
 
+    public GameObject unitModel;
+
     private void Start()
     {
         position = this.transform.position;

@@ -116,16 +116,16 @@ public class FightManager : MonoBehaviour
     }
 
 
-    public void ChooseTarget(Unit unit)
+    public void ChooseTarget(EnemyPosition enemyPos)
     {
         if(selectedPos != null && fightPhase == FightPhase.PlayerTurn && !selectedPos.GetComponent<AlliedPosition>().unit.havePlayed)
         {
-            unit.currentLife -= selectedPos.GetComponent<AlliedPosition>().unit.currentAttack;
+            enemyPos.unit.currentLife -= selectedPos.GetComponent<AlliedPosition>().unit.currentAttack;
             selectedPos.GetComponent<AlliedPosition>().unit.havePlayed = true;
             selectedPos.GetComponent<Renderer>().material.color = Color.red;
 
-            print(unit.currentLife);
-            CheckUnitStats(unit);
+            print(enemyPos.unit.currentLife);
+            CheckUnitStats(enemyPos);
 
             selectedPos = null;
         }
@@ -145,9 +145,9 @@ public class FightManager : MonoBehaviour
                     enemyPosition.GetComponent<EnemyPosition>().unit.level = mission.enemyMissionPositions[enemySpawnCurrent].enemy.enemyUnitLevel;
 
                     SetEnemiesDatas(enemyPosition.GetComponent<EnemyPosition>().unit);
-                    GameObject currentEnemyPlane = Instantiate(mission.enemyMissionPositions[enemySpawnCurrent].enemy.enemyUnit.unitModel, enemyPosition.position, Quaternion.Euler(0, 90, 0), test.transform);
+                    enemyPosition.GetComponent<EnemyPosition>().unitModel = Instantiate(mission.enemyMissionPositions[enemySpawnCurrent].enemy.enemyUnit.unitModel, enemyPosition.position, Quaternion.Euler(0, 90, 0), test.transform);
 
-                    GameObject currentDatas = Instantiate(unit3DDatas, currentEnemyPlane.transform.position + new Vector3(0, 2, 0), Quaternion.Euler(0, 0, 30), currentEnemyPlane.transform);
+                    GameObject currentDatas = Instantiate(unit3DDatas, enemyPosition.GetComponent<EnemyPosition>().unitModel.transform.position + new Vector3(0, 2, 0), Quaternion.Euler(0, 0, 30), enemyPosition.GetComponent<EnemyPosition>().unitModel.transform);
                     currentDatas.transform.localScale = Vector3.one;
                     currentDatas.GetComponent<UnitDatas>().unit = enemyPosition.GetComponent<EnemyPosition>().unit;
 
@@ -158,7 +158,7 @@ public class FightManager : MonoBehaviour
                     EventTrigger trigger = enemyPosition.GetComponent<EventTrigger>();
                     EventTrigger.Entry entry = new EventTrigger.Entry();
                     entry.eventID = EventTriggerType.PointerClick;
-                    entry.callback.AddListener((data) => { ChooseTarget(enemyPosition.GetComponent<EnemyPosition>().unit); });
+                    entry.callback.AddListener((data) => { ChooseTarget(enemyPosition.GetComponent<EnemyPosition>()); });
                     trigger.triggers.Add(entry);
                 }
             }
@@ -187,11 +187,11 @@ public class FightManager : MonoBehaviour
         }
     }
 
-    private void CheckUnitStats(Unit unit)
+    private void CheckUnitStats(EnemyPosition enemyPos)
     {
-        if(unit.currentLife <= 0)
+        if(enemyPos.unit.currentLife <= 0)
         {
-            print("is Destroyed");
+            enemyPos.unit.unitModel.SetActive(false); 
         }
     }
 
