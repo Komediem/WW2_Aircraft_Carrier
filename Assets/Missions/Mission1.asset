@@ -23,17 +23,17 @@ MonoBehaviour:
     enemyPositionEffect: {fileID: 0}
     enemy:
       enemyUnit: {fileID: 11400000, guid: c8c609a41c51bf0429c0037376b69a51, type: 2}
-      enemyUnitLevel: 2
+      enemyUnitLevel: 1
   - enemyPositionParameters: {fileID: 0}
     enemyPositionEffect: {fileID: 0}
     enemy:
       enemyUnit: {fileID: 11400000, guid: c8c609a41c51bf0429c0037376b69a51, type: 2}
-      enemyUnitLevel: 3
+      enemyUnitLevel: 5
   - enemyPositionParameters: {fileID: 0}
     enemyPositionEffect: {fileID: 0}
     enemy:
       enemyUnit: {fileID: 11400000, guid: c8c609a41c51bf0429c0037376b69a51, type: 2}
-      enemyUnitLevel: 4
+      enemyUnitLevel: 8
   missionRessources:
     money: 0
     unitPlans: {fileID: 0}

@@ -140,52 +140,57 @@ public class FightManager : MonoBehaviour
 
             foreach (Transform enemyPosition in test.transform)
             {
-                if(enemySpawnCurrent <= mission.enemyMissionPositions.Count - 1)
+                if(enemySpawnCurrent < mission.enemyMissionPositions.Count)
                 {
-                    enemyPosition.GetComponent<EnemyPosition>().unit = mission.enemyMissionPositions[enemySpawnCurrent].enemy.enemyUnit;
-                    enemyPosition.GetComponent<EnemyPosition>().unit.level = mission.enemyMissionPositions[enemySpawnCurrent].enemy.enemyUnitLevel;
+                    Unit currentUnit = Instantiate(mission.enemyMissionPositions[enemySpawnCurrent].enemy.enemyUnit);
+                    EnemyPosition enemyPosDatas = enemyPosition.GetComponent<EnemyPosition>();
 
-                    SetEnemiesDatas(enemyPosition.GetComponent<EnemyPosition>().unit);
-                    enemyPosition.GetComponent<EnemyPosition>().unitModel = Instantiate(mission.enemyMissionPositions[enemySpawnCurrent].enemy.enemyUnit.unitModel, enemyPosition.position, Quaternion.Euler(0, 90, 0), test.transform);
+                    currentUnit.level = mission.enemyMissionPositions[enemySpawnCurrent].enemy.enemyUnitLevel;
+
+                    enemyPosDatas.unit = currentUnit;
+                    enemyPosDatas.unit.level = currentUnit.level;
+
+                    SetEnemiesDatas(enemyPosDatas);
+                    enemyPosDatas.unitModel = Instantiate(currentUnit.unitModel, enemyPosition.position, Quaternion.Euler(0, 90, 0), test.transform);
                     //enemyPosition.GetComponent<EnemyPosition>().unitModel.transform.localScale = 1f;
 
-                    GameObject currentDatas = Instantiate(unit3DDatas, enemyPosition.GetComponent<EnemyPosition>().unitModel.transform.position + new Vector3(0, 2, 0), Quaternion.Euler(0, 0, 30), enemyPosition.GetComponent<EnemyPosition>().unitModel.transform);
+                    GameObject currentDatas = Instantiate(unit3DDatas, enemyPosDatas.unitModel.transform.position + new Vector3(0, 2, 0), Quaternion.Euler(0, 0, 30), enemyPosDatas.unitModel.transform);
                     currentDatas.transform.localScale = Vector3.one;
-                    currentDatas.GetComponent<UnitDatas>().unit = enemyPosition.GetComponent<EnemyPosition>().unit;
+                    currentDatas.GetComponent<UnitDatas>().unit = enemyPosDatas.unit;
 
-                    globalEnemySpeed += enemyPosition.GetComponent<EnemyPosition>().unit.currentSpeed;
-                    currentEnemyTeam.Add(enemyPosition.GetComponent<EnemyPosition>().unit);
+                    globalEnemySpeed += enemyPosDatas.unit.currentSpeed;
+                    currentEnemyTeam.Add(enemyPosDatas.unit);
                     enemySpawnCurrent++;
-
+                    
                     EventTrigger trigger = enemyPosition.GetComponent<EventTrigger>();
                     EventTrigger.Entry entry = new EventTrigger.Entry();
                     entry.eventID = EventTriggerType.PointerClick;
-                    entry.callback.AddListener((data) => { ChooseTarget(enemyPosition.GetComponent<EnemyPosition>()); });
+                    entry.callback.AddListener((data) => { ChooseTarget(enemyPosDatas); });
                     trigger.triggers.Add(entry);
                 }
             }
         }
     }
 
-    public void SetEnemiesDatas(Unit unit)
+    public void SetEnemiesDatas(EnemyPosition enemyPos)
     {
-        unit.currentSpeed = unit.baseSpeed;
-        unit.currentAttack = unit.baseAttack;
-        unit.currentLife = unit.baseLife;
+        enemyPos.unit.currentSpeed = enemyPos.unit.baseSpeed;
+        enemyPos.unit.currentAttack = enemyPos.unit.baseAttack;
+        enemyPos.unit.currentLife = enemyPos.unit.baseLife;
 
-        for(int i = 1; i < unit.level; i++)
+        for(int i = 1; i < enemyPos.unit.level; i++)
         {
-            unit.currentSpeed += unit.upgradeSpeed;
+            enemyPos.unit.currentSpeed += enemyPos.unit.upgradeSpeed;
         }
 
-        for (int i = 1; i < unit.level; i++)
+        for (int i = 1; i < enemyPos.unit.level; i++)
         {
-            unit.currentAttack += unit.upgradeAttack;
+            enemyPos.unit.currentAttack += enemyPos.unit.upgradeAttack;
         }
 
-        for (int i = 1; i < unit.level; i++)
+        for (int i = 1; i < enemyPos.unit.level; i++)
         {
-            unit.currentLife += unit.upgradeLife;
+            enemyPos.unit.currentLife += enemyPos.unit.upgradeLife;
         }
     }
 

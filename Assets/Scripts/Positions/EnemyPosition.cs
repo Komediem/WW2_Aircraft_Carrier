@@ -6,15 +6,8 @@ public class EnemyPosition : MonoBehaviour
 {
     public bool isOccuped;
     public Unit unit;
+    public UnitDatas unitDatas;
     public Vector3 position;
-
-    [Header("Unit Datas")]
-    public int baseLife;
-    public int currentLife;
-    public int baseAttack;
-    public int currentAttack;
-    public int baseSpeed;
-    public int currentSpeed;
 
     public GameObject unitModel;
 

@@ -10,6 +10,7 @@ public class UnitDatas : MonoBehaviour
     [Header("Text Feedback")]
     [SerializeField] private TextMeshProUGUI unitName;
     [SerializeField] private TextMeshProUGUI unitLife;
+    [SerializeField] private Slider unitLifeSlider;
     [SerializeField] private TextMeshProUGUI unitAttack;
     [SerializeField] private TextMeshProUGUI unitSpeed;
     [SerializeField] private TextMeshProUGUI unitCost;
@@ -83,8 +84,11 @@ public class UnitDatas : MonoBehaviour
         if(unitUpgrade != null)
         unitUpgrade.text = unit.currentUpgradeCostLevel.ToString();
 
-        if (unitPlans != null)
+        if(unitPlans != null)
         unitPlans.text = unit.plansCurrent.ToString() + " / " + unit.plansMax.ToString();
+
+        if (unitLifeSlider != null)
+        unitLifeSlider.maxValue = unit.currentLife;
     }
 
     public void DisplayUnitType()
@@ -194,5 +198,14 @@ public class UnitDatas : MonoBehaviour
         {
             hiddenInFightScreen.SetActive(false);
         }
+    }
+
+    public void UpdateDatasInFight()
+    {
+        if(unitLifeSlider != null)
+        unitLifeSlider.value = unit.currentLife;
+
+        if (unitLife != null)
+        unitLife.text = unit.currentLife.ToString();
     }
 }

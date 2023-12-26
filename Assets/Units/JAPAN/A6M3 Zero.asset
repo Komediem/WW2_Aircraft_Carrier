@@ -17,7 +17,7 @@ MonoBehaviour:
   unitModel: {fileID: 957222490142084533, guid: 57412d10825574a4f9457ec0d2bf5d46, type: 3}
   baseLife: 120
   upgradeLife: 7
-  currentLife: 0
+  currentLife: -74
   baseAttack: 40
   upgradeAttack: 5
   currentAttack: 0
@@ -31,9 +31,9 @@ MonoBehaviour:
   plansMax: 0
   plansCurrent: 0
   levelMax: 0
-  level: 2
+  level: 1
   unitIcon: {fileID: 0}
-  isUnlocked: 0
+  isUnlocked: 1
   isInFight: 0
   havePlayed: 0
   UnitType: 0

@@ -17,7 +17,7 @@ public class MissionCreator : ScriptableObject
     }
 
     public List<AlliedMissionPositions> alliedMissionPositions = new();
-    public List<EnemyMissionPositions> enemyMissionPositions = new();
+    public List<EnemyMissionPositions> enemyMissionPositions;
     public MissionRewards missionRessources;
 }
 
