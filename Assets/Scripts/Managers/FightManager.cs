@@ -128,6 +128,7 @@ public class FightManager : MonoBehaviour
             CheckUnitStats(enemyPos);
             CheckEndTurn();
 
+            enemyPos.unitDatas.UpdateDatasInFight();
             selectedPos = null;
         }
     }
@@ -152,11 +153,11 @@ public class FightManager : MonoBehaviour
 
                     SetEnemiesDatas(enemyPosDatas);
                     enemyPosDatas.unitModel = Instantiate(currentUnit.unitModel, enemyPosition.position, Quaternion.Euler(0, 90, 0), test.transform);
-                    //enemyPosition.GetComponent<EnemyPosition>().unitModel.transform.localScale = 1f;
 
                     GameObject currentDatas = Instantiate(unit3DDatas, enemyPosDatas.unitModel.transform.position + new Vector3(0, 2, 0), Quaternion.Euler(0, 0, 30), enemyPosDatas.unitModel.transform);
                     currentDatas.transform.localScale = Vector3.one;
                     currentDatas.GetComponent<UnitDatas>().unit = enemyPosDatas.unit;
+                    enemyPosDatas.unitDatas = currentDatas.GetComponent<UnitDatas>();
 
                     globalEnemySpeed += enemyPosDatas.unit.currentSpeed;
                     currentEnemyTeam.Add(enemyPosDatas.unit);

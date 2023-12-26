@@ -88,7 +88,10 @@ public class UnitDatas : MonoBehaviour
         unitPlans.text = unit.plansCurrent.ToString() + " / " + unit.plansMax.ToString();
 
         if (unitLifeSlider != null)
-        unitLifeSlider.maxValue = unit.currentLife;
+        {
+            unitLifeSlider.maxValue = unit.currentLife;
+            unitLifeSlider.value = unitLifeSlider.maxValue;
+        }
     }
 
     public void DisplayUnitType()
