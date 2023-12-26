@@ -126,6 +126,7 @@ public class FightManager : MonoBehaviour
 
             print(enemyPos.unit.currentLife);
             CheckUnitStats(enemyPos);
+            CheckEndTurn();
 
             selectedPos = null;
         }
@@ -146,6 +147,7 @@ public class FightManager : MonoBehaviour
 
                     SetEnemiesDatas(enemyPosition.GetComponent<EnemyPosition>().unit);
                     enemyPosition.GetComponent<EnemyPosition>().unitModel = Instantiate(mission.enemyMissionPositions[enemySpawnCurrent].enemy.enemyUnit.unitModel, enemyPosition.position, Quaternion.Euler(0, 90, 0), test.transform);
+                    //enemyPosition.GetComponent<EnemyPosition>().unitModel.transform.localScale = 1f;
 
                     GameObject currentDatas = Instantiate(unit3DDatas, enemyPosition.GetComponent<EnemyPosition>().unitModel.transform.position + new Vector3(0, 2, 0), Quaternion.Euler(0, 0, 30), enemyPosition.GetComponent<EnemyPosition>().unitModel.transform);
                     currentDatas.transform.localScale = Vector3.one;
@@ -191,7 +193,7 @@ public class FightManager : MonoBehaviour
     {
         if(enemyPos.unit.currentLife <= 0)
         {
-            enemyPos.unit.unitModel.SetActive(false); 
+            enemyPos.unitModel.SetActive(false); 
         }
     }
 
@@ -488,24 +490,30 @@ public class FightManager : MonoBehaviour
     {
         if (fightPhase == FightPhase.PlayerTurn)
         {
-            foreach (Unit units in currentAlliedTeam)
-            {
-                if (units.havePlayed)
-                {
+            int unitPlayedNumber = 0;
 
+            foreach (GameObject unitPosition in alliedPositions)
+            {
+                AlliedPosition alliedPosition = unitPosition.GetComponent<AlliedPosition>();
+
+                if (alliedPosition.unit.havePlayed)
+                {
+                    unitPlayedNumber++;
+
+                    if(unitPlayedNumber >= alliedPositions.Count())
+                    {
+                        print("turn finished");
+                    }
                 }
             }
         }
 
         if (fightPhase == FightPhase.EnemyTurn)
         {
-            foreach (Unit units in currentEnemyTeam)
+            /*foreach (GameObject unitPosition in)
             {
-                if (units.havePlayed)
-                {
 
-                }
-            }
+            }*/
         }
     }
 
