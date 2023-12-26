@@ -7,6 +7,8 @@ public class AlliedPosition : MonoBehaviour
     public bool isOccuped;
     public UnitDatas associatedDatas;
 
+    public GameObject unitModel;
+
     public Bounds bounds;
     public Unit unit;
 

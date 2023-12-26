@@ -1,8 +1,6 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -15,6 +13,7 @@ public class FightManager : MonoBehaviour
     [SerializeField] private Formations currentFormation;
     [SerializeField] private GameObject currentFormationObject;
     [SerializeField] private GameObject formationCard;
+    [SerializeField] private GameObject enemyFormation;
     [SerializeField] private Transform formationPosition;
     [SerializeField] private Transform enemyFormationPosition;
     [SerializeField] private bool formationIsChoosed;
@@ -124,74 +123,11 @@ public class FightManager : MonoBehaviour
             selectedPos.GetComponent<AlliedPosition>().unit.havePlayed = true;
             selectedPos.GetComponent<Renderer>().material.color = Color.red;
 
-            print(enemyPos.unit.currentLife);
             CheckUnitStats(enemyPos);
-            CheckEndTurn();
+            CheckPlayerEndTurn();
 
             enemyPos.unitDatas.UpdateDatasInFight();
             selectedPos = null;
-        }
-    }
-
-    public void EnemyFormation()
-    {
-        if(!formationIsChoosed)
-        {
-            GameObject test = Instantiate(mission.enemyFormation.formationPrefab, enemyFormationPosition.position, Quaternion.identity);
-
-            foreach (Transform enemyPosition in test.transform)
-            {
-                if(enemySpawnCurrent < mission.enemyMissionPositions.Count)
-                {
-                    Unit currentUnit = Instantiate(mission.enemyMissionPositions[enemySpawnCurrent].enemy.enemyUnit);
-                    EnemyPosition enemyPosDatas = enemyPosition.GetComponent<EnemyPosition>();
-
-                    currentUnit.level = mission.enemyMissionPositions[enemySpawnCurrent].enemy.enemyUnitLevel;
-
-                    enemyPosDatas.unit = currentUnit;
-                    enemyPosDatas.unit.level = currentUnit.level;
-
-                    SetEnemiesDatas(enemyPosDatas);
-                    enemyPosDatas.unitModel = Instantiate(currentUnit.unitModel, enemyPosition.position, Quaternion.Euler(0, 90, 0), test.transform);
-
-                    GameObject currentDatas = Instantiate(unit3DDatas, enemyPosDatas.unitModel.transform.position + new Vector3(0, 2, 0), Quaternion.Euler(0, 0, 30), enemyPosDatas.unitModel.transform);
-                    currentDatas.transform.localScale = Vector3.one;
-                    currentDatas.GetComponent<UnitDatas>().unit = enemyPosDatas.unit;
-                    enemyPosDatas.unitDatas = currentDatas.GetComponent<UnitDatas>();
-
-                    globalEnemySpeed += enemyPosDatas.unit.currentSpeed;
-                    currentEnemyTeam.Add(enemyPosDatas.unit);
-                    enemySpawnCurrent++;
-                    
-                    EventTrigger trigger = enemyPosition.GetComponent<EventTrigger>();
-                    EventTrigger.Entry entry = new EventTrigger.Entry();
-                    entry.eventID = EventTriggerType.PointerClick;
-                    entry.callback.AddListener((data) => { ChooseTarget(enemyPosDatas); });
-                    trigger.triggers.Add(entry);
-                }
-            }
-        }
-    }
-
-    public void SetEnemiesDatas(EnemyPosition enemyPos)
-    {
-        enemyPos.unit.currentSpeed = enemyPos.unit.baseSpeed;
-        enemyPos.unit.currentAttack = enemyPos.unit.baseAttack;
-        enemyPos.unit.currentLife = enemyPos.unit.baseLife;
-
-        for(int i = 1; i < enemyPos.unit.level; i++)
-        {
-            enemyPos.unit.currentSpeed += enemyPos.unit.upgradeSpeed;
-        }
-
-        for (int i = 1; i < enemyPos.unit.level; i++)
-        {
-            enemyPos.unit.currentAttack += enemyPos.unit.upgradeAttack;
-        }
-
-        for (int i = 1; i < enemyPos.unit.level; i++)
-        {
-            enemyPos.unit.currentLife += enemyPos.unit.upgradeLife;
         }
     }
 
@@ -199,7 +135,17 @@ public class FightManager : MonoBehaviour
     {
         if(enemyPos.unit.currentLife <= 0)
         {
-            enemyPos.unitModel.SetActive(false); 
+            enemyPos.unitModel.SetActive(false);
+            enemyPos.unit.isDestroyed = true;
+        }
+    }
+
+    private void CheckUnitStats(AlliedPosition alliedPos)
+    {
+        if (alliedPos.unit.currentLife <= 0)
+        {
+            alliedPos.unitModel.SetActive(false);
+            alliedPos.unit.isDestroyed = true;
         }
     }
 
@@ -320,6 +266,8 @@ public class FightManager : MonoBehaviour
             planeSpawned.transform.position = posHitScript.position;
             planeSpawned.transform.parent = posHitScript.transform;
 
+            posHitScript.unitModel = planeSpawned;
+
             posHitScript.unit = unit;
             posHitScript.isOccuped = true;
 
@@ -358,6 +306,103 @@ public class FightManager : MonoBehaviour
             posHitScript.unit = null;
         }
     }
+
+
+
+    #region Enemy Utils
+
+    public void SetEnemiesDatas(EnemyPosition enemyPos)
+    {
+        enemyPos.unit.currentSpeed = enemyPos.unit.baseSpeed;
+        enemyPos.unit.currentAttack = enemyPos.unit.baseAttack;
+        enemyPos.unit.currentLife = enemyPos.unit.baseLife;
+
+        for (int i = 1; i < enemyPos.unit.level; i++)
+        {
+            enemyPos.unit.currentSpeed += enemyPos.unit.upgradeSpeed;
+        }
+
+        for (int i = 1; i < enemyPos.unit.level; i++)
+        {
+            enemyPos.unit.currentAttack += enemyPos.unit.upgradeAttack;
+        }
+
+        for (int i = 1; i < enemyPos.unit.level; i++)
+        {
+            enemyPos.unit.currentLife += enemyPos.unit.upgradeLife;
+        }
+    }
+
+    public void EnemyFormation()
+    {
+        if (!formationIsChoosed)
+        {
+            enemyFormation = Instantiate(mission.enemyFormation.formationPrefab, enemyFormationPosition.position, Quaternion.identity);
+
+            foreach (Transform enemyPosition in enemyFormation.transform)
+            {
+                if (enemySpawnCurrent < mission.enemyMissionPositions.Count)
+                {
+                    Unit currentUnit = Instantiate(mission.enemyMissionPositions[enemySpawnCurrent].enemy.enemyUnit);
+                    EnemyPosition enemyPosDatas = enemyPosition.GetComponent<EnemyPosition>();
+
+                    currentUnit.level = mission.enemyMissionPositions[enemySpawnCurrent].enemy.enemyUnitLevel;
+
+                    enemyPosDatas.unit = currentUnit;
+                    enemyPosDatas.unit.level = currentUnit.level;
+
+                    SetEnemiesDatas(enemyPosDatas);
+                    enemyPosDatas.unitModel = Instantiate(currentUnit.unitModel, enemyPosition.position, Quaternion.Euler(0, 90, 0), enemyFormation.transform);
+
+                    GameObject currentDatas = Instantiate(unit3DDatas, enemyPosDatas.unitModel.transform.position + new Vector3(0, 2, 0), Quaternion.Euler(0, 0, 30), enemyPosDatas.unitModel.transform);
+                    currentDatas.transform.localScale = Vector3.one;
+                    currentDatas.GetComponent<UnitDatas>().unit = enemyPosDatas.unit;
+                    enemyPosDatas.unitDatas = currentDatas.GetComponent<UnitDatas>();
+
+                    globalEnemySpeed += enemyPosDatas.unit.currentSpeed;
+                    currentEnemyTeam.Add(enemyPosDatas.unit);
+                    enemySpawnCurrent++;
+
+                    EventTrigger trigger = enemyPosition.GetComponent<EventTrigger>();
+                    EventTrigger.Entry entry = new EventTrigger.Entry();
+                    entry.eventID = EventTriggerType.PointerClick;
+                    entry.callback.AddListener((data) => { ChooseTarget(enemyPosDatas); });
+                    trigger.triggers.Add(entry);
+                }
+            }
+        }
+    }
+
+    public void EnemyChooseTarget()
+    {
+        foreach(Transform enemyPosition in enemyFormation.transform)
+        {
+            EnemyPosition enemyPosDatas = enemyPosition.GetComponent<EnemyPosition>();
+
+            if (enemyPosDatas != null && !enemyPosDatas.unit.isDestroyed)
+            {
+                int randomAlliedPos = Random.Range(0, alliedPositions.Count);
+
+                EnemyTarget(enemyPosDatas, alliedPositions[randomAlliedPos]);
+            }
+        }
+
+        fightPhase = FightPhase.PlayerTurn;
+        CheckPhase();
+    }
+
+    public void EnemyTarget(EnemyPosition shooter, GameObject target)
+    {
+        AlliedPosition targetDatas = target.GetComponent<AlliedPosition>();
+
+        targetDatas.unit.currentLife -= shooter.unit.currentAttack;
+        targetDatas.associatedDatas.UpdateDatasInFight();
+
+        targetDatas.unit.isDestroyed = true;
+        CheckUnitStats(targetDatas);
+    }
+
+    #endregion
 
 
 
@@ -462,13 +507,14 @@ public class FightManager : MonoBehaviour
 
             case FightPhase.PlayerTurn:
 
-
+                foreach (GameObject unitPos in alliedPositions)
+                    unitPos.GetComponent<Renderer>().material.color = Color.white;
 
                 break;
 
             case FightPhase.EnemyTurn:
 
-
+                EnemyChooseTarget();
 
                 break;
         }
@@ -492,7 +538,7 @@ public class FightManager : MonoBehaviour
         globalEnemySpeedText.text = globalEnemySpeed.ToString();
     }
 
-    private void CheckEndTurn()
+    private void CheckPlayerEndTurn()
     {
         if (fightPhase == FightPhase.PlayerTurn)
         {
@@ -509,17 +555,15 @@ public class FightManager : MonoBehaviour
                     if(unitPlayedNumber >= alliedPositions.Count())
                     {
                         print("turn finished");
+
+                        fightPhase = FightPhase.EnemyTurn;
+                        CheckPhase();
+
+                        foreach (GameObject unitPos in alliedPositions)
+                        unitPos.GetComponent<Renderer>().material.color = Color.gray;
                     }
                 }
             }
-        }
-
-        if (fightPhase == FightPhase.EnemyTurn)
-        {
-            /*foreach (GameObject unitPosition in)
-            {
-
-            }*/
         }
     }
 
