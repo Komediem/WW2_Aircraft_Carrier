@@ -15,9 +15,7 @@ MonoBehaviour:
   missionFormationSelection: 1
   imposedFormation: {fileID: 0}
   enemyFormation: {fileID: 11400000, guid: 1e34a792b08eba842a0045e3a7f195b9, type: 2}
-  alliedMissionPositions:
-  - alliedPositionParameters: {fileID: 0}
-    alliedPositionEffect: {fileID: 0}
+  alliedMissionPositions: []
   enemyMissionPositions:
   - enemyPositionParameters: {fileID: 0}
     enemyPositionEffect: {fileID: 0}

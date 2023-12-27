@@ -124,7 +124,7 @@ public class FightManager : MonoBehaviour
 
     public void ChooseTarget(EnemyPosition enemyPos)
     {
-        if(selectedPos != null && fightPhase == FightPhase.PlayerTurn && !selectedPos.GetComponent<AlliedPosition>().unit.havePlayed)
+        if(selectedPos != null && fightPhase == FightPhase.PlayerTurn && !selectedPos.GetComponent<AlliedPosition>().unit.havePlayed && !enemyPos.unit.isDestroyed)
         {
             enemyPos.unit.currentLife -= selectedPos.GetComponent<AlliedPosition>().unit.currentAttack;
             selectedPos.GetComponent<AlliedPosition>().unit.havePlayed = true;
@@ -402,6 +402,7 @@ public class FightManager : MonoBehaviour
             {
                 int randomAlliedPos = Random.Range(0, alliedPositions.Count);
 
+                if (!alliedPositions[randomAlliedPos].GetComponent<AlliedPosition>().unit.isDestroyed)
                 EnemyTarget(enemyPosDatas, alliedPositions[randomAlliedPos]);
             }
         }
@@ -544,6 +545,15 @@ public class FightManager : MonoBehaviour
                 EnemyChooseTarget();
 
                 break;
+
+            case FightPhase.EndGame:
+
+                foreach (Unit alliedUnit in currentAlliedTeam)
+                {
+                    alliedUnit.isInFight = false;
+                }
+
+                break;
         }
     }
 
@@ -628,6 +638,8 @@ public class FightManager : MonoBehaviour
                 }
             }
         }
+
+        CheckPhase();
     }
 
     private void PlayerWin()
