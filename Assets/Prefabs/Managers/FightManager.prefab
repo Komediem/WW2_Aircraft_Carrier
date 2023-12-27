@@ -1,0 +1,79 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &968964377970577594
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6356867007649782658}
+  - component: {fileID: 2138855597143657114}
+  m_Layer: 0
+  m_Name: FightManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6356867007649782658
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 968964377970577594}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1360.6259, y: -522.062, z: 10.00935}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2138855597143657114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 968964377970577594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cc21dbd7b3853949a06c136c17c55ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mission: {fileID: 11400000, guid: e6682ea46fb28b44cb25400893b9832c, type: 2}
+  currentFormation: {fileID: 0}
+  currentFormationObject: {fileID: 0}
+  formationCard: {fileID: 3549449675421759170, guid: a51b16fae6d7ffb44b87981e3b69cd7f, type: 3}
+  enemyFormation: {fileID: 0}
+  formationPosition: {fileID: 0}
+  enemyFormationPosition: {fileID: 0}
+  formationIsChoosed: 0
+  unitFightCard: {fileID: 3549449675421759170, guid: 4e0cf77d1b621904bb2ab34cdc6b0896, type: 3}
+  unit3DDatas: {fileID: 2044185862383468713, guid: cb2f47657d85eb34384c8536e5f8bcbf, type: 3}
+  content: {fileID: 0}
+  blackBackground: {fileID: 0}
+  missionRewardParent: {fileID: 0}
+  missionRewardCardPrefab: {fileID: 3016602190344902016, guid: 32c663e45a6fb234c85e3ae98245aef0, type: 3}
+  desactivateSelection:
+  - {fileID: 0}
+  - {fileID: 0}
+  buttonPhase: {fileID: 0}
+  globalAlliedSpeedText: {fileID: 0}
+  globalEnemySpeedText: {fileID: 0}
+  passToUnitText: 
+  passToFightText: 
+  alliedPositions: []
+  alliedPositionsParent: {fileID: 0}
+  selectedPos: {fileID: 0}
+  currentAlliedTeam: []
+  currentEnemyTeam: []
+  globalAlliedSpeed: 0
+  alliedUnitDestroyed: 0
+  globalEnemySpeed: 0
+  enemyUnitDestroyed: 0
+  mousePosition: {x: 0, y: 0, z: 0}
+  fightPhase: 0

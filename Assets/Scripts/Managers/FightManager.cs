@@ -24,6 +24,8 @@ public class FightManager : MonoBehaviour
     [SerializeField] private GameObject unit3DDatas;
     [SerializeField] private GameObject content;
     [SerializeField] private GameObject blackBackground;
+    [SerializeField] private GameObject missionRewardParent;
+    [SerializeField] private GameObject missionRewardCardPrefab;
     [SerializeField] private List<GameObject> desactivateSelection = new();
 
     [Header("Texts")]
@@ -601,8 +603,6 @@ public class FightManager : MonoBehaviour
             {
                 alliedUnitDestroyed++;
 
-                print(alliedUnitDestroyed + " Allied unit destroyed");
-
                 if(alliedUnitDestroyed >= alliedPositions.Count())
                 {
                     fightPhase = FightPhase.EndGame;
@@ -620,8 +620,6 @@ public class FightManager : MonoBehaviour
             {
                 enemyUnitDestroyed++;
 
-                print(enemyUnitDestroyed + " Enemy unit destroyed");
-
                 if (enemyUnitDestroyed >= alliedPositions.Count())
                 {
                     fightPhase = FightPhase.EndGame;
@@ -634,16 +632,41 @@ public class FightManager : MonoBehaviour
 
     private void PlayerWin()
     {
-        print("Player Win");
         string winText = "VICTORY";
 
         blackBackground.SetActive(true);
         blackBackground.GetComponentInChildren<TextMeshProUGUI>().text = winText;
+
+        foreach(MissionRewards missionReward in mission.missionRewards)
+        {
+            GameObject missionRewardCard = Instantiate(missionRewardCardPrefab, missionRewardParent.transform);
+            RewardCard rewardCard = missionRewardCard.GetComponent<RewardCard>();
+
+            rewardCard.rewardName = missionReward.rewardType.ToString();
+            rewardCard.rewardNumber = missionReward.rewardNumber;
+
+            if(missionReward.rewardType == MissionRewards.RewardType.money)
+            {
+                RessourceManager.Instance.EarnMoney(missionReward.rewardNumber);
+                print("Money Obtained");
+            }
+
+            if (missionReward.rewardType == MissionRewards.RewardType.detachedPieces)
+            {
+                RessourceManager.Instance.EarnDetachedPieces(missionReward.rewardNumber);
+                print("Detached pieces obtained");
+            }
+
+            if (missionReward.rewardType == MissionRewards.RewardType.plans)
+            {
+                RessourceManager.Instance.GetNewPlans(missionReward.unitPlans, missionReward.rewardNumber);
+                print("Plans Obtained");
+            }
+        }
     }
 
     private void EnemyWin()
     {
-        print("Enemy Win");
         string winText = "DEFEAT";
 
         blackBackground.SetActive(true);

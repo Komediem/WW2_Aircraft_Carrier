@@ -18,7 +18,7 @@ public class MissionCreator : ScriptableObject
 
     public List<AlliedMissionPositions> alliedMissionPositions = new();
     public List<EnemyMissionPositions> enemyMissionPositions;
-    public MissionRewards missionRessources;
+    public List<MissionRewards> missionRewards;
 }
 
 [Serializable]
@@ -46,10 +46,18 @@ public struct MissionEnemies
 [Serializable]
 public struct MissionRewards
 {
+    public enum RewardType
+    {
+        money,
+        detachedPieces,
+        plans
+    }
+
+    public RewardType rewardType;
+
     [Header("Ressources")]
-    public int money;
+    public int rewardNumber;
 
     [Header("Plans")]
     public Unit unitPlans;
-    public int unitPlansNumber;
 }

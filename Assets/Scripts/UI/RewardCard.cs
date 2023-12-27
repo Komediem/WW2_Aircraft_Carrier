@@ -1,18 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class RewardCard : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [Header("Datas")]
+    public int rewardNumber;
+    public string rewardName;
 
-    // Update is called once per frame
-    void Update()
+    [Header("References")]
+    [SerializeField] private TextMeshProUGUI rewardNumberText;
+    [SerializeField] private TextMeshProUGUI rewardNameText;
+
+    public void Start()
     {
-        
+        rewardNameText.text = rewardName;
+        rewardNumberText.text = rewardNumber.ToString();
     }
 }

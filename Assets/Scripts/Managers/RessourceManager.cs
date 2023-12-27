@@ -9,9 +9,11 @@ public class RessourceManager : MonoBehaviour
 
     [Header("Datas")]
     public float money;
+    public float detachedPieces;
 
     [Header("UI References")]
     [SerializeField] private TextMeshProUGUI moneyText;
+    [SerializeField] private TextMeshProUGUI detachedPiecesText;
 
     public void Awake()
     {
@@ -23,6 +25,9 @@ public class RessourceManager : MonoBehaviour
     {
         if (moneyText != null)
             moneyText.text = money.ToString();
+
+        if (detachedPiecesText != null)
+            detachedPiecesText.text = detachedPieces.ToString();
     }
 
     public void EarnMoney(float moneyEarn)
@@ -37,5 +42,28 @@ public class RessourceManager : MonoBehaviour
         money -= moneyLose;
         if (moneyText != null)
             moneyText.text = money.ToString();
+    }
+
+    public void EarnDetachedPieces(float detachedPiecesEarned)
+    {
+        detachedPieces += detachedPiecesEarned;
+        if (detachedPiecesText != null)
+            detachedPiecesText.text = detachedPieces.ToString();
+    }
+
+    public void LoseDetachedPieces(float detachedPiecesLose)
+    {
+        detachedPieces -= detachedPiecesLose;
+        if (detachedPiecesText != null)
+            detachedPiecesText.text = detachedPieces.ToString();
+    }
+
+    public void GetNewPlans(Unit unit, int number)
+    {
+        unit.plansCurrent += number;
+
+        if (unit.unitFeedbacks != null)
+            unit.unitFeedbacks.CheckLocking();
+        unit.unitFeedbacks.ShowUnitData();
     }
 }

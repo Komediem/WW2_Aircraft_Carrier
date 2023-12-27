@@ -34,7 +34,13 @@ MonoBehaviour:
     enemy:
       enemyUnit: {fileID: 11400000, guid: c8c609a41c51bf0429c0037376b69a51, type: 2}
       enemyUnitLevel: 3
-  missionRessources:
-    money: 0
+  missionRewards:
+  - rewardType: 0
+    rewardNumber: 10000
     unitPlans: {fileID: 0}
-    unitPlansNumber: 0
+  - rewardType: 1
+    rewardNumber: 1000
+    unitPlans: {fileID: 0}
+  - rewardType: 2
+    rewardNumber: 5
+    unitPlans: {fileID: 11400000, guid: 3f0f3271f72d3c2449886f8f58dd4036, type: 2}

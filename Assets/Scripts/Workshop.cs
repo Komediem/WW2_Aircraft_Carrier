@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class Workshop : MonoBehaviour
 {
+    public static Workshop instance;
+ 
     public List<Unit> units = new();
 
     private UnitDatas unitDatas;
@@ -36,15 +38,6 @@ public class Workshop : MonoBehaviour
 
             RessourceManager.Instance.LoseMoney(unit.moneyCost);
         }
-    }
-
-    public void GetNewPlans(Unit unit)
-    {
-        unit.plansCurrent ++;
-
-        if(unit.unitFeedbacks != null)
-        unit.unitFeedbacks.CheckLocking();
-        unit.unitFeedbacks.ShowUnitData();
     }
 
     public void SetStandardDatas(Unit unit)
