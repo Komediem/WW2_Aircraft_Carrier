@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -22,6 +23,7 @@ public class FightManager : MonoBehaviour
     [SerializeField] private GameObject unitFightCard;
     [SerializeField] private GameObject unit3DDatas;
     [SerializeField] private GameObject content;
+    [SerializeField] private GameObject blackBackground;
     [SerializeField] private List<GameObject> desactivateSelection = new();
 
     [Header("Texts")]
@@ -42,7 +44,9 @@ public class FightManager : MonoBehaviour
     [SerializeField] private List<Unit> currentAlliedTeam = new();
     [SerializeField] private List<Unit> currentEnemyTeam = new();
     [SerializeField] private int globalAlliedSpeed;
+    [SerializeField] private int alliedUnitDestroyed;
     [SerializeField] private int globalEnemySpeed;
+    [SerializeField] private int enemyUnitDestroyed;
 
     private bool posHit;
     private AlliedPosition posHitScript;
@@ -57,6 +61,7 @@ public class FightManager : MonoBehaviour
         UnitSelection,
         PlayerTurn,
         EnemyTurn,
+        EndGame
     }
 
     void Start()
@@ -137,15 +142,21 @@ public class FightManager : MonoBehaviour
         {
             enemyPos.unitModel.SetActive(false);
             enemyPos.unit.isDestroyed = true;
+            enemyPos.GetComponent<Renderer>().material.color = Color.yellow;
+
+            CheckVictory();
         }
     }
 
     private void CheckUnitStats(AlliedPosition alliedPos)
     {
-        if (alliedPos.unit.currentLife <= 0)
+        if(alliedPos.unit.currentLife <= 0)
         {
             alliedPos.unitModel.SetActive(false);
             alliedPos.unit.isDestroyed = true;
+            alliedPos.GetComponent<Renderer>().material.color = Color.yellow;
+
+            CheckVictory();
         }
     }
 
@@ -157,7 +168,7 @@ public class FightManager : MonoBehaviour
             {
                 selectedPos = obj;
 
-                if(!selectedPos.GetComponent<AlliedPosition>().unit.havePlayed)
+                if(!selectedPos.GetComponent<AlliedPosition>().unit.havePlayed && !selectedPos.GetComponent<AlliedPosition>().unit.isDestroyed)
                 {
                     obj.GetComponent<MeshRenderer>().material.color = Color.green;
                 }
@@ -174,7 +185,7 @@ public class FightManager : MonoBehaviour
 
                 selectedPos = obj;
 
-                if (!selectedPos.GetComponent<AlliedPosition>().unit.havePlayed)
+                if (!selectedPos.GetComponent<AlliedPosition>().unit.havePlayed && !selectedPos.GetComponent<AlliedPosition>().unit.isDestroyed)
                 {
                     obj.GetComponent<MeshRenderer>().material.color = Color.green;
                 }
@@ -271,6 +282,9 @@ public class FightManager : MonoBehaviour
             posHitScript.unit = unit;
             posHitScript.isOccuped = true;
 
+            posHitScript.unit.havePlayed = false;
+            posHitScript.unit.isDestroyed = false;
+
             unit.isInFight = true;
             posHitScript.PositionBlocked();
             unit.unitFeedbacks.CheckUnitInFight();
@@ -351,6 +365,9 @@ public class FightManager : MonoBehaviour
                     enemyPosDatas.unit = currentUnit;
                     enemyPosDatas.unit.level = currentUnit.level;
 
+                    enemyPosDatas.unit.isDestroyed = false;
+                    enemyPosDatas.unit.havePlayed = false;
+
                     SetEnemiesDatas(enemyPosDatas);
                     enemyPosDatas.unitModel = Instantiate(currentUnit.unitModel, enemyPosition.position, Quaternion.Euler(0, 90, 0), enemyFormation.transform);
 
@@ -389,6 +406,16 @@ public class FightManager : MonoBehaviour
 
         fightPhase = FightPhase.PlayerTurn;
         CheckPhase();
+
+        foreach (GameObject unitPos in alliedPositions)
+        {
+            unitPos.GetComponent<AlliedPosition>().unit.havePlayed = false;
+
+            if(!unitPos.GetComponent<AlliedPosition>().unit.isDestroyed)
+            {
+                unitPos.GetComponent<Renderer>().material.color = Color.white;
+            }
+        }
     }
 
     public void EnemyTarget(EnemyPosition shooter, GameObject target)
@@ -398,7 +425,6 @@ public class FightManager : MonoBehaviour
         targetDatas.unit.currentLife -= shooter.unit.currentAttack;
         targetDatas.associatedDatas.UpdateDatasInFight();
 
-        targetDatas.unit.isDestroyed = true;
         CheckUnitStats(targetDatas);
     }
 
@@ -507,8 +533,7 @@ public class FightManager : MonoBehaviour
 
             case FightPhase.PlayerTurn:
 
-                foreach (GameObject unitPos in alliedPositions)
-                    unitPos.GetComponent<Renderer>().material.color = Color.white;
+
 
                 break;
 
@@ -548,23 +573,81 @@ public class FightManager : MonoBehaviour
             {
                 AlliedPosition alliedPosition = unitPosition.GetComponent<AlliedPosition>();
 
-                if (alliedPosition.unit.havePlayed)
+                if (alliedPosition.unit.havePlayed || alliedPosition.unit.isDestroyed)
                 {
                     unitPlayedNumber++;
 
                     if(unitPlayedNumber >= alliedPositions.Count())
                     {
-                        print("turn finished");
-
                         fightPhase = FightPhase.EnemyTurn;
                         CheckPhase();
 
-                        foreach (GameObject unitPos in alliedPositions)
-                        unitPos.GetComponent<Renderer>().material.color = Color.gray;
+                        /*foreach (GameObject unitPos in alliedPositions)
+                        unitPos.GetComponent<Renderer>().material.color = Color.gray;*/
                     }
                 }
             }
         }
+    }
+
+    private void CheckVictory()
+    {
+        alliedUnitDestroyed = 0;
+        enemyUnitDestroyed = 0;
+
+        foreach (GameObject alliedPos in alliedPositions)
+        {
+            if(alliedPos.GetComponent<AlliedPosition>().unit.isDestroyed)
+            {
+                alliedUnitDestroyed++;
+
+                print(alliedUnitDestroyed + " Allied unit destroyed");
+
+                if(alliedUnitDestroyed >= alliedPositions.Count())
+                {
+                    fightPhase = FightPhase.EndGame;
+
+                    EnemyWin();
+                }
+            }
+        }
+
+        foreach(Transform enemyPosition in enemyFormation.transform)
+        {
+            EnemyPosition enemyPosDatas = enemyPosition.GetComponent<EnemyPosition>();
+
+            if(enemyPosDatas != null && enemyPosDatas.unit.isDestroyed)
+            {
+                enemyUnitDestroyed++;
+
+                print(enemyUnitDestroyed + " Enemy unit destroyed");
+
+                if (enemyUnitDestroyed >= alliedPositions.Count())
+                {
+                    fightPhase = FightPhase.EndGame;
+
+                    PlayerWin();
+                }
+            }
+        }
+    }
+
+    private void PlayerWin()
+    {
+        print("Player Win");
+        string winText = "VICTORY";
+
+        blackBackground.SetActive(true);
+        blackBackground.GetComponentInChildren<TextMeshProUGUI>().text = winText;
+    }
+
+    private void EnemyWin()
+    {
+        print("Enemy Win");
+        string winText = "DEFEAT";
+
+        blackBackground.SetActive(true);
+        blackBackground.GetComponentInChildren<TextMeshProUGUI>().text = winText;
     }
 
     public void PassToNextSelection()
