@@ -35,5 +35,7 @@ MonoBehaviour:
   unitIcon: {fileID: 21300000, guid: 6089415110c082447a871d0efc6ce49f, type: 3}
   isUnlocked: 0
   isInFight: 0
+  isDestroyed: 0
+  havePlayed: 0
   UnitType: 0
-  Rarity: 1
+  Rarity: 3

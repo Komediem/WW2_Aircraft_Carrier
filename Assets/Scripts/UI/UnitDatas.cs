@@ -41,6 +41,7 @@ public class UnitDatas : MonoBehaviour
     [Header("Image Feedback")]
     [SerializeField] private Image unitImage;
     [SerializeField] private Image unitType;
+    [SerializeField] private Image cardBorder;
     [SerializeField] private Image cardBackground;
     #endregion
 
@@ -130,33 +131,50 @@ public class UnitDatas : MonoBehaviour
 
     public void DisplayBackgroundColor()
     {
-        if(cardBackground != null)
+        if(cardBorder != null)
         {
             if (unit.Rarity == Unit.rarity.Common)
             {
                 //Color if common
 
-                cardBackground.material = commonMaterial;
+                if(commonMaterial != null)
+                {
+                    cardBorder.material = commonMaterial;
+                    cardBackground.material = commonMaterial;
+                }
             }
 
             else if (unit.Rarity == Unit.rarity.Rare)
             {
                 //Color if rare
 
-                cardBackground.material = rareMaterial;
+                if (rareMaterial != null)
+                {
+                    cardBorder.material = rareMaterial;
+                    cardBackground.material = rareMaterial;
+                }
             }
 
             else if(unit.Rarity == Unit.rarity.Epique)
             {
                 //Color if epique
-                cardBackground.material = epiqueMaterial;
+
+                if (epiqueMaterial != null)
+                {
+                    cardBorder.material = epiqueMaterial;
+                    cardBackground.material = epiqueMaterial;
+                }
             }
 
             else if (unit.Rarity == Unit.rarity.Legendary)
             {
                 //Color if legendary
 
-                cardBackground.material = legendaryMaterial;
+                if (legendaryMaterial != null)
+                {
+                    cardBorder.material = legendaryMaterial;
+                    cardBackground.material = legendaryMaterial;
+                }
             }
         }
     }
