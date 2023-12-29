@@ -1020,7 +1020,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: 997155e7dfaf12f4cbac9ffab725ad34, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -1654,7 +1654,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: 997155e7dfaf12f4cbac9ffab725ad34, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -1743,6 +1743,7 @@ MonoBehaviour:
   unit: {fileID: 0}
   unitName: {fileID: 417959305000518945}
   unitLife: {fileID: 3647068279899163339}
+  unitLifeSlider: {fileID: 0}
   unitAttack: {fileID: 498610402280879144}
   unitSpeed: {fileID: 462342844989319212}
   unitCost: {fileID: 6968030446996396582}
@@ -1753,11 +1754,16 @@ MonoBehaviour:
   assaultPlaneIcon: {fileID: 1035058813, guid: d9ef78e4cb829464da4adf6e2e04b567, type: 3}
   bomberIcon: {fileID: -1578698999, guid: d9ef78e4cb829464da4adf6e2e04b567, type: 3}
   antiAerialIcon: {fileID: 0}
+  commonMaterial: {fileID: 0}
+  rareMaterial: {fileID: 0}
+  epiqueMaterial: {fileID: 0}
+  legendaryMaterial: {fileID: 0}
   upgrade: {fileID: 0}
   unitImage: {fileID: 3042010043308700248}
   unitType: {fileID: 6818728523907498945}
   cardBackground: {fileID: 5328488494728530860}
   lockedScreen: {fileID: 9177166661602708430}
+  hiddenInFightScreen: {fileID: 0}
 --- !u!1 &8192844267664839587
 GameObject:
   m_ObjectHideFlags: 0
@@ -1909,7 +1915,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6102123948650478396
 RectTransform:
   m_ObjectHideFlags: 0

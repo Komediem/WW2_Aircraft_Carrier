@@ -402,7 +402,6 @@ public class FightManager : MonoBehaviour
             {
                 int randomAlliedPos = Random.Range(0, alliedPositions.Count);
 
-                if (!alliedPositions[randomAlliedPos].GetComponent<AlliedPosition>().unit.isDestroyed)
                 EnemyTarget(enemyPosDatas, alliedPositions[randomAlliedPos]);
             }
         }
@@ -421,14 +420,22 @@ public class FightManager : MonoBehaviour
         }
     }
 
-    public void EnemyTarget(EnemyPosition shooter, GameObject target)
+    public bool EnemyTarget(EnemyPosition shooter, GameObject target)
     {
         AlliedPosition targetDatas = target.GetComponent<AlliedPosition>();
 
-        targetDatas.unit.currentLife -= shooter.unit.currentAttack;
-        targetDatas.associatedDatas.UpdateDatasInFight();
+        if (!targetDatas.unit.isDestroyed)
+        {
+            targetDatas.unit.currentLife -= shooter.unit.currentAttack;
+            targetDatas.associatedDatas.UpdateDatasInFight();
 
-        CheckUnitStats(targetDatas);
+            CheckUnitStats(targetDatas);
+
+            return true;
+        }
+
+        else
+            return false;
     }
 
     #endregion
@@ -599,6 +606,15 @@ public class FightManager : MonoBehaviour
                     }
                 }
             }
+        }
+    }
+
+    public void EndTurn()
+    {
+        if(fightPhase == FightPhase.PlayerTurn)
+        {
+            fightPhase = FightPhase.EnemyTurn;
+            CheckPhase();
         }
     }
 

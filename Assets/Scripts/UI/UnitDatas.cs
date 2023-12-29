@@ -27,6 +27,14 @@ public class UnitDatas : MonoBehaviour
     [SerializeField] private Sprite antiAerialIcon;
     #endregion
 
+    #region Unit Materials
+    [Header("Unit Type Image")]
+    [SerializeField] private Material commonMaterial;
+    [SerializeField] private Material rareMaterial;
+    [SerializeField] private Material epiqueMaterial;
+    [SerializeField] private Material legendaryMaterial;
+    #endregion
+
     [SerializeField] private Button upgrade;
 
     #region Image Feedback
@@ -128,27 +136,27 @@ public class UnitDatas : MonoBehaviour
             {
                 //Color if common
 
-                cardBackground.color = Color.grey;
+                cardBackground.material = commonMaterial;
             }
 
             else if (unit.Rarity == Unit.rarity.Rare)
             {
                 //Color if rare
 
-                cardBackground.color = Color.blue;
+                cardBackground.material = rareMaterial;
             }
 
             else if(unit.Rarity == Unit.rarity.Epique)
             {
                 //Color if epique
-                cardBackground.color = Color.red;
+                cardBackground.material = epiqueMaterial;
             }
 
             else if (unit.Rarity == Unit.rarity.Legendary)
             {
                 //Color if legendary
 
-                cardBackground.color = Color.yellow;
+                cardBackground.material = legendaryMaterial;
             }
         }
     }

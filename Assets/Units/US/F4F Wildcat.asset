@@ -15,7 +15,7 @@ MonoBehaviour:
   unitFeedbacks: {fileID: 0}
   unitName: F4F Wildcat
   unitModel: {fileID: 1601473845199600162, guid: cc2e11496f637da469433dc7b4cf799e, type: 3}
-  baseLife: 80
+  baseLife: 800
   upgradeLife: 7
   currentLife: 0
   baseAttack: 55
@@ -35,5 +35,7 @@ MonoBehaviour:
   unitIcon: {fileID: 21300000, guid: 092a34504b328764a885d691cacb377d, type: 3}
   isUnlocked: 0
   isInFight: 0
+  isDestroyed: 0
+  havePlayed: 0
   UnitType: 0
   Rarity: 1
