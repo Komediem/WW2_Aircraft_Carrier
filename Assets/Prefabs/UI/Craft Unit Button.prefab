@@ -1755,7 +1755,7 @@ MonoBehaviour:
   bomberIcon: {fileID: -1578698999, guid: d9ef78e4cb829464da4adf6e2e04b567, type: 3}
   antiAerialIcon: {fileID: 0}
   commonMaterial: {fileID: 0}
-  rareMaterial: {fileID: 0}
+  rareMaterial: {fileID: 2100000, guid: 4c2644b78ff334145891fdefac2e31d7, type: 2}
   epiqueMaterial: {fileID: 2100000, guid: 5946ac5241ec18c4b90669a3e871cf29, type: 2}
   legendaryMaterial: {fileID: 2100000, guid: 997155e7dfaf12f4cbac9ffab725ad34, type: 2}
   upgrade: {fileID: 0}
