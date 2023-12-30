@@ -7,9 +7,7 @@ public class RessourceManager : MonoBehaviour
 {
     public static RessourceManager Instance;
 
-    [Header("Datas")]
-    public float money;
-    public float detachedPieces;
+    public Ressources ressources;
 
     [Header("UI References")]
     [SerializeField] private TextMeshProUGUI moneyText;
@@ -24,38 +22,38 @@ public class RessourceManager : MonoBehaviour
     private void Start()
     {
         if (moneyText != null)
-            moneyText.text = money.ToString();
+            moneyText.text = ressources.money.ToString();
 
         if (detachedPiecesText != null)
-            detachedPiecesText.text = detachedPieces.ToString();
+            detachedPiecesText.text = ressources.detachedPieces.ToString();
     }
 
     public void EarnMoney(float moneyEarn)
     {
-        money += moneyEarn;
+        ressources.money += moneyEarn;
         if (moneyText != null)
-            moneyText.text = money.ToString();
+            moneyText.text = ressources.money.ToString();
     }
 
     public void LoseMoney(float moneyLose)
     {
-        money -= moneyLose;
+        ressources.money -= moneyLose;
         if (moneyText != null)
-            moneyText.text = money.ToString();
+            moneyText.text = ressources.money.ToString();
     }
 
     public void EarnDetachedPieces(float detachedPiecesEarned)
     {
-        detachedPieces += detachedPiecesEarned;
+        ressources.detachedPieces += detachedPiecesEarned;
         if (detachedPiecesText != null)
-            detachedPiecesText.text = detachedPieces.ToString();
+            detachedPiecesText.text = ressources.detachedPieces.ToString();
     }
 
     public void LoseDetachedPieces(float detachedPiecesLose)
     {
-        detachedPieces -= detachedPiecesLose;
+        ressources.detachedPieces -= detachedPiecesLose;
         if (detachedPiecesText != null)
-            detachedPiecesText.text = detachedPieces.ToString();
+            detachedPiecesText.text = ressources.detachedPieces.ToString();
     }
 
     public void GetNewPlans(Unit unit, int number)

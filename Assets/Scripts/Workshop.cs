@@ -7,6 +7,8 @@ public class Workshop : MonoBehaviour
 {
     public static Workshop instance;
  
+    public Ressources ressources = new Ressources();
+
     public List<Unit> units = new();
 
     private UnitDatas unitDatas;
@@ -31,7 +33,7 @@ public class Workshop : MonoBehaviour
 
     public void BuyUnit(Unit unit)
     {
-        if (RessourceManager.Instance != null && RessourceManager.Instance.money >= unit.moneyCost && unit.isUnlocked)
+        if (RessourceManager.Instance != null && ressources.money >= unit.moneyCost && unit.isUnlocked)
         {
             Unit uniqueUnit = Instantiate(unit);
             Reserve.Instance.units.Add(uniqueUnit);

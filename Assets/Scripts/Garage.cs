@@ -45,7 +45,7 @@ public class Garage : MonoBehaviour
 
     public void UpgradeUnit(Unit unit)
     {
-        if (unit.level == 1 && RessourceManager.Instance.money >= unit.upgradeCostLevel)
+        /*if (unit.level == 1 && RessourceManager.Instance.money >= unit.upgradeCostLevel)
         {
             RessourceManager.Instance.LoseMoney(unit.currentUpgradeCostLevel);
 
@@ -67,6 +67,6 @@ public class Garage : MonoBehaviour
             unit.currentAttack += unit.upgradeAttack;
             unit.currentSpeed += unit.upgradeSpeed;
             unit.currentUpgradeCostLevel += unit.upgradeCostLevel;
-        }
+        }*/
     }
 }
