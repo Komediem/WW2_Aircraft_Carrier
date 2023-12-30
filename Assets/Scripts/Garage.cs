@@ -18,7 +18,7 @@ public class Garage : MonoBehaviour
     public void AddUnitToReserve(Unit unit)
     {
         Unit uniqueUnit = Instantiate(unit);
-        Reserve.Instance.units.Add(uniqueUnit);
+        PlayerData.Instance.units.Add(uniqueUnit);
     }
 
     public void Start()
@@ -35,7 +35,7 @@ public class Garage : MonoBehaviour
             GameObject.Destroy(child.gameObject);
         }
 
-        foreach (Unit unit in Reserve.Instance.units)
+        foreach (Unit unit in PlayerData.Instance.units)
         {
             card = Instantiate(unitCard, content.transform);
 
@@ -45,7 +45,7 @@ public class Garage : MonoBehaviour
 
     public void UpgradeUnit(Unit unit)
     {
-        /*if (unit.level == 1 && RessourceManager.Instance.money >= unit.upgradeCostLevel)
+        if (unit.level == 1 && PlayerData.Instance.money >= unit.upgradeCostLevel)
         {
             RessourceManager.Instance.LoseMoney(unit.currentUpgradeCostLevel);
 
@@ -57,7 +57,7 @@ public class Garage : MonoBehaviour
             unit.currentUpgradeCostLevel = unit.baseUpgradeCostLevel + unit.upgradeCostLevel;
         }
 
-        else if (RessourceManager.Instance.money >= unit.upgradeCostLevel)
+        else if (PlayerData.Instance.money >= unit.upgradeCostLevel)
         {
             RessourceManager.Instance.LoseMoney(unit.currentUpgradeCostLevel);
 
@@ -67,6 +67,6 @@ public class Garage : MonoBehaviour
             unit.currentAttack += unit.upgradeAttack;
             unit.currentSpeed += unit.upgradeSpeed;
             unit.currentUpgradeCostLevel += unit.upgradeCostLevel;
-        }*/
+        }
     }
 }

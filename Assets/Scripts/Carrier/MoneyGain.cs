@@ -5,8 +5,6 @@ using TMPro;
 
 public class MoneyGain : MonoBehaviour
 {
-    public Ressources ressources;
-
     [SerializeField] private TextMeshPro MoneyAvailable;
 
     [Header("Money Count + Add")]
@@ -70,7 +68,7 @@ public class MoneyGain : MonoBehaviour
     //UpgradeMoneyGain(BUTTON)
     public void UpgradeMoreMoney()
     {
-        if (ressources.money >= CostGain)
+        if (PlayerData.Instance.money >= CostGain)
         {
             MoneyAvailableByCycle += UpgradeMoneyPlus;
             RessourceManager.Instance.LoseMoney(CostGain);

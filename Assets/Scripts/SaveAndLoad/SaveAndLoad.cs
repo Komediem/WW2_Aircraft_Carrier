@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class SaveAndLoad : MonoBehaviour
 {
-    private SaveData saveData;
+    private SaveData saveData = new SaveData();
 
     private void Awake()
     {

@@ -2870,6 +2870,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 667762616}
     - target: {fileID: 2138855597143657114, guid: a88805970c97b804e96c5c8949b13bcf, type: 3}
+      propertyPath: playerData
+      value: 
+      objectReference: {fileID: 11400000, guid: 38e1002a28b0fad4d81bcfcdf68448f8, type: 2}
+    - target: {fileID: 2138855597143657114, guid: a88805970c97b804e96c5c8949b13bcf, type: 3}
       propertyPath: buttonPhase
       value: 
       objectReference: {fileID: 2021049101}

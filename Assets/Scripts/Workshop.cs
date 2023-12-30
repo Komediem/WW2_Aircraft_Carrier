@@ -6,8 +6,6 @@ using UnityEngine.UI;
 public class Workshop : MonoBehaviour
 {
     public static Workshop instance;
- 
-    public Ressources ressources = new Ressources();
 
     public List<Unit> units = new();
 
@@ -33,10 +31,10 @@ public class Workshop : MonoBehaviour
 
     public void BuyUnit(Unit unit)
     {
-        if (RessourceManager.Instance != null && ressources.money >= unit.moneyCost && unit.isUnlocked)
+        if (RessourceManager.Instance != null && PlayerData.Instance.money - unit.moneyCost >= unit.moneyCost && unit.isUnlocked)
         {
             Unit uniqueUnit = Instantiate(unit);
-            Reserve.Instance.units.Add(uniqueUnit);
+            PlayerData.Instance.units.Add(uniqueUnit);
 
             RessourceManager.Instance.LoseMoney(unit.moneyCost);
         }

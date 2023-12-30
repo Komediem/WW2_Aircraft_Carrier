@@ -209,11 +209,11 @@ public class FightManager : MonoBehaviour
             GameObject.Destroy(child.gameObject);
         }
 
-        if (Reserve.Instance != null)
+        if (PlayerData.Instance != null)
         {
-            if (Reserve.Instance.formations.Count > 0)
+            if (PlayerData.Instance.formations.Count > 0)
             {
-                foreach (Formations formation in Reserve.Instance.formations)
+                foreach (Formations formation in PlayerData.Instance.formations)
                 {
                     card = Instantiate(formationCard, content.transform);
 
@@ -453,11 +453,11 @@ public class FightManager : MonoBehaviour
             GameObject.Destroy(child.gameObject);
         }
 
-        if (Reserve.Instance != null)
+        if (PlayerData.Instance != null)
         {
-            if (Reserve.Instance.units.Count > 0)
+            if (PlayerData.Instance.units.Count > 0)
             {
-                foreach (Unit unit in Reserve.Instance.units)
+                foreach (Unit unit in PlayerData.Instance.units)
                 {
                     card = Instantiate(unitFightCard, content.transform);
 
