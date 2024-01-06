@@ -1887,6 +1887,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraTransform: {fileID: 963194228}
+  cameraOrigin: {fileID: 0}
   MovementSpeed: 1
   MovementTime: 5
   RotationAmount: 1
@@ -1898,7 +1899,15 @@ MonoBehaviour:
   dragCurrentPosition: {x: 0, y: 0, z: 0}
   rotateStartPosition: {x: 0, y: 0, z: 0}
   rotateCurrentPosition: {x: 0, y: 0, z: 0}
-  limit: {fileID: 0}
+  col: {fileID: 1134687711}
+  MaxLength: 20
+  offset: {x: 0, y: 0, z: 0}
+  minX: -50
+  maxX: 50
+  minZ: -100
+  maxZ: 100
+  minY: 10
+  maxY: 55
 --- !u!65 &691593919
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1914,9 +1923,9 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -3673,8 +3682,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 55.458817, y: 105.794624, z: 106.90615}
-  m_Center: {x: -23.139408, y: 38.667316, z: -33.758068}
+  m_Size: {x: 66.26324, y: 105.794624, z: 106.90615}
+  m_Center: {x: 4.0795174, y: 38.667316, z: -33.758068}
 --- !u!4 &1134687712
 Transform:
   m_ObjectHideFlags: 0
@@ -3684,7 +3693,7 @@ Transform:
   m_GameObject: {fileID: 1134687710}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -1.5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

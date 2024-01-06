@@ -6,6 +6,7 @@ using UnityEngine;
 public class CameraManager : MonoBehaviour
 {
     public Transform cameraTransform;
+    public Transform cameraOrigin;
 
     public float MovementSpeed;
     public float MovementTime;
@@ -23,14 +24,16 @@ public class CameraManager : MonoBehaviour
 
     [Header ("Testing")]
     //TESTING
-    public Collider limit;
+    public Collider col;
     public float MaxLength;
     public Vector3 offset;
 
-    public float min;
-    public float max;
-    public float clampX = 100;
-    public float clampZ = -100;
+    public float minX;
+    public float maxX;
+    public float minZ;
+    public float maxZ;
+    public float minY;
+    public float maxY;
 
     // Start is called before the first frame update
     void Start()
@@ -38,6 +41,7 @@ public class CameraManager : MonoBehaviour
         NewPosition = transform.position; //So that our transform doesn't automatically default to 0.
         NewRotation = transform.rotation;
         newZoom = cameraTransform.localPosition;
+
     }
 
     // Update is called once per frame
@@ -45,11 +49,17 @@ public class CameraManager : MonoBehaviour
     {
         HandleMovementInput();
         HandleMouseInput();
-        
-        //Clamp of Vector NewPosition x and z.
-        NewPosition.x = Mathf.Clamp(clampX, min, max);
-        Debug.Log(NewPosition.x); //It seems that the Vector NewPosition gets stuck at the "max" of the Clamp.
-                                  //Shoudl I try clamping the transform instead ?
+
+        //Clamp of Vector NewPosition x & z.
+        NewPosition.x = Mathf.Clamp(NewPosition.x, minX, maxX);
+        NewPosition.z = Mathf.Clamp(NewPosition.z, minZ, maxZ);
+
+        //Clamp of Vector NewZoom x & z.
+        //cameraTransform.position.y = Mathf.Clamp(cameraTransform.position.y, minY, maxY);
+        newZoom.y = Mathf.Clamp(newZoom.y, minY, maxY);
+
+        //Debug.Log(NewPosition.x);
+        //Debug.Log(NewPosition.magnitude);
     }
 
     void HandleMouseInput()
