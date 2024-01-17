@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class CameraManager : MonoBehaviour
 {
@@ -34,6 +36,7 @@ public class CameraManager : MonoBehaviour
     public float maxZ;
     public float minY;
     public float maxY;
+    public float offsetLength;
 
     // Start is called before the first frame update
     void Start()
@@ -55,11 +58,19 @@ public class CameraManager : MonoBehaviour
         NewPosition.z = Mathf.Clamp(NewPosition.z, minZ, maxZ);
 
         //Clamp of Vector NewZoom x & z.
-        //cameraTransform.position.y = Mathf.Clamp(cameraTransform.position.y, minY, maxY);
-        newZoom.y = Mathf.Clamp(newZoom.y, minY, maxY);
+        Vector3 offset = cameraTransform.position - cameraOrigin.position;
+        offsetLength = offset.magnitude;
+        Debug.Log(offsetLength);
 
-        //Debug.Log(NewPosition.x);
-        //Debug.Log(NewPosition.magnitude);
+        if (offsetLength <= 27)
+        {
+            newZoom -= zoomAmount;
+        }
+
+        if (offsetLength >= 110)
+        {
+            newZoom += zoomAmount;
+        }
     }
 
     void HandleMouseInput()
@@ -146,15 +157,21 @@ public class CameraManager : MonoBehaviour
 
         if(Input.GetKey(KeyCode.R))
         {
-            newZoom += zoomAmount;
+            if(offsetLength >= 28)
+            {
+                newZoom += zoomAmount;
+            }
         }
         if (Input.GetKey(KeyCode.F))
         {
-            newZoom -= zoomAmount;
+            if (offsetLength <= 110)
+            {
+                newZoom -= zoomAmount;
+            }
         }
 
 
-        transform.position = Vector3.Lerp(transform.position, NewPosition, Time.deltaTime * MovementTime); // NEEDS TO BE CLAMPED (Vector NewPosition)
+        transform.position = Vector3.Lerp(transform.position, NewPosition, Time.deltaTime * MovementTime);
         transform.rotation = Quaternion.Lerp(transform.rotation, NewRotation, Time.deltaTime * MovementTime);
         cameraTransform.localPosition = Vector3.Lerp(cameraTransform.localPosition, newZoom, Time.deltaTime * MovementTime); // NEEDS TO BE CLAMPED
     }
