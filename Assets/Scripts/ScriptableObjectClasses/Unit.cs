@@ -10,6 +10,9 @@ public class Unit : ScriptableObject
     public string unitName;
 
     public GameObject unitModel;
+    public int moneyCost;
+
+    public Sprite unitIcon;
 
     #region Life
     [Header("Life")]
@@ -46,22 +49,32 @@ public class Unit : ScriptableObject
 
     #endregion
 
-    public int moneyCost;
+    #region Plans
 
     [Header("Plans")]
     public int plansMax;
     public int plansCurrent;
 
+    #endregion
+
+    #region Level
+
     [Header("Level")]
     public int levelMax;
     public int level;
 
-    public Sprite unitIcon;
+    #endregion
+
+    #region Booleans
 
     public bool isUnlocked;
     public bool isInFight;
     public bool isDestroyed;
     public bool havePlayed;
+
+    #endregion
+
+    #region Enumerations
 
     [Header("Enumerations")]
     public unitType UnitType;
@@ -80,4 +93,6 @@ public class Unit : ScriptableObject
         Epique,
         Legendary
     }
+
+    #endregion
 }

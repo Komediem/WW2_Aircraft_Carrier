@@ -10,6 +10,8 @@ public class FightManager : MonoBehaviour
 {
     public MissionCreator mission;
 
+    #region Formations
+
     [Header("Formation")]
     [SerializeField] private Formations currentFormation;
     [SerializeField] private GameObject currentFormationObject;
@@ -18,6 +20,10 @@ public class FightManager : MonoBehaviour
     [SerializeField] private Transform formationPosition;
     [SerializeField] private Transform enemyFormationPosition;
     [SerializeField] private bool formationIsChoosed;
+
+    #endregion
+
+    #region Cards and contents
 
     [Header("Cards and Contents")]
     [SerializeField] private GameObject unitFightCard;
@@ -28,6 +34,10 @@ public class FightManager : MonoBehaviour
     [SerializeField] private GameObject missionRewardCardPrefab;
     [SerializeField] private List<GameObject> desactivateSelection = new();
 
+    #endregion
+
+    #region Texts
+
     [Header("Texts")]
     [SerializeField] private TextMeshProUGUI buttonPhase;
     [SerializeField] private TextMeshProUGUI globalAlliedSpeedText;
@@ -35,10 +45,18 @@ public class FightManager : MonoBehaviour
     [SerializeField] private string passToUnitText;
     [SerializeField] private string passToFightText;
 
+    #endregion
+
+    #region Position
+
     [Header("Position")]
     [SerializeField] private List <GameObject> alliedPositions;
     [SerializeField] private GameObject alliedPositionsParent;
     [SerializeField] private GameObject selectedPos;
+
+    #endregion
+
+    #region Local Variables
 
     [Header("Local Variables")]
     private GameObject planeSpawned;
@@ -49,6 +67,8 @@ public class FightManager : MonoBehaviour
     [SerializeField] private int alliedUnitDestroyed;
     [SerializeField] private int globalEnemySpeed;
     [SerializeField] private int enemyUnitDestroyed;
+
+    #endregion
 
     private bool posHit;
     private AlliedPosition posHitScript;
