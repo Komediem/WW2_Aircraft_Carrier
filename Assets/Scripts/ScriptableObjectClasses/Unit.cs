@@ -39,6 +39,13 @@ public class Unit : ScriptableObject
     [HideInInspector] public int currentUpgradeCostLevel;
     #endregion
 
+    #region Timers
+
+    public float baseRestTime;
+    public float upgradeRestTime;
+
+    #endregion
+
     public int moneyCost;
 
     [Header("Plans")]

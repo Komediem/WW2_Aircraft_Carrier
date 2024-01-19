@@ -68,17 +68,22 @@ public class FightManager : MonoBehaviour
 
     void Start()
     {
-        if(mission.missionFormationSelection == MissionCreator.MissionFormation.free)
-        {
-            fightPhase = FightPhase.FormationSelection;
-            EnemyFormation();
-        }
+        mission = MissionData.Instance.currentMission;
 
-        else if (mission.missionFormationSelection == MissionCreator.MissionFormation.imposed)
+        if(mission != null)
         {
-            currentFormation = mission.imposedFormation;
-            fightPhase = FightPhase.UnitSelection;
-            EnemyFormation();
+            if (mission.missionFormationSelection == MissionCreator.MissionFormation.free)
+            {
+                fightPhase = FightPhase.FormationSelection;
+                EnemyFormation();
+            }
+
+            else if (mission.missionFormationSelection == MissionCreator.MissionFormation.imposed)
+            {
+                currentFormation = mission.imposedFormation;
+                fightPhase = FightPhase.UnitSelection;
+                EnemyFormation();
+            }
         }
 
         CheckPhase();

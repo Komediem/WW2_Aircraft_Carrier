@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94ae25e10accef1459e8328e25c4b65e, type: 3}
+  m_Name: Mission2
+  m_EditorClassIdentifier: 
+  missionFormationSelection: 1
+  imposedFormation: {fileID: 0}
+  enemyFormation: {fileID: 11400000, guid: 219e768c4dea3b949a3b9b5b403dcd77, type: 2}
+  alliedMissionPositions: []
+  enemyMissionPositions:
+  - enemyPositionParameters: {fileID: 0}
+    enemyPositionEffect: {fileID: 0}
+    enemy:
+      enemyUnit: {fileID: 11400000, guid: c8c609a41c51bf0429c0037376b69a51, type: 2}
+      enemyUnitLevel: 4
+  - enemyPositionParameters: {fileID: 0}
+    enemyPositionEffect: {fileID: 0}
+    enemy:
+      enemyUnit: {fileID: 11400000, guid: c8c609a41c51bf0429c0037376b69a51, type: 2}
+      enemyUnitLevel: 5
+  - enemyPositionParameters: {fileID: 0}
+    enemyPositionEffect: {fileID: 0}
+    enemy:
+      enemyUnit: {fileID: 11400000, guid: c8c609a41c51bf0429c0037376b69a51, type: 2}
+      enemyUnitLevel: 4
+  missionRewards:
+  - rewardType: 0
+    rewardNumber: 50000
+    unitPlans: {fileID: 0}
+  - rewardType: 1
+    rewardNumber: 20000
+    unitPlans: {fileID: 0}
+  - rewardType: 2
+    rewardNumber: 5
+    unitPlans: {fileID: 11400000, guid: 3f0f3271f72d3c2449886f8f58dd4036, type: 2}
