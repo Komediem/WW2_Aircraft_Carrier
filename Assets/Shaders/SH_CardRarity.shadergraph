@@ -32,6 +32,9 @@
         },
         {
             "m_Id": "8b5d5caf7b1c4016a137f7e892822d65"
+        },
+        {
+            "m_Id": "ca3d538b49184f86ae6b3e398b205a54"
         }
     ],
     "m_Keywords": [],
@@ -472,8 +475,8 @@
     ],
     "m_VertexContext": {
         "m_Position": {
-            "x": 1319.0,
-            "y": -1117.9998779296875
+            "x": 1781.0,
+            "y": -1135.9998779296875
         },
         "m_Blocks": [
             {
@@ -489,8 +492,8 @@
     },
     "m_FragmentContext": {
         "m_Position": {
-            "x": 1319.0,
-            "y": -849.9998779296875
+            "x": 1781.0,
+            "y": -867.9999389648438
         },
         "m_Blocks": [
             {
@@ -1833,6 +1836,9 @@
         },
         {
             "m_Id": "8b5d5caf7b1c4016a137f7e892822d65"
+        },
+        {
+            "m_Id": "ca3d538b49184f86ae6b3e398b205a54"
         }
     ]
 }
@@ -2960,6 +2966,29 @@
     "m_Value": 0.0,
     "m_DefaultValue": 0.0,
     "m_Labels": []
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Internal.BooleanShaderProperty",
+    "m_ObjectId": "ca3d538b49184f86ae6b3e398b205a54",
+    "m_Guid": {
+        "m_GuidSerialized": "a265002c-15ce-4fb3-9937-e2fa6728fc9b"
+    },
+    "m_Name": "hasGlitter",
+    "m_DefaultRefNameVersion": 1,
+    "m_RefNameGeneratedByDisplayName": "hasGlitter",
+    "m_DefaultReferenceName": "_hasGlitter",
+    "m_OverrideReferenceName": "",
+    "m_GeneratePropertyBlock": true,
+    "m_UseCustomSlotLabel": false,
+    "m_CustomSlotLabel": "",
+    "m_DismissedVersion": 0,
+    "m_Precision": 0,
+    "overrideHLSLDeclaration": false,
+    "hlslDeclarationOverride": 0,
+    "m_Hidden": false,
+    "m_Value": false
 }
 
 {
