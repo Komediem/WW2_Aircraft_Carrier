@@ -7,38 +7,39 @@ using UnityEngine.UIElements;
 
 public class CameraManager : MonoBehaviour
 {
+    [Header("Transforms")]
     public Transform cameraTransform;
     public Transform cameraOrigin;
 
+    [Header("Movement speed")]
     public float MovementSpeed;
     public float MovementTime;
     public float RotationAmount;
     public Vector3 zoomAmount;
 
-    public Vector3 NewPosition;
-    public Quaternion NewRotation;
-    public Vector3 newZoom;
+    [Header("Vectors")]
+    //IF YOU WANT TO TWEAK THE CAMERA BOUNDS, PUT THESE IN PUBLIC !!!
+    private Vector3 NewPosition;
+    private Quaternion NewRotation;
+    private Vector3 newZoom;
 
-    public Vector3 dragStartPosition;
-    public Vector3 dragCurrentPosition;
-    public Vector3 rotateStartPosition;
-    public Vector3 rotateCurrentPosition;
+    [Header("Checks position")]
+    private Vector3 dragStartPosition;
+    private Vector3 dragCurrentPosition;
+    private Vector3 rotateStartPosition;
+    private Vector3 rotateCurrentPosition;
 
-    [Header ("Testing")]
-    //TESTING
-    public Collider col;
-    public float MaxLength;
-    public Vector3 offset;
+    [Header ("Limits")]
+    private Vector3 offset;
+    private float offsetLength;
 
+    //Clamp of position X
     public float minX;
     public float maxX;
+    //Clamp of position Z
     public float minZ;
     public float maxZ;
-    public float minY;
-    public float maxY;
-    public float offsetLength;
 
-    // Start is called before the first frame update
     void Start()
     {
         NewPosition = transform.position; //So that our transform doesn't automatically default to 0.
@@ -57,11 +58,12 @@ public class CameraManager : MonoBehaviour
         NewPosition.x = Mathf.Clamp(NewPosition.x, minX, maxX);
         NewPosition.z = Mathf.Clamp(NewPosition.z, minZ, maxZ);
 
-        //Clamp of Vector NewZoom x & z.
+        //Limits of Vector NewZoom x & z.
         Vector3 offset = cameraTransform.position - cameraOrigin.position;
         offsetLength = offset.magnitude;
         Debug.Log(offsetLength);
 
+        //These if conditions act as a way to prevent the camera from speeding outside the limits put in the HandleMovementInput().
         if (offsetLength <= 27)
         {
             newZoom -= zoomAmount;
@@ -161,6 +163,7 @@ public class CameraManager : MonoBehaviour
             {
                 newZoom += zoomAmount;
             }
+
         }
         if (Input.GetKey(KeyCode.F))
         {
@@ -170,9 +173,42 @@ public class CameraManager : MonoBehaviour
             }
         }
 
+        if (Input.touchCount == 2)
+        {
+            Touch touchZero = Input.GetTouch(0);
+            Touch touchOne = Input.GetTouch(1);
+
+            Vector2 touchZeroPrevPos = touchZero.position - touchZero.deltaPosition;
+            Vector2 touchOnePrevPos = touchOne.position - touchOne.deltaPosition;
+
+            float prevMagniude = (touchZeroPrevPos - touchOnePrevPos).magnitude;
+            float currentMagnitude = (touchZero.position - touchOne.position).magnitude;
+
+            float difference = prevMagniude - currentMagnitude; //I can try to compare the base position
+
+            if (prevMagniude > currentMagnitude || offsetLength <= 110)
+            {
+                //Dézoom
+                newZoom -= zoomAmount;
+            }
+
+            if (prevMagniude < currentMagnitude || offsetLength >= 28)
+            {
+                //Zoom
+                newZoom += zoomAmount;
+            }
+
+            //ZoomMobile(difference * 0.01f);
+        }
+
 
         transform.position = Vector3.Lerp(transform.position, NewPosition, Time.deltaTime * MovementTime);
         transform.rotation = Quaternion.Lerp(transform.rotation, NewRotation, Time.deltaTime * MovementTime);
-        cameraTransform.localPosition = Vector3.Lerp(cameraTransform.localPosition, newZoom, Time.deltaTime * MovementTime); // NEEDS TO BE CLAMPED
+        cameraTransform.localPosition = Vector3.Lerp(cameraTransform.localPosition, newZoom, Time.deltaTime * MovementTime);
     }
+
+    /*void ZoomMobile(float increment)
+    {
+        cameraTransform.localPosition = Vector3.Lerp(cameraTransform.localPosition, newZoom, Time.deltaTime * MovementTime); // NEEDS TO BE CLAMPED
+    }*/
 }
