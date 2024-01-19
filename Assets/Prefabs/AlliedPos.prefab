@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 51a37d8bdba6ba44481fdada1578b903, type: 2}
+  - {fileID: 2100000, guid: 8719328dfa9c95e49822ae20f24a0f12, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -116,10 +116,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isOccuped: 0
+  associatedDatas: {fileID: 0}
+  unitModel: {fileID: 0}
   bounds:
     m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
     m_Extent: {x: 0.50000006, y: 0.05, z: 0.5000001}
   unit: {fileID: 0}
+  position: {x: 0, y: 0, z: 0}
 --- !u!65 &759503986144480890
 BoxCollider:
   m_ObjectHideFlags: 0
