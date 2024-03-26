@@ -50,7 +50,9 @@ public struct MissionRewards
     {
         money,
         detachedPieces,
-        plans
+        plans,
+        unit,
+        formation
     }
 
     public RewardType rewardType;
@@ -60,4 +62,6 @@ public struct MissionRewards
 
     [Header("Plans")]
     public Unit unitPlans;
+
+    public Formations formationRewarded;
 }
