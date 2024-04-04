@@ -23,6 +23,16 @@ public class PlayerData : MonoBehaviour
             Instance = this;
         }
 
+        money = PlayerPrefs.GetFloat("Money");
+        detachedPieces = PlayerPrefs.GetFloat("DetachedPieces");
+
         DontDestroyOnLoad(gameObject);
+    }
+
+    public void OnDestroy()
+    {
+        PlayerPrefs.SetFloat("Money", money);
+        PlayerPrefs.SetFloat("DetachedPieces", detachedPieces);
+        PlayerPrefs.Save();
     }
 }

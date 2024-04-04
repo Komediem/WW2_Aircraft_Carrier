@@ -289,6 +289,10 @@ public class FightManager : MonoBehaviour
             GameObject currentDatas = Instantiate(unit3DDatas, planeSpawned.transform.position + new Vector3(0, 2, 0), Quaternion.Euler(0, 0, 30), planeSpawned.transform);
             currentDatas.GetComponent<UnitDatas>().unit = unit;
         }
+        else
+        {
+            Debug.Log("Unit already in fight");
+        }
     }
 
     public void DragPlane()
@@ -312,9 +316,9 @@ public class FightManager : MonoBehaviour
             posHitScript.unit.havePlayed = false;
             posHitScript.unit.isDestroyed = false;
 
-            unit.isInFight = true;
+            posHitScript.unit.isInFight = true;
             posHitScript.PositionBlocked();
-            unit.unitFeedbacks.CheckUnitInFight();
+            posHitScript.unit.unitFeedbacks.CheckUnitInFight();
 
             globalAlliedSpeed += unit.currentSpeed;
             ResetSpeed();
@@ -715,6 +719,11 @@ public class FightManager : MonoBehaviour
                 RessourceManager.Instance.GetNewPlans(missionReward.unitPlans, missionReward.rewardNumber);
                 print("Plans Obtained");
             }
+        }
+
+        foreach(Unit unitPosition in currentAlliedTeam)
+        {
+            unitPosition.isInFight = false;
         }
     }
 

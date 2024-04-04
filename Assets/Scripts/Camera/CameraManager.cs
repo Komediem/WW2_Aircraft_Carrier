@@ -61,7 +61,6 @@ public class CameraManager : MonoBehaviour
         //Limits of Vector NewZoom x & z.
         Vector3 offset = cameraTransform.position - cameraOrigin.position;
         offsetLength = offset.magnitude;
-        Debug.Log(offsetLength);
 
         //These if conditions act as a way to prevent the camera from speeding outside the limits put in the HandleMovementInput().
         if (offsetLength <= 27)
