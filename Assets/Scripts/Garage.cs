@@ -15,12 +15,6 @@ public class Garage : MonoBehaviour
             Instance = this;
     }
 
-    public void AddUnitToReserve(Unit unit)
-    {
-        Unit uniqueUnit = Instantiate(unit);
-        PlayerData.Instance.units.Add(uniqueUnit);
-    }
-
     public void Start()
     {
         CheckAllUnits();

@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 575bc16c394ad51499a96413e76c2f7e, type: 3}
+  m_Name: B-25 Mitchell
+  m_EditorClassIdentifier: 
+  unitFeedbacks: {fileID: 0}
+  unitName: B-25 Mitchell
+  unitModel: {fileID: 0}
+  moneyCost: 0
+  unitIcon: {fileID: 0}
+  baseLife: 0
+  upgradeLife: 0
+  currentLife: 0
+  baseAttack: 0
+  upgradeAttack: 0
+  currentAttack: 0
+  baseSpeed: 0
+  upgradeSpeed: 0
+  currentSpeed: 0
+  baseUpgradeCostLevel: 0
+  upgradeCostLevel: 0
+  currentUpgradeCostLevel: 0
+  baseRestingTime: 0
+  upgradeRestingTime: 0
+  currentRestingTime: 0
+  baseRestTime: 0
+  upgradeRestTime: 0
+  plansMax: 0
+  plansCurrent: 0
+  levelMax: 0
+  level: 0
+  isUnlocked: 0
+  isInFight: 0
+  isDestroyed: 0
+  havePlayed: 0
+  UnitType: 0
+  Rarity: 0

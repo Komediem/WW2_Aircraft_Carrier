@@ -284,6 +284,7 @@ public class FightManager : MonoBehaviour
     {
         if(!unit.isInFight)
         {
+            print("unit is not in fight");
             planeSpawned = Instantiate(unit.unitModel, mousePosition, Quaternion.identity);
             
             GameObject currentDatas = Instantiate(unit3DDatas, planeSpawned.transform.position + new Vector3(0, 2, 0), Quaternion.Euler(0, 0, 30), planeSpawned.transform);
@@ -316,14 +317,14 @@ public class FightManager : MonoBehaviour
             posHitScript.unit.havePlayed = false;
             posHitScript.unit.isDestroyed = false;
 
-            posHitScript.unit.isInFight = true;
+            posHitScript.associatedDatas = unit.unitFeedbacks;
+            posHitScript.associatedDatas.unit.isInFight = true;
+
             posHitScript.PositionBlocked();
             posHitScript.unit.unitFeedbacks.CheckUnitInFight();
 
             globalAlliedSpeed += unit.currentSpeed;
             ResetSpeed();
-
-            posHitScript.associatedDatas = unit.unitFeedbacks;
 
             planeSpawned = null;
         }

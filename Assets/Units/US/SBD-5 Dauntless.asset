@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 575bc16c394ad51499a96413e76c2f7e, type: 3}
+  m_Name: SBD-5 Dauntless
+  m_EditorClassIdentifier: 
+  unitFeedbacks: {fileID: 0}
+  unitName: SBD-5 Dauntless
+  unitModel: {fileID: 6450313354186534167, guid: 6c4b4d8d00a6ac04baa7909c799a6e88, type: 3}
+  moneyCost: 30000
+  unitIcon: {fileID: 21300000, guid: 7f531f949170de9439e593f46b412510, type: 3}
+  baseLife: 500
+  upgradeLife: 15
+  currentLife: 500
+  baseAttack: 20
+  upgradeAttack: 2
+  currentAttack: 20
+  baseSpeed: 16
+  upgradeSpeed: 2
+  currentSpeed: 16
+  baseUpgradeCostLevel: 2500
+  upgradeCostLevel: 1500
+  currentUpgradeCostLevel: 2500
+  baseRestingTime: 0
+  upgradeRestingTime: 0
+  currentRestingTime: 0
+  baseRestTime: 0
+  upgradeRestTime: 0
+  plansMax: 0
+  plansCurrent: 0
+  levelMax: 50
+  level: 1
+  isUnlocked: 1
+  isInFight: 0
+  isDestroyed: 1
+  havePlayed: 0
+  UnitType: 2
+  Rarity: 2
